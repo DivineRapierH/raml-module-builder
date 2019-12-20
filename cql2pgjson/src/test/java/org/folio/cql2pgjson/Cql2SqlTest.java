@@ -24,8 +24,6 @@ public class Cql2SqlTest {
     Assert.assertTrue("hash character in testcase", hash >= 0);
     String cql = testcase.substring(0, hash).trim();
     String expectedWhereClause = URLDecoder.decode(testcase.substring(hash + 1).trim());
-    
-    
     String gotWhereClause = "Unknown error";
     try {
       gotWhereClause = cql2pg.toSql(cql).getWhere();
