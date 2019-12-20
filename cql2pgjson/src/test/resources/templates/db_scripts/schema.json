@@ -36,6 +36,14 @@
           "arrayModifiers": ["contributorNameTypeId", "lang"]
         },
         {
+          "fieldName": "identifiers",
+          "tOps": "ADD",
+          "caseSensitive": false,
+          "removeAccents": true,
+          "arraySubfield": "value",
+          "arrayModifiers": ["identifierTypeId"]
+        },
+        {
           "fieldName": "other",
           "tOps": "ADD",
           "caseSensitive": false,
