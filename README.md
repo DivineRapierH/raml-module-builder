@@ -4,34 +4,108 @@
 Copyright (C) 2016-2020 The Open Library Foundation
 
 This software is distributed under the terms of the Apache License, Version 2.0.
-See the file ["LICENSE"](LICENSE) for more information.
+See the file ["LICENSE"](https://github.com/folio-org/raml-module-builder/raw/master/LICENSE) for more information.
+
+- [Raml-Module-Builder](#raml-module-builder)
+  - [介绍](#介绍)
+  - [升级](#升级)
+  - [总览](#总览)
+  - [基础](#基础)
+    - [实现接口](#实现接口)
+    - [设置pom.xml](#设置pomxml)
+    - [构建并运行](#构建并运行)
+  - [开始使用示例工作模块](#开始使用示例工作模块)
+  - [命令行选项](#命令行选项)
+  - [环境变量](#环境变量)
+  - [本地开发服务器](#本地开发服务器)
+  - [创建一个新模块](#创建一个新模块)
+    - [步骤1: 创建新的项目目录布局](#步骤1-创建新的项目目录布局)
+    - [步骤2: 将jar包含在您的项目pom.xml中](#步骤2-将jar包含在您的项目pomxml中)
+    - [步骤3: 将插件添加到pom.xml](#步骤3-将插件添加到pomxml)
+    - [步骤4: 构建项目](#步骤4-构建项目)
+    - [步骤5: 实现生成的接口](#步骤5-实现生成的接口)
+    - [步骤6: 设计RAML文件](#步骤6-设计raml文件)
+  - [添加一个init() 实现](#添加一个init-实现)
+  - [添加代码以定期运行](#添加代码以定期运行)
+  - [添加一个钩子以在Verticle部署后立即运行](#添加一个钩子以在verticle部署后立即运行)
+  - [添加关闭钩子](#添加关闭钩子)
+  - [实现文件上传](#实现文件上传)
+      - [文件上传选项一](#文件上传选项一)
+      - [文件上传选项二](#文件上传选项二)
+  - [实现分块批量下载](#实现分块批量下载)
+  - [PostgreSQL 整合](#postgresql-整合)
+      - [Saving binary data](#saving-binary-data)
+    - [凭据](#凭据)
+    - [保护数据库配置文件](#保护数据库配置文件)
+    - [外键约束](#外键约束)
+  - [CQL (上下文查询语言)](#cql-上下文查询语言)
+    - [CQL2PgJSON: CQL 到PostgreSQL JSON转换器](#cql2pgjson-cql-到postgresql-json转换器)
+    - [CQL2PgJSON: 用法](#cql2pgjson-用法)
+    - [CQL: 关系](#cql-关系)
+    - [CQL: 修饰符](#cql-修饰符)
+    - [CQL: 匹配、比较和排序数字](#cql-匹配比较和排序数字)
+    - [CQL: 匹配ID和外键字段](#cql-匹配id和外键字段)
+    - [CQL: 匹配全文](#cql-匹配全文)
+    - [CQL: 匹配所有记录](#cql-匹配所有记录)
+    - [CQL: 匹配未定义或空值](#cql-匹配未定义或空值)
+    - [CQL: 匹配数组元素](#cql-匹配数组元素)
+    - [CQL: 用于数组搜索的@-relation 修饰符](#cql-用于数组搜索的-relation-修饰符)
+    - [CQL2PgJSON: 多字段索引](#cql2pgjson-多字段索引)
+    - [CQL2PgJSON: 外键交叉表索引查询](#cql2pgjson-外键交叉表索引查询)
+    - [CQL2PgJSON: 外键tableAlias和targetTableAlias](#cql2pgjson-外键tablealias和targettablealias)
+    - [CQL2PgJSON: 异常](#cql2pgjson-异常)
+    - [CQL2PgJSON: 单元测试](#cql2pgjson-单元测试)
+  - [租户 API](#租户-api)
+  - [RAMLs API](#ramls-api)
+  - [JSON Schemas API](#json-schemas-api)
+  - [查询语法](#查询语法)
+  - [Metadata](#metadata)
+  - [Facet 支持](#facet-支持)
+  - [JSON Schema 字段](#json-schema-字段)
+  - [覆盖 RAML (traits) / 查询参数](#覆盖-raml-traits-查询参数)
+  - [Drools 集成](#drools-集成)
+  - [Messages](#messages)
+  - [API 文档](#api-文档)
+  - [日志](#日志)
+  - [监控](#监控)
+  - [覆写开箱即用的RMB API](#覆写开箱即用的rmb-api)
+  - [客户端生成器](#客户端生成器)
+  - [通过HTTP查询多个模块](#通过http查询多个模块)
+  - [有关校验的一些补充](#有关校验的一些补充)
+  - [高级功能](#高级功能)
+  - [其他工具](#其他工具)
+  - [一些REST示例](#一些rest示例)
+  - [附加信息](#附加信息)
 
 <!-- ../okapi/doc/md2toc -l 2 -h 3 README.md -->
-* [Introduction](#introduction)
-* [Upgrading](#upgrading)
-* [Overview](#overview)
-* [The basics](#the-basics)
-    * [Implement the interfaces](#implement-the-interfaces)
-    * [Set up your pom.xml](#set-up-your-pomxml)
-    * [Build and run](#build-and-run)
-* [Get started with a sample working module](#get-started-with-a-sample-working-module)
-* [Command-line options](#command-line-options)
-* [Environment Variables](#environment-variables)
-* [Local development server](#local-development-server)
-* [Creating a new module](#creating-a-new-module)
-    * [Step 1: Create new project directory layout](#step-1-create-new-project-directory-layout)
-    * [Step 2: Include the jars in your project pom.xml](#step-2-include-the-jars-in-your-project-pomxml)
-    * [Step 3: Add the plugins to your pom.xml](#step-3-add-the-plugins-to-your-pomxml)
-    * [Step 4: Build your project](#step-4-build-your-project)
-    * [Step 5: Implement the generated interfaces](#step-5-implement-the-generated-interfaces)
-    * [Step 6: Design the RAML files](#step-6-design-the-raml-files)
-* [Adding an init() implementation](#adding-an-init-implementation)
-* [Adding code to run periodically](#adding-code-to-run-periodically)
-* [Adding a hook to run immediately after verticle deployment](#adding-a-hook-to-run-immediately-after-verticle-deployment)
-* [Adding a shutdown hook](#adding-a-shutdown-hook)
-* [Implementing file uploads](#implementing-file-uploads)
-* [Implement chunked bulk download](#implement-chunked-bulk-download)
-* [PostgreSQL integration](#postgresql-integration)
+
+
+
+<!-- * [介绍](#介绍)
+* [升级](#升级)
+* [总览](#总览)
+* [基础](#基础)
+  * [实现接口](#实现接口)
+  * [设置pom.xml](#设置pomxml)
+  * [构建并运行](#构建并运行)
+* [开始使用示例工作模块](#开始使用示例工作模块)
+* [命令行选项](#命令行选项)
+* [环境变量](#环境变量)
+* [本地开发服务器](#本地开发服务器)
+* [创建一个新模块](#创建一个新模块)
+  * [步骤1: 创建新的项目目录布局](#步骤1-创建新的项目目录布局)
+  * [步骤2: 将jar包含在您的项目pom.xml中](#步骤2-将jar包含在您的项目pomxml中)
+  * [步骤3: 将插件添加到pom.xml](#步骤3-将插件添加到pomxml)
+  * [步骤4: 构建项目](#步骤4-构建项目)
+  * [步骤5: 实现生成的接口](#步骤5-实现生成的接口)
+  * [步骤6: 设计RAML文件](#步骤6-设计RAML文件)
+* [添加一个init() 实现](#添加一个init-实现)
+* [添加代码以定期运行](#添加代码以定期运行)
+* [添加一个钩子以在Verticle部署后立即运行](#添加一个钩子以在Verticle部署后立即运行)
+* [添加关闭钩子](#添加关闭钩子)
+* [实现文件上传](#实现文件上传)
+* [实现分块批量下载](#实现分块批量下载)
+* [PostgreSQL 整合](#PostgreSQL-整合)
     * [Credentials](#credentials)
     * [Securing DB Configuration file](#securing-db-configuration-file)
     * [Foreign keys constraint](#foreign-keys-constraint)
@@ -52,7 +126,7 @@ See the file ["LICENSE"](LICENSE) for more information.
     * [CQL2PgJSON: Foreign key tableAlias and targetTableAlias](#cql2pgjson-foreign-key-tablealias-and-targettablealias)
     * [CQL2PgJSON: Exceptions](#cql2pgjson-exceptions)
     * [CQL2PgJSON: Unit tests](#cql2pgjson-unit-tests)
-* [Tenant API](#tenant-api)
+* [租户 API](#租户-api)
 * [RAMLs API](#ramls-api)
 * [JSON Schemas API](#json-schemas-api)
 * [Query Syntax](#query-syntax)
@@ -72,264 +146,199 @@ See the file ["LICENSE"](LICENSE) for more information.
 * [Advanced Features](#advanced-features)
 * [Additional Tools](#additional-tools)
 * [Some REST examples](#some-rest-examples)
-* [Additional information](#additional-information)
+* [Additional information](#additional-information) -->
 
-## Introduction
+## 介绍
 
-This documentation includes information about the Raml-Module-Builder (RMB) framework
-and examples of how to use it.
+本文档包含有关Raml-Module-Builder（RMB）框架的信息以及使用方法的示例。
 
-The goal of the project is to abstract away as much boilerplate functionality as
-possible and allow a developer to focus on implementing business functions. In
-other words: **simplify the process of developing a micro service module**.
-The framework is RAML driven, meaning a developer / analyst declares APIs that the
-'to be developed' module is to expose (via RAML files) and declares the objects
-to be used and exposed by the APIs (via JSON schemas). Once the schemas and RAML
-files are in place, the framework generates code and offers a number of tools
-to help implement the module.
-Note that this framework is both a build and a run-time library.
+该项目的目标是尽可能多地抽象出样板功能，并使开发人员可以专注于实现业务功能。换句话说：简化开发微服务模块的过程。该框架由RAML驱动，这意味着开发人员/分析人员声明“待开发”模块将公开的API（通过RAML文件），并声明该API使用和公开的对象（通过JSON模式）。架构和RAML文件到位后，框架将生成代码并提供许多工具来帮助实现模块。请注意，此框架既是构建库，也是运行时库。
 
+该框架包含许多工具：
 
-The framework consists of a number of tools:
+- `domain-models-api-interfaces` -- 项目公开了一些工具，这些工具接收这些RAML文件和这些JSON模式作为输入，并生成Java POJO和Java接口。
 
-- `domain-models-api-interfaces` -- project exposes tools that receive as input
-  these RAML files and these JSON schemas, and generates java POJOs and java
-  interfaces.
+- `domain-models-api-aspects` -- 项目公开了通过公开验证功能来严格遵守任何API调用的RAML声明的工具。
 
-- `domain-models-api-aspects` -- project exposes tools that enforce strict
-  adherence to the RAML declaration to any API call by exposing validation
-  functionality.
+  - 例如：RAML文件可能指示特定参数是强制性的，或者查询参数值必须是特定正则表达式模式。Aspects项目为开发人员处理这种类型的验证，因此不需要一遍又一遍地重新开发它。有关验证的更多信息，请参见[下文](#有关校验的一些补充).
 
-    - for example: a RAML file may indicate that a specific parameter is
-      mandatory or that a query parameter value must be a specific regex pattern.
-      The aspects project handles this type of validation for developers so that it
-      does not need to be re-developed over and over. More on validation
-      [below](https://github.com/folio-org/raml-module-builder#a-little-more-on-validation).
+- `domain-models-runtime` -- 项目公开了运行时库，该库应用于运行模块。它基于Vert.x。当开发人员实现接口项目生成的接口时，运行时库应包含在开发的项目中并运行。运行时库将自动将URL映射到正确的实现函数，以便开发人员仅需要实现API，并进行所有连接，验证，参数/标头/正文解析，日志记录（每个请求都以apache之类的格式记录）由框架处理。其目标是抽象化所有样板功能，并允许模块实现专注于实现业务功能。
 
-- `domain-models-runtime` -- project exposes a run-time library which should be
-  used to run a module. It is Vert.x based. When a developer implements the
-  interfaces generated by the interfaces project, the run-time library should be
-  included in the developed project and run. The run-time library will
-  automatically map URLs to the correct implemented function so that developers
-  only need to implement APIs, and so all the wiring, validation,
-  parameter / header / body parsing, logging (every request is logged in an
-  apache like format) is handled by the framework. Its goal is to abstract
-  away all boilerplate functionality and allow a module implementation to focus
-  on implementing business functions.
+  - 运行时框架还公开了允许开发人员实现一次性作业，计划任务等的钩子（Hook）。
 
-    - The runtime framework also exposes hooks that allow developers to
-      implement one-time jobs, scheduled tasks, etc.
+  - 提供工具（PostgreClient 等）供开发人员在开发模块时使用。
 
-    - Provides tooling (Postgres client, etc.) for developers
-      to use while developing their module.
+  - Runtime库运行Vert.x的Verticle。
 
-    - Runtime library runs a Vert.x verticle.
+- `rules` -- 基本的Drools功能，允许模块开发人员通过*.drl对象文件（JSON模式）创建验证规则。
 
-- `rules` -- Basic Drools functionality allowing module developers to create
-  validation rules via `*.drl` files for objects (JSON schemas).
+## 升级
 
-## Upgrading
+请参阅单独的[升级说明](https://github.com/folio-org/raml-module-builder/blob/master/doc/upgrading.md).
 
-See separate [upgrading notes](doc/upgrading.md).
+注意：此版本的自述文件适用于RMB v20 +版本。如果仍在使用旧版本，请参见[分支b19](https://github.com/folio-org/raml-module-builder/tree/b19)自述文件。
 
-Note: This version of the README is for RMB v20+ version.
-If still using older versions, then see the [branch b19](https://github.com/folio-org/raml-module-builder/tree/b19) README.
+## 总览
 
-## Overview
+请按照上面的[简介](#简介)部分大致了解RMB框架。
+查看单独的[Okapi参考和指南](https://github.com/folio-org/okapi/blob/master/doc/guide.md)。
+阅读下面的[基础知识](#基础)部分，以大致了解RMB。然后按照[示例工作模块](#开始使用示例工作模块)部分进行演示，该示例演示了已经构建的示例。理解了这一点之后，请继续阅读[创建一个新模块](#创建一个新模块)以开始您的项目。
 
-Follow the [Introduction](#introduction) section above to generally understand
-the RMB framework.
-Review the separate [Okapi Guide and Reference](https://github.com/folio-org/okapi/blob/master/doc/guide.md).
-Scan the [Basics](#the-basics) section below for a high-level overview of RMB. Then follow the
-[Get started with a sample working module](#get-started-with-a-sample-working-module)
-section which demonstrates an already constructed example.
-When that is understood, then move on to the section
-[Creating a new module](#creating-a-new-module) to get your project started.
+请注意，实际上不需要构建此RAML Module Builder框架。（下面的某些图像已过时。）已经发布的RMB artifacts将从存储库中[合并](#步骤2-将jar包含在您的项目pomxml中)到您的项目中。
 
-Note that actually building this RAML Module Builder framework is not required.
-(Some of the images below are out-of-date.) The already published RMB artifacts will
-be [incorporated](#step-2-include-the-jars-in-your-project-pomxml) into your project from the repository.
+## 基础
 
-## The basics
+![](https://github.com/folio-org/raml-module-builder/raw/master/images/build.png)
+![](https://github.com/folio-org/raml-module-builder/raw/master/images/generate.png)
+![](https://github.com/folio-org/raml-module-builder/raw/master/images/what.png)
 
-![](images/build.png)
-![](images/generate.png)
-![](images/what.png)
+### 实现接口
 
-### Implement the interfaces
+举个例子，请注意基于RAML中的约束生成的验证注释。
 
-For example, note the validation annotations generated based on the constraints in the RAML.
+![](https://github.com/folio-org/raml-module-builder/raw/master/images/interface_example.png)
 
-![](images/interface_example.png)
+- 在实现接口时，必须添加 `@Validate` 注解以强制执行接口声明的带注解的约束。
 
-- When implementing the interfaces, you must add the @Validate
-  annotation to enforce the annotated constraints declared by the interface.
+- 注意，将Bib实体作为参数传递。 运行时框架将在Body中传递的JSON转换为正确的POJO。
 
-- Note that a Bib entity was passed as a parameter. The runtime framework
-  transforms the JSON passed in the body into the correct POJO.
+### 设置pom.xml
 
+- 添加 `exec-maven-plugin`。这将基于RAML文件生成POJO和接口。
 
-### Set up your pom.xml
+- 添加 `aspectj-maven-plugin`。如果您希望运行时框架验证所有URL，则这是必需的。
 
-- Add the `exec-maven-plugin`. This will generate the POJOs and interfaces based on
-  the RAML files.
+- 添加 `maven-shade-plugin`, 以指示要运行的主类，将 `RestLauncher` 主顶点运行为 `RestVerticle`。这将创建一个可运行的jar，以运行时 `RestVerticle` 作为主要类.
 
-- Add the `aspectj-maven-plugin`. This is required if you
-  would like the runtime framework to validate all URLs.
+- 添加 `maven-resources-plugin`. 这会将您的RAML文件复制到/ apidocs目录，运行时框架将在其中使它们在线（html视图）可见。
 
-- Add the `maven-shade-plugin`, indicating the main class to
-  run as `RestLauncher` and main verticle as `RestVerticle`. This will create a
-  runnable jar with the runtime's `RestVerticle` serving as the main class.
+这些将在下面进一步说明。
 
-- Add the `maven-resources-plugin`. This will copy
-  your RAML files to the /apidocs directory where they will be made visible
-  online (html view) by the runtime framework.
+### 构建并运行
 
-These are further explained below.
+执行 `mvn clean install` 并运行。
 
-### Build and run
+Runtime框架会将您的RAML中的URL路由到正确的方法实现。它将验证（如果 `@Validate` 已使用），写日志并公开各种工具。
 
-Do `mvn clean install` ... and run :)
+注意，在实现模块中没有配置或引用任何Web服务器-所有这些都由Runtime框架处理。
 
-The runtime framework will route URLs in your RAML to the correct method
-implementation. It will validate (if `@Validate` was used), log, and expose
-various tools.
-
-Notice that no web server was configured or even referenced in the implementing
-module - this is all handled by the runtime framework.
-
-Some sample projects:
+一些示例项目：
 
 - https://github.com/folio-org/mod-configuration
 - https://github.com/folio-org/mod-notes
 
-and other [modules](https://dev.folio.org/source-code/#server-side) (not all do use the RMB).
+和[其他模块](https://dev.folio.org/source-code/#server-side) (并非所有人都使用RMB).
 
+## 开始使用示例工作模块
 
-## Get started with a sample working module
+[`mod-notify`](https://github.com/folio-org/mod-notify)是使用RMB一个完整的例子, clone下来然后研究：
 
-The [mod-notify](https://github.com/folio-org/mod-notify)
-is a full example which uses the RMB. Clone it, and then investigate:
-
-```
+```bash
 $ git clone --recursive https://github.com/folio-org/mod-notify.git
 $ cd mod-notify
 $ mvn clean install
 ```
 
-- Its RAMLs and JSON schemas can be found in the `ramls` directory.
-These are also displayed as local [API documentation](#documentation-of-the-apis).
+- 可以在 `ramls` 目录中找到RAMLs 和JSON schema。
+这些也显示为[API文档](#api-文档).
 
-- Open the pom.xml file - notice the jars in the `dependencies` section as well as the `plugins` section. The `ramls` directory is declared in the pom.xml and passed to the interface and POJO generating tool via a maven exec plugin. The tool generates source files into the `target/generated-sources/raml-jaxrs` directory. The generated interfaces are implemented within the project in the `org.folio.rest.impl` package.
+- 打开pom.xml文件-注意 `dependencies` 节点以及 `plugins` 结点部分。该 `ramls` 目录在pom.xml中声明，并通过maven exec插件传递到interface和POJO生成工具。该工具将源文件生成到 `target/generated-sources/raml-jaxrs` 目录中。生成的接口在 `org.folio.rest.impl` 包中的项目内实现。
 
-- Investigate the `src/main/java/org/folio/rest/impl/NotificationsResourceImpl.java` class. Notice that there is a function representing each endpoint that is declared in the RAML file. The appropriate parameters (as described in the RAML) are passed as parameters to these functions so that no parameter parsing is needed by the developer. Notice that the class contains all the code for the entire module. All handling of URLs, validations, objects, etc. is all either in the RMB jars, or generated for this module by the RMB at build time.
+- 调查 `src/main/java/org/folio/rest/impl/NotificationsResourceImpl.java` 类。注意，有一个函数代表在RAML文件中声明的每个端点。适当的参数（如RAML中所述）作为参数传递给这些函数，因此开发人员无需参数解析。请注意，该类包含整个模块的所有代码。URL，验证，对象等的所有处理都在RMB部分中，或者由RMB在构建时为此模块生成。
 
-- **IMPORTANT NOTE:** Every interface implementation - by any module -
-  must reside in package `org.folio.rest.impl`. This is the package that is
-  scanned at runtime by the runtime framework, to find the needed runtime
-  implementations of the generated interfaces.
+- **重要说明:** 任何模块的每个接口的实现都必须驻留在 `org.folio.rest.impl`包中。Runtime框架在运行时会扫描这个包，在这个包中寻找自动生成的接口的实现。
 
-Now run the module in standalone mode:
+现在以独立模式运行模块：
 
-```
+```bash
 $ java -jar target/mod-notify-fat.jar embed_postgres=true
 ```
 
-Now send some requests using '[curl](https://curl.haxx.se)' or '[httpie](https://httpie.org)'
+现在使用 '[curl](https://curl.haxx.se)' 或 '[httpie](https://httpie.org)' 发送一些请求。
 
-At this stage there is not much that can be queried, so stop that quick demonstration now.
-After explaining general command-line options, etc.
-we will get your local development server running and populated with test data.
+在此阶段，尚无可查询的内容，因此现在停止该快速演示。在解释了常规的命令行选项等之后，我们将帮助您运行本地开发服务器并填充测试数据。
 
-## Command-line options
+## 命令行选项
 
-- `-Dhttp.port=8080` (Optional -- defaults to 8081)
+- `-Dhttp.port=8080` (可选-默认为8081)
 
-- `-Ddebug_log_package=*` (Optional -- Set log level to debug for all packages.
-Or use `org.folio.rest.*` for all classes within a specific package,
-or `org.folio.rest.RestVerticle` for a specific class.)
+- `-Ddebug_log_package=*` (可选-设置日志级别以调试所有程序包。或`org.folio.rest.*`用于特定程序包中的所有类或`org.folio.rest.RestVerticle`特定类。)
 
-- `embed_postgres=true` (Optional -- enforces starting an embedded postgreSQL, defaults to false)
+- `embed_postgres=true` (可选-强制启动嵌入式postgreSQL，默认为false)
 
-- `db_connection=[path]` (Optional -- path to an external JSON config file with
-  connection parameters to a PostgreSQL DB)
+- `db_connection=[path]` (可选-带有连接参数到PostgreSQL DB的外部JSON配置文件的路径)
 
-  - for example Postgres: `{"host":"localhost", "port":5432, "maxPoolSize":50,
-    "username":"postgres","password":"mysecretpassword", "database":"postgres",
-    "charset":"windows-1252", "queryTimeout" : 10000}`
+  - for example Postgres:
 
-- `drools_dir=[path]` (Optional -- path to an external drools file. By default,
-  `*.drl` files in the `resources/rules` directory are loaded)
+    ```json
+    {
+      "host":"localhost",
+      "port":5432,
+      "maxPoolSize":50,
+      "username":"postgres",
+      "password":"mysecretpassword",
+      "database":"postgres",
+      "charset":"windows-1252",
+      "queryTimeout" : 10000
+    }
+    ```
 
-- Other module-specific arguments can be passed via the command line in the format key=value. These will be accessible to implementing modules via `RestVerticle.MODULE_SPECIFIC_ARGS` map.
+- `drools_dir=[path]` (可选-外部drools文件的路径。默认情况下，`*.drl`目录中的`resources/rules`文件已加载)
 
-- Optional JVM arguments can be passed before the `-jar` argument, e.g.
+-可以通过命令行以 key=value 格式传递其他模块特定的参数。实施模块可以通过`RestVerticle.MODULE_SPECIFIC_ARGS` map 访问这些内容。
+
+- 可以在`-jar`参数之前传递可选的JVM参数，例如：
 `-XX:+HeapDumpOnOutOfMemoryError`
 `-XX:+PrintGCDetails`
 `-XX:+PrintGCTimeStamps`
 `-Xloggc:C:\Git\circulation\gc.log`
 
-## Environment Variables
+## 环境变量
 
-RMB implementing modules expect a set of environment variables to be passed in at module startup. The environment variables expected by RMB modules are:
+RMB实现的模块希望在模块启动时传递一组环境变量。RMB模块期望的环境变量有：
 
- - DB_HOST
- - DB_PORT
- - DB_USERNAME
- - DB_PASSWORD
- - DB_DATABASE
- - DB_QUERYTIMEOUT
- - DB_CHARSET
- - DB_MAXPOOLSIZE
- - DB_CONNECTIONRELEASEDELAY
- - DB_EXPLAIN_QUERY_THRESHOLD
+- DB_HOST
+- DB_PORT
+- DB_USERNAME
+- DB_PASSWORD
+- DB_DATABASE
+- DB_QUERYTIMEOUT
+- DB_CHARSET
+- DB_MAXPOOLSIZE
+- DB_CONNECTIONRELEASEDELAY
+- DB_EXPLAIN_QUERY_THRESHOLD
 
-The first five are mandatory, the others are optional.
+前五个是必需的，其他是可选的。
 
-Environment variables with periods/dots in their names are deprecated in RMB because a period is [not POSIX compliant](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html) and therefore some shells, notably, the BusyBox /bin/sh included in Alpine Linux, strip them (reference: [warning in OpenJDK docs](https://hub.docker.com/_/openjdk/)).
+名称中带有句点/点的环境变量以RMB弃用，因为句点不符合[POSIX](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap08.html)，因此某些外壳程序（特别是Alpine Linux中包含的BusyBox / bin / sh）将其剥离（[OpenJDK文档中的警告](https://hub.docker.com/_/openjdk/)）。
 
-See the [Vert.x Async PostgreSQL Client Configuration documentation](https://vertx.io/docs/vertx-mysql-postgresql-client/java/#_configuration) for the details.
+有关详细信息请参见[Vert.x异步PostgreSQL客户端配置文档](https://vertx.io/docs/vertx-mysql-postgresql-client/java/#_configuration)。
 
-The environment variable `DB_CONNECTIONRELEASEDELAY` sets the delay in milliseconds after which an idle connection is closed. Use 0 to keep idle connections open forever. RMB's default is one minute (60000 ms).
+环境变量`DB_CONNECTIONRELEASEDELAY`以毫秒为单位设置延迟，在此延迟之后，空闲连接将关闭。使用0可以使空闲连接永远打开。RMB的默认值为一分钟（60000毫秒）。
 
-The environment variable `DB_EXPLAIN_QUERY_THRESHOLD` is not observed by
-Postgres itself, but is a value - in milliseconds - that triggers query
-execution analysis. If a single query exceeds this threshold, it will be
-analyzed by using `EXPLAIN ANALYZE`. Note that this in turn further adds
-time to the query, so this should only be executed for slow queries that
-needs further attention. The enalysis can effectively be turned off by setting
-it to a high value (eg 300000 ~ 5 minutes). Like the DB-environment
-variables this pertains per RMB-module (process). The default
-value of `DB_EXPLAIN_QUERY_THRESHOLD` is 1000 (1 second).
+`DB_EXPLAIN_QUERY_THRESHOLDPostgres`本身不会观察到环境变量，而是触发查询执行分析的一个值（以毫秒为单位）。如果单个查询超过此阈值，将使用进行分析`EXPLAIN ANALYZE`。请注意，这反过来又增加了查询时间，因此只应对需要进一步注意的慢查询执行此操作。可以通过将其设置为较高的值（例如300000〜5分钟）来有效关闭该分析。像DB环境变量一样，这与每个RMB模块（流程）相关。默认值为`DB_EXPLAIN_QUERY_THRESHOLD1000`（1秒）。
 
-The EXPLAIN ANALYZE - is only performed for PostgresClient.get,
-PostgresClient.select and PostgresClient.join. Not for methods such
-as PostgresClient.getById or PostgresClient.streamGet.
+EXPLAIN ANALYZE - 仅对PostgresClient.get，PostgresClient.select和PostgresClient.join执行。不适用于PostgresClient.getById或PostgresClient.streamGet之类的方法。
 
-See the [Environment Variables](https://github.com/folio-org/okapi/blob/master/doc/guide.md#environment-variables) section of the Okapi Guide for more information on how to deploy environment variables to RMB modules via Okapi.
+有关如何通过Okapi将环境变量部署到RMB模块的更多信息，请参见Okapi指南的[环境变量](https://github.com/folio-org/okapi/blob/master/doc/guide.md#environment-variables)部分。
 
-## Local development server
+## 本地开发服务器
 
-To get going quickly with running a local instance of Okapi, adding a tenant and some test data,
-and deploying some modules, see
-[Running a local FOLIO system](https://dev.folio.org/guides/run-local-folio/).
+要快速运行Okapi的本地实例，添加租户和一些测试数据并部署一些模块，请参阅[运行本地FOLIO系统](https://dev.folio.org/guides/run-local-folio/)。
 
-## Creating a new module
+## 创建一个新模块
 
-### Step 1: Create new project directory layout
+### 步骤1: 创建新的项目目录布局
 
-Create the new project using the [normal layout](https://dev.folio.org/guides/commence-a-module/) of files, and basic POM file.
+使用文件的[常规布局](https://dev.folio.org/guides/commence-a-module/)和基本POM文件创建新项目。
 
-Add the `/ramls` directory, the area for the RAML, schemas, and examples files.
-For a maven subproject the directory may be at the parent project only.
+添加`/ramls` 目录, RAML、schemas和示例文件都放在此目录。对于Maven子项目，目录只能位于父项目中。
 
-To get a quick start, copy the "ramls" directory and POM file from
-[mod-notify](https://github.com/folio-org/mod-notify).
-(At [Step 6](#step-6-design-the-raml-files) below, these will be replaced to suit your project's needs.)
+为了快速入门，请从[mod-notify](https://github.com/folio-org/mod-notify)复制“ ramls”目录和POM文件 。（在下面的[第6步](#step-6-design-the-raml-files)中，将替换这些以满足您项目的需要。）
 
-Adjust the POM file to match your project, e.g. artifactID, version, etc.
+调整POM文件以匹配您的项目，例如artifactID，版本等。
 
-### Step 2: Include the jars in your project pom.xml
+### 步骤2: 将jar包含在您的项目pom.xml中
 
 ```xml
   <repositories>
@@ -350,29 +359,20 @@ Adjust the POM file to match your project, e.g. artifactID, version, etc.
   </dependencies>
 ```
 
-### Step 3: Add the plugins to your pom.xml
+### 步骤3: 将插件添加到pom.xml
 
-Four plugins need to be declared in the POM file:
+需要在POM文件中声明四个插件：
 
-- The `exec-maven-plugin` which will generate the POJOs and interfaces based on
-  the RAML files.
+- `exec-maven-plugin` - 基于RAML文件生成POJOs和接口。
 
-- The `aspectj-maven-plugin` which will pre-compile your code with validation aspects
-  provided by the framework - remember the `@Validate` annotation. The
-  validation supplied by the framework verifies that headers are passed
-  correctly, parameters are of the correct type and contain the correct content
-  as indicated by the RAML file.
+- `aspectj-maven-plugin` - 在验证层面预编译带有`@Validate`注解的代码。框架可以验证headers传递是否正确、参数类型是否正确并包含了RAML文件指示的正确内容。
 
-- The `maven-shade-plugin` which will generate a fat-jar runnable jar.
-  The important thing to
-  notice is the main class that will be run when running your module. Notice the
-  `Main-class` and `Main-Verticle` in the shade plugin configuration.
+- `maven-shade-plugin` - 生成可运行的fat-jar。
+很重要一点是运行模块时将运行主类。注意shade插件配置中的`Main-class` 和 `Main-Verticle`。
 
-- The `maven-resources-plugin` which will copy the RAML files into a directory
-  under `/apidocs` so that the runtime framework can pick it up and display html
-  documentation based on the RAML files.
+- `maven-resources-plugin` - 复制RAML文件到`/apidocs`路径下以便Runtime框架使用RAML文件显示HTML文档。
 
-Add `ramlfiles_path` property indicating the location of the RAML directory.
+添加 `ramlfiles_path` 指示RAML目录位置的属性。
 
 ```xml
   <properties>
@@ -380,118 +380,78 @@ Add `ramlfiles_path` property indicating the location of the RAML directory.
   </properties>
 ```
 
-Compare the POM with other FOLIO RMB-based modules.
+将POM与其他基于FOLIO RMB 的模块进行比较。
 
-### Step 4: Build your project
+### 步骤4: 构建项目
 
-Do `mvn clean install`
+执行 `mvn clean install`
 
-This should:
+这一步将：
 
-- Create java interfaces for each added RAML file.
+- 为每个添加的RAML文件创建Java接口。
 
-- Each interface will contain functions to be implemented (each function represents
-  an API endpoint declared in the RAML).
+- 每个接口将包含需要实现的函数（每个函数代表在RAML中声明的API端点）。
 
-- The parameters within each function interface will be annotated with
-  validation annotations that were declared in the RAML. So, if a trait was
-  marked as mandatory, it will be marked as @NOT_NULL. This is not something that
-  needs to be handled by the implementer. This is handled by the framework,
-  which handles validation.
+- 每个功能接口中的参数将使用在RAML中声明的验证注解进行注解。因此，如果一个特征被标记为必需的，它将被标记为@NOT_NULL。这不是实现者需要处理的事情。这由处理验证的框架处理。
 
-- POJOs -- The JSON schemas will be generated into java objects.
+- POJOs -- JSON schemas 将生成到Java对象中。
 
-- All generated code can be found in the `org.folio.rest.jaxrs` package in the
-  `target/generated-sources/raml-jaxrs/` directory.
+- 所有生成的代码都可以在 `target/generated-sources/raml-jaxrs/` 路径下的 `org.folio.rest.jaxrs` 包中找到。
 
-### Step 5: Implement the generated interfaces
+### 步骤5: 实现生成的接口
 
-Implement the interfaces associated with the RAML files you created. An
-interface is generated for every root endpoint in the RAML files.
-For example an
-`org.folio.rest.jaxrs.resource.Ebooks` interface will be generated.
-Note that the `org.folio.rest.jaxrs.resource` will be the package for every
-generated interface.
+实现生成的与RAML文件关联的接口。RAML文件的每个端点都生成了一个接口。
+例如，`org.folio.rest.jaxrs.resource.Ebooks` 接口会被创建。
+注意每个生成的接口都在 `org.folio.rest.jaxrs.resource` 包里。
 
-The implementations must go into the `org.folio.rest.impl` package because RMB's
-[RestVerticle](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/RestVerticle.java)
-scans this package for a class that implements the required interface.  The class can
-have any name.
-RMB then uses reflection to invoke the constructor and the method.
+所有的实现都必须在 `org.folio.rest.impl` 包中，因为RMB的
+[RestVerticle](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/RestVerticle.java)会在这个包中扫描实现接口所需的类。这个类可以叫任意名字。RMB会使用反射来调用构造函数和方法。
 
-See [mod-notify's org.folio.rest.impl package](https://github.com/folio-org/mod-notify/tree/master/src/main/java/org/folio/rest/impl)
-for example implementations.
+有关示例请参见[mod-notify 的 org.folio.rest.impl 包](https://github.com/folio-org/mod-notify/tree/master/src/main/java/org/folio/rest/impl)。
 
-### Step 6: Design the RAML files
+### 步骤6: 设计RAML文件
 
-It is beneficial at this stage to take some time to design and prepare the RAML files for the project.
-Investigate the other FOLIO modules for guidance.
-The [mod-notify](https://github.com/folio-org/mod-notify) is an exemplar.
+在这个阶段花费一些时间来为项目设计和准备RAML文件是大有裨益的。我们来研究别的FOLIO模块作参考。[mod-notify](https://github.com/folio-org/mod-notify) 是一个示范.
 
-Remove the temporary copy of the "ramls" directory from Step 1, and replace with your own.
+删除步骤1中的临时`/raml`路径，用你自己的代替。
 
-The end-points that share the same first path segment must go into the same .raml file
-because the first path segment determines the name of the resource .java interface, for example
-`/foo/bar` and `/foo/baz` should go into foo.raml, and foo.raml will generate
-`org/folio/rest/jaxrs/resource/Foo.java`. However, you may
-(overrule the convention for the resource interface name)[https://github.com/mulesoft-labs/raml-for-jax-rs/issues/111]
-by implementing a GeneratorExtension.
+第一个地址段相同的端点(end-points)必须在同一个.raml文件中，因为第一个地址段决定了resource java 接口的名字。比如，`/foo/bar` 和 `/foo/baz`应该在foo.raml中，并且foo.raml会生成`org/folio/rest/jaxrs/resource/Foo.java`。但是，你也可以通过实现GeneratorExtension[否决命名资源接口的约定](https://github.com/mulesoft-labs/raml-for-jax-rs/issues/111)。
 
-Add the shared suite of [RAML utility](https://github.com/folio-org/raml) files
-as the "raml-util" directory inside your "ramls" directory:
-```
+将共享的[RAML utility](https://github.com/folio-org/raml) 文件加到"ramls"路径下的"raml-util"路径中。
+
+```bash
 git submodule add https://github.com/folio-org/raml ramls/raml-util
 ```
-The "raml1.0" branch is the current and default branch.
 
-Create JSON schemas indicating the objects exposed by the module.
+"raml1.0" 分支是当前分支和默认分支。
 
-Use the `description` field alongside the `type` field to explain the content and
-usage and to add documentation.
+为该模块暴露的对象创建JSON schemas。
 
-Use `"javaType": "org.folio.rest.jaxrs.model.MyEntity"` to change the name of the
-generated Java type.
+使用该 `description` 字段和 `type` 字段来解释内容和用法并添加文档。
 
-See (jsonschema2pojo Reference)[https://github.com/joelittlejohn/jsonschema2pojo/wiki/Reference]
-for JSON schema details.
+使用`"javaType": "org.folio.rest.jaxrs.model.MyEntity"` 更改生成的Java类的名称。
 
-The GenerateRunner automatically dereferences the schema files and places them into the
-`target/classes/ramls/` directory. It scans the `${basedir}/ramls/` directory including
-subdirectories, if not found then `${basedir}/../ramls/` supporting maven submodules with
-common ramls directory.
+参见 [jsonschema2pojo Reference](https://github.com/joelittlejohn/jsonschema2pojo/wiki/Reference)来了解JSON schema 的详细信息。
 
-The documentation of HTTP response codes
-is in [HttpStatus.java](util/src/main/java/org/folio/HttpStatus.java)
+GenerateRunner会自动取消引用schema文件并将其放入 `target/classes/ramls/` 目录中。它会扫描 `${basedir}/ramls/` 包含子目录的目录，如果找不到）就扫描 `${basedir}/../ramls/` 使通用ramls目录支持maven子模块。
 
-Use the collection/collection-item pattern provided by the
-[collection resource type](https://github.com/folio-org/raml/tree/raml1.0/rtypes) explained
-in the [RAML 200 tutorial](https://raml.org/developers/raml-200-tutorial#resource-types).
+HTTP响应代码的文档位于[HttpStatus.java](https://github.com/folio-org/raml-module-builder/blob/master/util/src/main/java/org/folio/HttpStatus.java)中。
 
-The RMB does do some validation of RAML files at compile-time.
-There are some useful tools to assist with command-line validation,
-and some can be integrated with text editors, e.g.
-[raml-cop](https://github.com/thebinarypenguin/raml-cop).
+使用[RAML 200 教程](https://raml.org/developers/raml-200-tutorial#resource-types)中说明的[collection resource type](https://github.com/folio-org/raml/tree/raml1.0/rtypes)提供的collection/collection-item模式。
 
-See the guide to [Use raml-cop to assess RAML, schema, and examples](https://dev.folio.org/guides/raml-cop/)
-and the [Primer for RAML and JSON Schema](https://dev.folio.org/start/primer-raml/) quick-start document.
+RMB会在编译时对RAML文件进行一些验证。有一些有用的工具可帮助命令行验证，而有些则可以与文本编辑器集成在一起，例如[raml-cop](https://github.com/thebinarypenguin/raml-cop).
 
-RAML-aware text editors are very helpful, such as
-[api-workbench](https://github.com/mulesoft/api-workbench) for Atom.
+参考 [Use raml-cop to assess RAML, schema, and examples](https://dev.folio.org/guides/raml-cop/)
+和 [Primer for RAML and JSON Schema](https://dev.folio.org/start/primer-raml/) 快速上手文档。
 
-Remember that the POM configuration enables viewing your RAML and interacting
-with your application via the local [API documentation](#documentation-of-the-apis).
+支持RAML的文本编辑器非常有用，例如Atom的
+[api-workbench](https://github.com/mulesoft/api-workbench)。
 
-## Adding an init() implementation
+记住，通过POM配置可以查看RAML并通过本地[API文档](#api-文档)与应用程序进行交互。
 
-It is possible to add custom code that will run once before the application is deployed
-(e.g. to init a DB, create a cache, create static variables, etc.) by implementing
-the `InitAPIs` interface. You must implement the
-`init(Vertx vertx, Context context, Handler<AsyncResult<Boolean>> resultHandler)`. Only one implementation per module is supported.
-Currently the implementation should sit in the
-`org.folio.rest.impl` package in the implementing project. The implementation
-will run during verticle deployment. The verticle will not complete deployment
-until the init() completes. The init() function can do anything basically, but
-it must call back the Handler. For example:
+## 添加一个init() 实现
+
+通过实现 `InitAPIs` ，可以添加在部署应用程序之前将运行一次的自定义代码（例如，初始化数据库，创建缓存，创建静态变量等）。您必须实现`init(Vertx vertx, Context context, Handler<AsyncResult<Boolean>> resultHandler)`。每个模块仅支持一种实现。当前，实施应放在实施项目的 `org.folio.rest.impl` 包中。该实现将在Verticle部署期间运行。在init（）完成之前，该Verticle版本不会完成部署。init（）函数基本上可以执行任何操作，但是它必须回调Handler。例如：
 
 ```java
 public class InitAPIs implements InitAPI {
@@ -508,12 +468,9 @@ public class InitAPIs implements InitAPI {
 }
 ```
 
+## 添加代码以定期运行
 
-## Adding code to run periodically
-
-It is possible to add custom code that will run periodically. For example,
-to ongoingly check status of something in the system and act upon that.
-Need to implement the PeriodicAPI interface:
+可以添加将定期运行的自定义代码。例如，要不断检查系统中某物的状态并对起进行一些操作。需要实现PeriodicAPI接口：
 
 ```java
 public interface PeriodicAPI {
@@ -525,11 +482,10 @@ public interface PeriodicAPI {
 }
 ```
 
-For example:
+例如：
 
 ```java
 public class PeriodicAPIImpl implements PeriodicAPI {
-
 
   @Override
   public long runEvery() {
@@ -550,12 +506,11 @@ public class PeriodicAPIImpl implements PeriodicAPI {
   }
 ```
 
-There can be multiple implementations of the periodic hook, all will be called by the RMB framework.
+定期钩子（periodic hook)可以有多个实现，所有这些都将由RMB框架调用。
 
+## 添加一个钩子以在Verticle部署后立即运行
 
-## Adding a hook to run immediately after verticle deployment
-
-It is possible to add custom code that will be run immediately after the verticle running the module is deployed.
+可以添加自定义代码，这些代码将在部署运行模块的verticle后立即运行。
 
 ```java
 public interface PostDeployVerticle {
@@ -569,7 +524,7 @@ public interface PostDeployVerticle {
 }
 ```
 
-An implementation example:
+一个实现示例：
 
 ```java
 public class InitConfigService implements PostDeployVerticle {
@@ -595,13 +550,11 @@ public class InitConfigService implements PostDeployVerticle {
 }
 ```
 
-## Adding a shutdown hook
+## 添加关闭钩子
 
-It is possible to add custom code that will run just before the verticle is
-undeployed and the JVM stopped. This will occur on graceful shutdowns, but can
-not be guaranteed to run if the JVM is forcefully shutdown.
+可以添加自定义代码，这些代码将在取消部署Verticle版本和JVM停止之前运行。这将在正常关闭时发生，但是如果强制关闭JVM，则不能保证运行。
 
-The interface to implement:
+需要实现的接口：
 
 ```java
 public interface ShutdownAPI {
@@ -611,7 +564,7 @@ public interface ShutdownAPI {
 }
 ```
 
-An implementation example:
+一个实现示例：
 
 ```java
 public class ShutdownImpl implements ShutdownAPI {
@@ -631,18 +584,15 @@ public class ShutdownImpl implements ShutdownAPI {
 }
 ```
 
+请注意，在实现生成的接口时，可以向实现类添加构造函数。每次API调用都会调用此构造函数。这是您为每个请求运行的自定义代码的另一种方式。
 
+## 实现文件上传
 
-Note that when implementing the generated interfaces it is possible to add a constructor to the implementing class. This constructor will be called for every API call. This is another way you can implement custom code that will run per request.
+RMB支持多种上传文件和数据的方法。实现模块可以使用 `multipart/form-data` header 或 `application/octet-stream` header 来表示HTTP请求是上载内容请求。
 
+### 文件上传选项一
 
-## Implementing file uploads
-
-The RMB supports several methods to upload files and data. The implementing module can use the `multipart/form-data` header or the `application/octet-stream` header to indicate that the HTTP request is an upload content request.
-
-#### File uploads Option 1
-
-A multipart RAML declaration may look something like this:
+一个由多部分组成的RAML声明可能看起来像这样：
 
 ```raml
 /uploadmultipart:
@@ -659,7 +609,7 @@ A multipart RAML declaration may look something like this:
               type: file
 ```
 
-The body content would look something like this:
+Body content 看起来像这样：
 
 ```sh
 ------WebKitFormBoundaryNKJKWHABrxY1AdmG
@@ -677,8 +627,7 @@ Content-Type: application/octet-stream
 ------WebKitFormBoundaryNKJKWHABrxY1AdmG
 ```
 
-There will be a `MimeMultipart` parameter passed into the generated interfaces. An implementing
-module can access its content in the following manner:
+将有一个 `MimeMultipart` 参数传递到生成的接口中。实现模块可以通过以下方式访问其内容：
 
 ```sh
 int parts = entity.getCount();
@@ -688,9 +637,9 @@ for (int i = 0; i < parts; i++) {
 }
 ```
 
-where each section in the body (separated by the boundary) is a "part".
+Body中每个部分都是一个"part"。
 
-An octet/stream can look something like this:
+一个八位位组/流看起来像这样：
 
 ```raml
  /uploadOctet:
@@ -702,72 +651,56 @@ An octet/stream can look something like this:
         application/octet-stream:
 ```
 
-The interfaces generated from the above will contain a parameter of type `java.io.InputStream`
-representing the uploaded file.
+从上面生成的接口将包含一个 `java.io.InputStream` 类型的参数，代表上载文件。
 
+### 文件上传选项二
 
-#### File uploads Option 2
+RMB允许将内容流式传输到特定的已实现接口。例如，上传大文件可以不用将其全部保存在内存中：
 
-The RMB allows for content to be streamed to a specific implemented interface.
-For example, to upload a large file without having to save it all in memory:
+- 用 `org.folio.rest.annotations.Stream` 注解 `@Stream` 标记要处理的函数。
+- 声明RAML为接收方 `application/octet-stream`（请参见上面的选项一）
 
- - Mark the function to handle the upload with the `org.folio.rest.annotations.Stream` annotation `@Stream`.
- - Declare the RAML as receiving `application/octet-stream` (see Option 1 above)
+每当收到大量数据时，RMB就会调用该函数。这意味着对于每个数据块，RMB都会实例化一个新对象，并使用对象中包含的部分数据在一个`java.io.InputStream`对象中调用该对象的函数。
 
-The RMB will then call the function every time a chunk of data is received.
-This means that a new Object is instantiated by the RMB for each chunk of
-data, and the function of that object is called with the partial data included in a `java.io.InputStream` object.
+对于每次调用，RMB添加的header `streamed_id` 在当前流中将是唯一的。对于最后一次调用，`complete`提供了标头以指示“流结束”。
 
-For each invocation, RMB adds header `streamed_id` which will be unique
-for the current stream. For the last invocation, header `complete` is supplied
-to indicate "end-of-stream".
+从RMB 23.12.0起，如果HTTP客户端在完成之前过早关闭上传，则将使用调用`streamed_abort` handler。
 
-As of RMB 23.12.0 and later, if an HTTP client prematurely closes the upload
-before complete, the handler will be called with `streamed_abort`.
+## 实现分块批量下载
 
-## Implement chunked bulk download
+RMB支持使用按主键ID排序的CQL批量下载块（自版本25开始）。
 
-RMB supports bulk downloads of chunks using [CQL](#cql-contextual-query-language) ordered by primary key id (since version 25).
+- 1st CQL query: `cql.allRecords=1 sortBy id`
+- 2nd CQL query: `id > [last id from 1st CQL query] sortBy id`
+- 3rd CQL query: `id > [last id from 2nd CQL query] sortBy id`
+- ...
 
-* 1st CQL query: `cql.allRecords=1 sortBy id`
-* 2nd CQL query: `id > [last id from 1st CQL query] sortBy id`
-* 3rd CQL query: `id > [last id from 2nd CQL query] sortBy id`
-* ...
+块大小是使用API的limit参数设置的，例如 `limit=10000` ，每个块有10000条记录。
 
-The chunk size is set using the API's limit parameter, for example `limit=10000`
-for chunks of 10000 records each.
+## PostgreSQL 整合
 
-## PostgreSQL integration
+PostgreSQL连接参数位置会按以下顺序搜索：
 
-The PostgreSQL connection parameters locations are searched in this order:
+- [DB_* 环境变量](#环境变量)
+- 配置文件，默认为`resources/postgres-conf.json`但可以通过[命令行选项](#命令行选项)设置
+- 嵌入式PostgreSQL 使用[默认凭据](#凭据)
 
-- [DB_* environment variables](#environment-variables)
-- Configuration file, defaults to `resources/postgres-conf.json` but can be set via [command-line options](#command-line-options)
-- Embedded PostgreSQL using [default credentials](#credentials)
+默认情况下，嵌入式PostgreSQL包含在运行时中，但仅当DB_ *环境变量和postgres配置文件均不存在时才运行。要使用环境变量或配置文件中的连接参数启动嵌入式PostgreSQL，请添加 `embed_postgres=true` 到命令行(`java -jar mod-notify-fat.jar embed_postgres=true`)。使用PostgresClient.setEmbeddedPort（int）来覆写端口。
 
-By default an embedded PostgreSQL is included in the runtime, but it is only run if neither DB_* environment variables
-nor a postgres configuration file are present. To start an embedded PostgreSQL using connection parameters from the
-environment variables or the configuration file add `embed_postgres=true` to the command line
-(`java -jar mod-notify-fat.jar embed_postgres=true`). Use PostgresClient.setEmbeddedPort(int) to overwrite the port.
-
-The runtime framework exposes a PostgreSQL async client which offers CRUD
-operations in an ORM type fashion.
+运行时框架公开了PostgreSQL异步客户端，该客户端以ORM类型的方式提供CRUD操作。
 https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/persist/PostgresClient.java
 
-**Important Note:** The PostgreSQL client currently implemented assumes
-JSONB tables in PostgreSQL. This is not mandatory and developers can work with
-regular PostgreSQL tables but will need to implement their own data access
-layer.
+**重要说明：** 当前实现的PostgreSQL客户端假定PostgreSQL中使用JSONB表。这不是强制性的，开发人员可以使用常规PostgreSQL表，但需要实现自己的数据访问层。
 
-**Important Note:** For performance reasons the Postgres client will return accurate counts for result sets with less than 50,000 results. Queries with over 50,000 results will return an estimated count.
+**重要说明：** 出于性能方面的考虑，Postgres客户端将返回结果数少于50,000的结果集的准确计数。超过50,000个结果的查询将返回估计的计数。
 
-**Important Note:** The embedded Postgres can not run as root.
+**I重要说明：** 嵌入式Postgres不能以root用户身份运行。
 
-**Important Note:** The embedded Postgres relies on the `en_US.UTF-8` (*nix) / `american_usa` (win) locale. If this locale is not installed the Postgres will not start up properly.
+**重要说明：** 嵌入式Postgres依赖`en_US.UTF-8` (*nix) / `american_usa` (win)语言环境。如果未安装此语言环境，Postgres将无法正常启动。
 
-**Important Note:** Currently we only support Postgres version 10. We cannot use version 11 because of reduced platform support of postgresql-embedded ([postgresql-embedded supported versions](https://github.com/yandex-qatools/postgresql-embedded/commit/15685611972bacd8ba61dd7f11d4dbdcb3ba8dc1), [PostgreSQL Database Download](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)).
+**重要说明：** 当前，我们仅支持Postgres版本10。由于减少了对postgresql嵌入式平台的支持（[postgresql嵌入式支持的版本](https://github.com/yandex-qatools/postgresql-embedded/commit/15685611972bacd8ba61dd7f11d4dbdcb3ba8dc1)，[PostgreSQL数据库下载](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)），因此无法使用版本11 。
 
-The PostgresClient expects tables in the following format:
+PostgresClient要求使用以下格式的表：
 
 ```sql
 create table <schema>.<table_name> (
@@ -776,23 +709,25 @@ create table <schema>.<table_name> (
 );
 ```
 
-This means that all the fields in the JSON schema (representing the JSON object) **are** the "jsonb" (column) in the Postgres table.
+这意味着JSON模式中的所有字段（代表JSON对象）**都是** Postgres表中的“ jsonb”（列）。
 
-#### Saving binary data
+#### 保存二进制数据
 
-As indicated, the PostgresClient is jsonb oriented. If there is a need to store data in binary form, this can be done in the following manner (only id based upsert is currently supported):
-```
+如所示，PostgresClient是面向jsonb的。如果需要以二进制形式存储数据，可以通过以下方式完成（当前仅支持基于id的upsert）：
+
+```java
 byte[] data = ......;
 JsonArray jsonArray = new JsonArray().add(data);
 client.upsert(TABLE_NAME, id, jsonArray, false, replyHandler -> {
 .....
 });
 ```
-### Credentials
 
-When running in embedded mode, credentials are read from `resources/postgres-conf.json`. If a file is not found, then the following configuration will be used by default:
+### 凭据
 
-```
+在嵌入式模式下运行时，将从`resources/postgres-conf.json`中读取凭据。如果找不到文件，则默认情况下将使用以下配置：
+
+```text
 port: 6000
 host: 127.0.0.1
 username: username
@@ -800,27 +735,26 @@ password: password
 database: postgres
 ```
 
-### Securing DB Configuration file
+### 保护数据库配置文件
 
-As previously mentioned, the Postgres Client supplied by the RMB looks for a file called `postgres-conf.json`. However, leaving a file which contains the DB password to a superuser in plain text on the server is not a good idea. It is possible to encrypt the password in the file. The encryption should be an AES encryption (symmetric block cipher). This encryption is done with a secret key.
+如前所述，RMB提供的Postgres Client查找名为`postgres-conf.json`的文件。但是，在服务器上以纯文本形式将包含DB密码的文件留给超级用户不是一个好主意。可以加密文件中的密码。加密应该是AES加密（对称块密码）。这种加密是通过密钥完成的。
 
-Meaning: password in plain text + secret key = encrypted password
+含义：纯文本密码+密钥=加密密码
 
-The RMB comes with an AES class that supports generating secret keys, encrypting and decrypting them, https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/security/AES.java
+RMB带有一个AES类，该类支持生成秘密密钥，对其进行加密和解密, https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/security/AES.java
 
-Note that the use of this class is optional.
+注意，是否使用该类是可选的。
 
-To work with an encrypted password the RMB exposes an API that can be used to set the secret key (stored only in memory). When creating the DB connection the RMB will check to see if the secret key has been set. If the secret key has been set, the RMB will decrypt the password with the secret key, and use the decrypted password to connect to the DB. Otherwise it will assume an un-encrypted password, and will connect using that password as-is.
-A module can also set the secret key via the static method `AES.setSecretKey(mykey)`
+为了使用加密密码，RMB公开了可用于设置密钥（仅存储在内存中）的API。创建数据库连接时，RMB将检查是否已设置密钥。如果设置了密钥，则RMB将使用密钥对密码进行解密，然后使用解密后的密码连接到数据库。否则，它将采用未加密的密码，并按原样使用该密码进行连接。模块也可以通过静态方法`AES.setSecretKey(mykey)`设置密钥AES。
 
-The needed steps are:
+所需步骤为：
 
- -  Generate a key
- -  Encrypt a password
- -  Include that password in the config file
- -  Either call `AES.setSecretKey(mykey)` or the `admin/set_AES_key` API (to load the secret key into memory)
+- 产生密钥
+- 加密密码
+- 在配置文件中包含该密码
+- 调用 `AES.setSecretKey(mykey)` 或 `admin/set_AES_key` API（将密钥加载到内存中）
 
-A good way for a module to set the secret key is by using the post deployment hook interface in the RMB.
+模块设置密钥的一个好方法是使用RMB中的post post钩子（Hook)接口。
 
 ```java
 public class InitConfigService implements PostDeployVerticle {
@@ -844,13 +778,13 @@ public class InitConfigService implements PostDeployVerticle {
 }
 ```
 
-### Foreign keys constraint
+### 外键约束
 
-An `foreignKeys` entry in schema.json of the Tenant API automatically creates the following columns, triggers and indexes for the foreign key.
+一个 `foreignKeys` 条目在租户API的schema.json自动创建外键下面的列，触发器和索引。
 
-This additional column is needed because PostgreSQL does not directly support a foreign key constraint (referential integrity) of a field inside the JSONB.
+需要此附加列，因为PostgreSQL不直接支持JSONB内部字段的外键约束（参照完整性）。
 
-Example, similar to the SQL produced by an `foreignKeys` entry:
+例如，类似于`foreignKeys`条目产生的SQL：
 
 ```sql
 CREATE TABLE item (
@@ -874,83 +808,88 @@ CREATE INDEX IF NOT EXISTS ON item (permanentLoanTypeId);
 CREATE INDEX IF NOT EXISTS ON item (temporaryLoanTypeId);
 ```
 
-CQL2PgJSON automatically uses this extracted column and its index whenever the foreign key is used.
+每当使用外键时，CQL2PgJSON都会自动使用此提取的列及其索引。
 
-The overhead of this trigger and foreign key constraint reduces the number of UPDATE transactions per second on this table by about 10% (when tested against an external stand alone Postgres database).  See
+此触发器和外键约束的开销使此表上每秒的UPDATE事务数减少约10％（在针对外部独立Postgres数据库进行测试时）。有关性能测试，请参阅
 https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/test/java/org/folio/rest/persist/ForeignKeyPerformanceIT.java
-for the performance test.  Doing the foreign key check manually by sending additional SELECT queries takes much more time than 10%.
+通过发送其他SELECT查询手动进行外键检查所花费的时间要比10％多得多。
 
-See also [foreign key CQL support](#cql2pgjson-foreign-key-cross-table-index-queries).
+另外请参见[CQL外键支持](#cql2pgjson-外键交叉表索引查询).
 
-## CQL (Contextual Query Language)
+## CQL (上下文查询语言)
 
-Further [CQL](https://dev.folio.org/reference/glossary/#cql) information.
+进一步的[CQL](https://dev.folio.org/reference/glossary/#cql)信息。
 
-### CQL2PgJSON: CQL to PostgreSQL JSON converter
+### CQL2PgJSON: CQL 到PostgreSQL JSON转换器
 
-The source code is at [./cql2pgjson](cql2pgjson) and [./cql2pgjson-cli](cql2pgjson-cli)
+源码位于 [./cql2pgjson](cql2pgjson) 和 [./cql2pgjson-cli](cql2pgjson-cli)
 
-### CQL2PgJSON: Usage
+### CQL2PgJSON: 用法
 
-Invoke like this:
+像这样调用
 
-    // users.user_data is a JSONB field in the users table.
-    CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data");
-    String cql = "name=Miller";
-    String where = cql2pgJson.cql2pgJson(cql);
-    String sql = "select * from users where " + where;
-    // select * from users
-    // where CAST(users.user_data->'name' AS text)
-    //       ~ '(^|[[:punct:]]|[[:space:]])Miller($|[[:punct:]]|[[:space:]])'
+```java
+// users.user_data is a JSONB field in the users table.
+CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data");
+String cql = "name=Miller";
+String where = cql2pgJson.cql2pgJson(cql);
+String sql = "select * from users where " + where;
+// select * from users
+// where CAST(users.user_data->'name' AS text)
+//       ~ '(^|[[:punct:]]|[[:space:]])Miller($|[[:punct:]]|[[:space:]])'
+```
 
-Or use `toSql(String cql)` to get the `ORDER BY` clause separately:
+或者用 `toSql(String cql)` 单独获得 `ORDER BY` 子句：
 
-    CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data");
-    String cql = "name=Miller";
-    SqlSelect sqlSelect = cql2pgJson.toSql(cql);
-    String sql = "select * from users where " + sqlSelect.getWhere()
-                               + " order by " + sqlSelect.getOrderBy();
+```java
+CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data");
+String cql = "name=Miller";
+SqlSelect sqlSelect = cql2pgJson.toSql(cql);
+String sql = "select * from users where " + sqlSelect.getWhere()
++ " order by " + sqlSelect.getOrderBy(); 
+```
 
+可以设置服务器选择索引，下一个例子展示了搜索`name=Miller or email=Miller`:
 
-Setting server choice indexes is possible, the next example searches `name=Miller or email=Miller`:
+```java
+CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data", Arrays.asList("name", "email"));
+String cql = "Miller";
+String where = cql2pgJson.cql2pgJson(cql);
+String sql = "select * from users where " + where;
+```
 
-    CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data", Arrays.asList("name", "email"));
-    String cql = "Miller";
-    String where = cql2pgJson.cql2pgJson(cql);
-    String sql = "select * from users where " + where;
+跨多个JSONB字段进行搜索是这样的：构造函数中指定的*第一个* json字段将应用于任何没有应用适当前缀字段名称的查询参数：
 
-Searching across multiple JSONB fields works like this. The _first_ json field specified
-in the constructor will be applied to any query arguments that aren't prefixed with the appropriate
-field name:
+```java
+// Instantiation
+CQL2PgJSON cql2pgJson = new CQL2PgJSON(Arrays.asList("users.user_data","users.group_data"));
 
-    // Instantiation
-    CQL2PgJSON cql2pgJson = new CQL2PgJSON(Arrays.asList("users.user_data","users.group_data"));
+// Query processing
+where = cql2pgJson.cql2pgJson( "users.user_data.name=Miller" );
+where = cql2pgJson.cql2pgJson( "users.group_data.name==Students" );
+where = cql2pgJson.cql2pgJson( "name=Miller" ); // implies users.user_data
+```
 
-    // Query processing
-    where = cql2pgJson.cql2pgJson( "users.user_data.name=Miller" );
-    where = cql2pgJson.cql2pgJson( "users.group_data.name==Students" );
-    where = cql2pgJson.cql2pgJson( "name=Miller" ); // implies users.user_data
+### CQL: 关系
 
-### CQL: Relations
+只有以下关系已经实现：
 
-Only these relations have been implemented yet:
-
-* `=` (this is `==` for number matching and `adj` for a string matching.
-       Examples 1: `height =/number 3.4` Example 2: `title = Potter`)
-* `==` (exact field match, for example `barcode == 883746123` or exact prefix match `title == "Harry Pott*"`
-        matching "Harry Potter and the chamber of secrets" but not "Sience of Harry Potter";
-        `==/number` matches any form: 3.4 = 3.400 = 0.34e1)
-* `all` (each word of the query string exists somewhere, `title all "Potter Harry"` matches "Harry X. Potter")
-* `any` (any word of the query string exists somewhere, `title any "Potter Foo"` matches "Harry Potter")
-* `adj` (substring phrase match: all words of the query string exist consecutively in that order, there may be any
+- `=` ( `==` 用于匹配数字， `adj` 用于匹配字符串。
+       例1: `height =/number 3.4` 例2: `title = Potter`)
+- `==` (精确的字段匹配, 例如 `barcode == 883746123` 或者精确的前缀匹配 `title == "Harry Pott*"`
+        可以匹配 "Harry Potter and the chamber of secrets" 但不能匹配 "Sience of Harry Potter";
+        `==/number` 匹配任何格式的数字: 3.4 = 3.400 = 0.34e1)
+- `all` (查询字符串的每个单词都存在于某个位置, `title all "Potter Harry"` 匹配 "Harry X. Potter")
+- `any` (查询字符串的任何单词存在于某个位置， `title any "Potter Foo"` 匹配 "Harry Potter")
+- `adj` (substring phrase match: all words of the query string exist consecutively in that order, there may be any
           whitespace and punctuation in between, `title adj "Harry Potter"` matches "The Harry - . - Potter Story")
-* `>` `>=` `<` `<=` `<>` (comparison for both strings and numbers)
+- `>` `>=` `<` `<=` `<>` (comparison for both strings and numbers)
 
 Note to mask the CQL special characters by prepending a backslash: * ? ^ " \
 
 Use quotes if the search string contains a space, for example `title = "Harry Potter"`.
 
-### CQL: Modifiers
+### CQL: 修饰符
 
 Matching modifiers: Only `masked` is implemented, not `unmasked`, `regexp`,
 `honorWhitespace`, `substring`.
@@ -958,7 +897,7 @@ Matching modifiers: Only `masked` is implemented, not `unmasked`, `regexp`,
 Word begin and word end in JSON is only detected at whitespace and punctuation characters
 from the ASCII charset, not from other Unicode charsets.
 
-### CQL: Matching, comparing and sorting numbers
+### CQL: 匹配、比较和排序数字
 
 Add the /number modifier to enable number matching, comparing and sorting, for example `age ==/number 18`,
 `age >=/number 21` and `sortBy age/number`.
@@ -969,7 +908,7 @@ Add the /number modifier to enable number matching, comparing and sorting, for e
 This requires that the value has been stored as a JSONB number (`{"age": 19}`)
 and not as a JSONB string (`{"age": "19"}`).
 
-### CQL: Matching id and foreign key fields
+### CQL: 匹配ID和外键字段
 
 The id field and any foreign key field is a UUID field and is not searched in the JSONB but in an
 extracted proper database table field. An index is automatically created for such a field,
@@ -981,7 +920,7 @@ do not add an index entry in schema.json.
 
 Modifiers are forbidden.
 
-### CQL: Matching full text
+### CQL: 匹配全文
 
 See [PostgreSQL's tsvector full text parser documentation](https://www.postgresql.org/docs/current/textsearch-parsers.html)
 how word splitting works when using a full text index. Some notable consequences:
@@ -999,7 +938,7 @@ CQL `field adj "123-456"` matches `123-456`, but not `123 456`.
 `foo/bar/baz` is a single word, while `foo//bar//baz`, `foo///bar///baz`, `foo////bar////baz`, etc.
 are split into the three words `foo`, `/bar`, and `/baz` (always reduced to a single slash).
 
-### CQL: Matching all records
+### CQL: 匹配所有记录
 
 A search matching all records in the target index can be executed with a
 `cql.allRecords=1` query. `cql.allRecords=1` can be used alone or as part of
@@ -1012,7 +951,7 @@ a more complex query, for example
    Smith as a word.
 * For performance reasons, searching for `*` in any fulltext field will match all records as well.
 
-### CQL: Matching undefined or empty values
+### CQL: 匹配未定义或空值
 
 A relation does not match if the value on the left-hand side is undefined. (but see the fulltext
 `*` case above).
@@ -1026,7 +965,7 @@ not defined or if it is defined but doesn't match.
    where name is not defined.
 * `name="" NOT name==""` matches all records where name is defined and not empty.
 
-### CQL: Matching array elements
+### CQL: 匹配数组元素
 
 For matching the elements of an array use these queries (assuming that lang is either an array or not defined, and assuming
 an array element value does not contain double quotes):
@@ -1061,7 +1000,7 @@ To avoid the complicated syntax all ISBN values or all values can be extracted a
         AS x(key text, value text)
       WHERE value IS NOT NULL
 
-### CQL: @-relation modifiers for array searches
+### CQL: 用于数组搜索的@-relation 修饰符
 
 RMB 26 or later supports array searches with relation modifiers, that
 are particular suited for structures like:
@@ -1136,23 +1075,27 @@ This will allow you to perform searches, such as:
 
     identifiers = /@identifierTypeId=7e591197-f335-4afb-bc6d-a6d76ca3bace 6316800312
 	
-### CQL2PgJSON: Multi Field Index
+### CQL2PgJSON: 多字段索引
 
 CQL2PGjson allows generating and querying indexes that contain multiple columns. The index json object now has support for the following properties:
+
 * sqlExpression
-	Allows the user to explicitly define the expression they wish to use in the index
-	```
+  Allows the user to explicitly define the expression they wish to use in the index
+
+  ```json
         "fieldName": "address",
         "sqlExpression": "concat_space_sql(jsonb->>'city', jsonb->>'state')",	
-	```
-	
+  ```
+
 * multiFieldNames
-	This is a comma separated list of json fields that are to be concatenated together via concat_ws with a space character.
-	example:
-	```
-		"fieldName": "address",
-		"multiFieldNames": "city,state",
-	```
+  This is a comma separated list of json fields that are to be concatenated together via concat_ws with a space character.
+  example:
+
+  ```json
+    "fieldName": "address",
+    "multiFieldNames": "city,state",
+  ```
+
 these 2 examples are equivalent and would be queried by using the fieldName such as:
 
 ```
@@ -1162,7 +1105,7 @@ address = Boston MA
 These fields are optional but mutually exclusive, you only need one of them.
 
 
-### CQL2PgJSON: Foreign key cross table index queries
+### CQL2PgJSON: 外键交叉表索引查询
 
 CQL2PgJSON supports cross table joins via subquery based on foreign keys.
 This allows arbitrary depth relationships in both child-to-parent and parent-to-child direction.
@@ -1182,7 +1125,8 @@ The field in the child table points to the primary key `id` field of the parent 
 * For a multi-table join use `targetPath` instead of `fieldName` and put the list of field names into the `targetPath` array.
 * Use `= *` to check whether a join record exists. This runs a cross index join with no further restriction, e.g. `instance.id = *`.
 * The schema for the above example:
-```
+
+```json
 {
   "tables": [
     {
@@ -1230,7 +1174,7 @@ The field in the child table points to the primary key `id` field of the parent 
 }
 ```
 
-### CQL2PgJSON: Foreign key tableAlias and targetTableAlias
+### CQL2PgJSON: 外键tableAlias和targetTableAlias
 
 The property `targetTableAlias` enables that parent table name in CQL queries against the current child table.
 
@@ -1270,7 +1214,7 @@ Running CQL `itemWithPermanentLoanType.status == "In transit"` against the loan_
 
 Running CQL `itemWithTemporaryLoanType.status == "In transit"` against the loan_type endpoint returns all loan_types where there exists an item that has this loan_type as a temporaryLoanType and where the item's status equals "In transit".
 
-### CQL2PgJSON: Exceptions
+### CQL2PgJSON: 异常
 
 All locally produced Exceptions are derived from a single parent so they can be caught collectively
 or individually. Methods that load a JSON data object model pass in the identity of the model as a
@@ -1284,12 +1228,12 @@ resource file name, and may also throw a native `java.io.IOException`.
       └── QueryValidationException
             └── QueryAmbiguousException
 
-### CQL2PgJSON: Unit tests
+### CQL2PgJSON: 单元测试
 
 To run the unit tests in your IDE, the Unicode input files must have been produced by running maven.
 In Eclipse you may use "Run as ... Maven Build" for doing so.
 
-## Tenant API
+## 租户 API
 
 The Postgres Client support in the RMB is schema specific, meaning that it expects every tenant to be represented by its own schema. The RMB exposes three APIs to facilitate the creation of schemas per tenant (a type of provisioning for the tenant). Post, Delete, and 'check existence' of a tenant schema. Note that the use of this API is optional.
 
@@ -1707,7 +1651,7 @@ The RAML defining the API:
 
 https://github.com/folio-org/raml/blob/eda76de6db681076212e20c7f988c3913764b9b0/ramls/jsonSchemas.raml
 
-## Query Syntax
+## 查询语法
 
 The RMB can receive parameters of different types. Modules can declare a query parameter and receive it as a string parameter in the generated API functions.
 
@@ -1740,7 +1684,7 @@ http://localhost:<port>/configurations/entries?query=scope.institution_id=aaa%20
 
 RMB is aware of the [metadata.schema](https://github.com/folio-org/raml/blob/raml1.0/schemas/metadata.schema). When a request (POST / PUT) comes into an RMB module, RMB will check if the passed-in JSON's schema declares a reference to the metadata schema. If so, RMB will populate the JSON with a metadata section with the current user and the current time. RMB will set both update and create values to the same date/time and to the same user, as accepting this information from the request may be unreliable. The module should persist the creation date and the created by values after the initial POST. For an example of this using SQL triggers see [metadata.ftl](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/resources/templates/db_scripts/metadata.ftl). Add [withMetadata to the schema.json](https://github.com/folio-org/raml-module-builder#the-post-tenant-api) to create that trigger.
 
-## Facet Support
+## Facet 支持
 
 RMB also allows easy faceting of result sets. The grouping / faceting is done in the database.
 To add faceting to your API.
@@ -1775,7 +1719,7 @@ Note that higher numbers will potentially affect performance.
 
 NOTE: Creating an index on potential facet fields may be required so that performance is not greatly hindered
 
-## JSON Schema fields
+## JSON Schema 字段
 
 It is possible to indicate that a field in the JSON is a readonly field when declaring the schema. `"readonly": true`. From example:
 ```
@@ -1813,7 +1757,7 @@ For more available properties see:
  https://joelittlejohn.github.io/jsonschema2pojo/site/1.0.0/generate-mojo.html
  https://github.com/mulesoft-labs/raml-for-jax-rs/blob/master/raml-to-jaxrs/jaxrs-code-generator/src/main/java/org/raml/jaxrs/generator/RamlToJaxRSGenerationConfig.java
 
-## Overriding RAML (traits) / query parameters
+## 覆盖 RAML (traits) / 查询参数
 
 A module may require slight changes to existing RAML traits.
 For example, a `limit` trait may be defined in the following manner:
@@ -1838,7 +1782,7 @@ Note that `DEFAULTVALUE` only allows string values. `SIZE` requires a range ex. 
 example:
 `domain-models-interface-extensions/src/main/resources/overrides/raml_overrides.json`
 
-## Drools integration
+## Drools 集成
 
 The RMB framework automatically scans the `/resources/rules` path in an implemented project for
 `*.drl` files. A directory can also be passed via the command line `drools_dir`. The rule files are loaded and are applied automatically to all objects passed in the body (post,
@@ -1952,7 +1896,7 @@ Usage:
 
 Note: parameters can also be passed when relevant. The raml-module-builder runtime also exposes generic error message enums which can be found at `/domain-models-runtime/src/main/java/org/folio/rest/tools/messages/MessageConsts.java`
 
-## Documentation of the APIs
+## API 文档
 
 The runtime framework includes a web application which exposes RAMLs in a
 view-friendly HTML format.
@@ -1987,7 +1931,7 @@ http://localhost:8081/apidocs/index.html?raml=raml/admin.raml
 
 All current API documentation is also available at [dev.folio.org/doc/api](https://dev.folio.org/reference/api/)
 
-## Logging
+## 日志
 
 RMB uses the Log4J logging library. Logs that are generated by RMB will print all log entries in the following format:
 `%d{dd MMM yyyy HH:mm:ss:SSS} %-5p %C{1} %X{reqId} %m%n`
@@ -2010,7 +1954,7 @@ A `java_package` parameter can also be passed to change the log level of a speci
 
  `http://localhost:8081/admin/loglevel?level=INFO&java_package=org.folio.rest.persist`
 
-## Monitoring
+## 监控
 
 The runtime framework via the `/admin` API exposes (as previously mentioned) some APIs to help monitor the service (setting log levels, DB information).
 Some are listed below (and see the [full set](#documentation-of-the-apis)):
@@ -2027,7 +1971,7 @@ Some are listed below (and see the [full set](#documentation-of-the-apis)):
  - `/admin/health` -- Returns status code 200 as long as service is up.
  - `/admin/module_stats` -- Summary statistics (count, sum, min, max, average) of all select / update / delete / insert DB queries in the last 2 minutes.
 
-## Overriding Out of The Box RMB APIs
+## 覆写开箱即用的RMB API
 It is possible to over ride APIs that the RMB provides with custom implementations.
 For example:
 To override the `/health` API to return a relevant business logic health check for a specific module do the following:
@@ -2065,7 +2009,7 @@ public class CustomHealthCheck extends AdminAPI {
 }
 ```
 
-## Client Generator
+## 客户端生成器
 
 The framework can generate a Client class for every RAML file with a function for every API endpoint in the RAML.
 
@@ -2126,7 +2070,7 @@ Requesting a stack trace would look like this:
     });
 ```
 
-## Querying multiple modules via HTTP
+## 通过HTTP查询多个模块
 
 The RMB has some tools available to help:
  - Make HTTP requests to other modules
@@ -2273,7 +2217,7 @@ See the `JsonPathParser` class for more info.
     //close the http client
     hClient.closeClient();
 
-## A Little More on Validation
+## 有关校验的一些补充
 
 Query parameters and header validation
 ![](images/validation.png)
@@ -2336,7 +2280,7 @@ Query parameters and header validation
   }
 ```
 
-## Advanced Features
+## 高级功能
 1. RMB handles all routing, so this is abstracted from the developer. However, there are cases where third party functionality may need access to routing information. Once again, this is not to be used for routing, but in order to pass in routing information to a third party (one such example is the pac4j vertx saml client). RMB allows a developer to receive the Vertx RoutingContext object as a parameter to a generated function by indicating the endpoint represented by the function in the pom.xml (uses a comma delimiter for multiple paths).
 ```java
   <properties>
@@ -2344,7 +2288,7 @@ Query parameters and header validation
   </properties>
 ```
 
-## Additional Tools
+## 其他工具
 
 #### De-Serializers
 At runtime RMB will serialize/deserialize the received JSON in the request body of PUT and POST requests into a POJO and pass this on to an implementing function, as well as the POJO returned by the implementing function into JSON. A module can implement its own version of this. For example, the below will register a de-serializer that will tell RMB to set a User to not active if the expiration date has passed. This will be run when a User JSON is passed in as part of a request
@@ -2397,7 +2341,7 @@ RMB will not cross check the raml to see that these statuses have been defined f
 
 
 
-## Some REST examples
+## 一些REST示例
 
 Have these in the headers - currently not validated hence not mandatory:
 
@@ -2502,7 +2446,7 @@ http://localhost:8080/patrons
 }
 ```
 
-## Additional information
+## 附加信息
 
 Other [RMB documentation](doc/) (e.g. DB schema migration, Upgrading notes).
 
