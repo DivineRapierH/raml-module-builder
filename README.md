@@ -30,11 +30,11 @@ See the file ["LICENSE"](https://github.com/folio-org/raml-module-builder/raw/ma
   - [添加一个钩子以在Verticle部署后立即运行](#添加一个钩子以在verticle部署后立即运行)
   - [添加关闭钩子](#添加关闭钩子)
   - [实现文件上传](#实现文件上传)
-      - [文件上传选项一](#文件上传选项一)
-      - [文件上传选项二](#文件上传选项二)
+    - [文件上传选项一](#文件上传选项一)
+    - [文件上传选项二](#文件上传选项二)
   - [实现分块批量下载](#实现分块批量下载)
   - [PostgreSQL 整合](#postgresql-整合)
-      - [Saving binary data](#saving-binary-data)
+    - [Saving binary data](#saving-binary-data)
     - [凭据](#凭据)
     - [保护数据库配置文件](#保护数据库配置文件)
     - [外键约束](#外键约束)
@@ -62,7 +62,7 @@ See the file ["LICENSE"](https://github.com/folio-org/raml-module-builder/raw/ma
   - [Metadata](#metadata)
   - [Facet 支持](#facet-支持)
   - [JSON Schema 字段](#json-schema-字段)
-  - [覆盖 RAML (traits) / 查询参数](#覆盖-raml-traits-查询参数)
+  - [覆盖 RAML (特征) / 查询参数](#覆盖-raml-特征-查询参数)
   - [Drools 集成](#drools-集成)
   - [Messages](#messages)
   - [API 文档](#api-文档)
@@ -78,75 +78,6 @@ See the file ["LICENSE"](https://github.com/folio-org/raml-module-builder/raw/ma
   - [附加信息](#附加信息)
 
 <!-- ../okapi/doc/md2toc -l 2 -h 3 README.md -->
-
-
-
-<!-- * [介绍](#介绍)
-* [升级](#升级)
-* [总览](#总览)
-* [基础](#基础)
-  * [实现接口](#实现接口)
-  * [设置pom.xml](#设置pomxml)
-  * [构建并运行](#构建并运行)
-* [开始使用示例工作模块](#开始使用示例工作模块)
-* [命令行选项](#命令行选项)
-* [环境变量](#环境变量)
-* [本地开发服务器](#本地开发服务器)
-* [创建一个新模块](#创建一个新模块)
-  * [步骤1: 创建新的项目目录布局](#步骤1-创建新的项目目录布局)
-  * [步骤2: 将jar包含在您的项目pom.xml中](#步骤2-将jar包含在您的项目pomxml中)
-  * [步骤3: 将插件添加到pom.xml](#步骤3-将插件添加到pomxml)
-  * [步骤4: 构建项目](#步骤4-构建项目)
-  * [步骤5: 实现生成的接口](#步骤5-实现生成的接口)
-  * [步骤6: 设计RAML文件](#步骤6-设计RAML文件)
-* [添加一个init() 实现](#添加一个init-实现)
-* [添加代码以定期运行](#添加代码以定期运行)
-* [添加一个钩子以在Verticle部署后立即运行](#添加一个钩子以在Verticle部署后立即运行)
-* [添加关闭钩子](#添加关闭钩子)
-* [实现文件上传](#实现文件上传)
-* [实现分块批量下载](#实现分块批量下载)
-* [PostgreSQL 整合](#PostgreSQL-整合)
-    * [Credentials](#credentials)
-    * [Securing DB Configuration file](#securing-db-configuration-file)
-    * [Foreign keys constraint](#foreign-keys-constraint)
-* [CQL (Contextual Query Language)](#cql-contextual-query-language)
-    * [CQL2PgJSON: CQL to PostgreSQL JSON converter](#cql2pgjson-cql-to-postgresql-json-converter)
-    * [CQL2PgJSON: Usage](#cql2pgjson-usage)
-    * [CQL: Relations](#cql-relations)
-    * [CQL: Modifiers](#cql-modifiers)
-    * [CQL: Matching, comparing and sorting numbers](#cql-matching-comparing-and-sorting-numbers)
-    * [CQL: Matching id and foreign key fields](#cql-matching-id-and-foreign-key-fields)
-    * [CQL: Matching full text](#cql-matching-full-text)
-    * [CQL: Matching all records](#cql-matching-all-records)
-    * [CQL: Matching undefined or empty values](#cql-matching-undefined-or-empty-values)
-    * [CQL: Matching array elements](#cql-matching-array-elements)
-    * [CQL: @-relation modifiers for array searches](#cql--relation-modifiers-for-array-searches)
-    * [CQL2PgJSON: Multi Field Index](#cql2pgjson-multi-field-index)
-    * [CQL2PgJSON: Foreign key cross table index queries](#cql2pgjson-foreign-key-cross-table-index-queries)
-    * [CQL2PgJSON: Foreign key tableAlias and targetTableAlias](#cql2pgjson-foreign-key-tablealias-and-targettablealias)
-    * [CQL2PgJSON: Exceptions](#cql2pgjson-exceptions)
-    * [CQL2PgJSON: Unit tests](#cql2pgjson-unit-tests)
-* [租户 API](#租户-api)
-* [RAMLs API](#ramls-api)
-* [JSON Schemas API](#json-schemas-api)
-* [Query Syntax](#query-syntax)
-* [Metadata](#metadata)
-* [Facet Support](#facet-support)
-* [JSON Schema fields](#json-schema-fields)
-* [Overriding RAML (traits) / query parameters](#overriding-raml-traits--query-parameters)
-* [Drools integration](#drools-integration)
-* [Messages](#messages)
-* [Documentation of the APIs](#documentation-of-the-apis)
-* [Logging](#logging)
-* [Monitoring](#monitoring)
-* [Overriding Out of The Box RMB APIs](#overriding-out-of-the-box-rmb-apis)
-* [Client Generator](#client-generator)
-* [Querying multiple modules via HTTP](#querying-multiple-modules-via-http)
-* [A Little More on Validation](#a-little-more-on-validation)
-* [Advanced Features](#advanced-features)
-* [Additional Tools](#additional-tools)
-* [Some REST examples](#some-rest-examples)
-* [Additional information](#additional-information) -->
 
 ## 介绍
 
@@ -224,8 +155,8 @@ Runtime框架会将您的RAML中的URL路由到正确的方法实现。它将验
 
 一些示例项目：
 
-- https://github.com/folio-org/mod-configuration
-- https://github.com/folio-org/mod-notes
+- <https://github.com/folio-org/mod-configuration>
+- <https://github.com/folio-org/mod-notes>
 
 和[其他模块](https://dev.folio.org/source-code/#server-side) (并非所有人都使用RMB).
 
@@ -234,9 +165,9 @@ Runtime框架会将您的RAML中的URL路由到正确的方法实现。它将验
 [`mod-notify`](https://github.com/folio-org/mod-notify)是使用RMB一个完整的例子, clone下来然后研究：
 
 ```bash
-$ git clone --recursive https://github.com/folio-org/mod-notify.git
-$ cd mod-notify
-$ mvn clean install
+git clone --recursive https://github.com/folio-org/mod-notify.git
+cd mod-notify
+mvn clean install
 ```
 
 - 可以在 `ramls` 目录中找到RAMLs 和JSON schema。
@@ -246,12 +177,12 @@ $ mvn clean install
 
 - 调查 `src/main/java/org/folio/rest/impl/NotificationsResourceImpl.java` 类。注意，有一个函数代表在RAML文件中声明的每个端点。适当的参数（如RAML中所述）作为参数传递给这些函数，因此开发人员无需参数解析。请注意，该类包含整个模块的所有代码。URL，验证，对象等的所有处理都在RMB部分中，或者由RMB在构建时为此模块生成。
 
-- **重要说明:** 任何模块的每个接口的实现都必须驻留在 `org.folio.rest.impl`包中。Runtime框架在运行时会扫描这个包，在这个包中寻找自动生成的接口的实现。
+- **重要说明:** 任何模块的每个接口的实现都必须驻留在 `org.folio.rest.impl` 包中。Runtime框架在运行时会扫描这个包，在这个包中寻找自动生成的接口的实现。
 
 现在以独立模式运行模块：
 
 ```bash
-$ java -jar target/mod-notify-fat.jar embed_postgres=true
+java -jar target/mod-notify-fat.jar embed_postgres=true
 ```
 
 现在使用 '[curl](https://curl.haxx.se)' 或 '[httpie](https://httpie.org)' 发送一些请求。
@@ -262,7 +193,7 @@ $ java -jar target/mod-notify-fat.jar embed_postgres=true
 
 - `-Dhttp.port=8080` (可选-默认为8081)
 
-- `-Ddebug_log_package=*` (可选-设置日志级别以调试所有程序包。或`org.folio.rest.*`用于特定程序包中的所有类或`org.folio.rest.RestVerticle`特定类。)
+- `-Ddebug_log_package=*` (可选-设置日志级别以调试所有程序包。或 `org.folio.rest.*` 用于特定程序包中的所有类或 `org.folio.rest.RestVerticle` 特定类。)
 
 - `embed_postgres=true` (可选-强制启动嵌入式postgreSQL，默认为false)
 
@@ -283,11 +214,11 @@ $ java -jar target/mod-notify-fat.jar embed_postgres=true
     }
     ```
 
-- `drools_dir=[path]` (可选-外部drools文件的路径。默认情况下，`*.drl`目录中的`resources/rules`文件已加载)
+- `drools_dir=[path]` (可选-外部drools文件的路径。默认情况下， `*.drl` 目录中的 `resources/rules` 文件已加载)
 
--可以通过命令行以 key=value 格式传递其他模块特定的参数。实施模块可以通过`RestVerticle.MODULE_SPECIFIC_ARGS` map 访问这些内容。
+-可以通过命令行以 key=value 格式传递其他模块特定的参数。实施模块可以通过 `RestVerticle.MODULE_SPECIFIC_ARGS` map 访问这些内容。
 
-- 可以在`-jar`参数之前传递可选的JVM参数，例如：
+- 可以在 `-jar` 参数之前传递可选的JVM参数，例如：
 `-XX:+HeapDumpOnOutOfMemoryError`
 `-XX:+PrintGCDetails`
 `-XX:+PrintGCTimeStamps`
@@ -314,9 +245,9 @@ RMB实现的模块希望在模块启动时传递一组环境变量。RMB模块�
 
 有关详细信息请参见[Vert.x异步PostgreSQL客户端配置文档](https://vertx.io/docs/vertx-mysql-postgresql-client/java/#_configuration)。
 
-环境变量`DB_CONNECTIONRELEASEDELAY`以毫秒为单位设置延迟，在此延迟之后，空闲连接将关闭。使用0可以使空闲连接永远打开。RMB的默认值为一分钟（60000毫秒）。
+环境变量 `DB_CONNECTIONRELEASEDELAY` 以毫秒为单位设置延迟，在此延迟之后，空闲连接将关闭。使用0可以使空闲连接永远打开。RMB的默认值为一分钟（60000毫秒）。
 
-`DB_EXPLAIN_QUERY_THRESHOLDPostgres`本身不会观察到环境变量，而是触发查询执行分析的一个值（以毫秒为单位）。如果单个查询超过此阈值，将使用进行分析`EXPLAIN ANALYZE`。请注意，这反过来又增加了查询时间，因此只应对需要进一步注意的慢查询执行此操作。可以通过将其设置为较高的值（例如300000〜5分钟）来有效关闭该分析。像DB环境变量一样，这与每个RMB模块（流程）相关。默认值为`DB_EXPLAIN_QUERY_THRESHOLD1000`（1秒）。
+`DB_EXPLAIN_QUERY_THRESHOLDPostgres` 本身不会观察到环境变量，而是触发查询执行分析的一个值（以毫秒为单位）。如果单个查询超过此阈值，将使用进行分析 `EXPLAIN ANALYZE` 。请注意，这反过来又增加了查询时间，因此只应对需要进一步注意的慢查询执行此操作。可以通过将其设置为较高的值（例如300000〜5分钟）来有效关闭该分析。像DB环境变量一样，这与每个RMB模块（流程）相关。默认值为 `DB_EXPLAIN_QUERY_THRESHOLD1000` （1秒）。
 
 EXPLAIN ANALYZE - 仅对PostgresClient.get，PostgresClient.select和PostgresClient.join执行。不适用于PostgresClient.getById或PostgresClient.streamGet之类的方法。
 
@@ -332,7 +263,7 @@ EXPLAIN ANALYZE - 仅对PostgresClient.get，PostgresClient.select和PostgresCli
 
 使用文件的[常规布局](https://dev.folio.org/guides/commence-a-module/)和基本POM文件创建新项目。
 
-添加`/ramls` 目录, RAML、schemas和示例文件都放在此目录。对于Maven子项目，目录只能位于父项目中。
+添加 `/ramls` 目录, RAML、schemas和示例文件都放在此目录。对于Maven子项目，目录只能位于父项目中。
 
 为了快速入门，请从[mod-notify](https://github.com/folio-org/mod-notify)复制“ ramls”目录和POM文件 。（在下面的[第6步](#step-6-design-the-raml-files)中，将替换这些以满足您项目的需要。）
 
@@ -365,12 +296,12 @@ EXPLAIN ANALYZE - 仅对PostgresClient.get，PostgresClient.select和PostgresCli
 
 - `exec-maven-plugin` - 基于RAML文件生成POJOs和接口。
 
-- `aspectj-maven-plugin` - 在验证层面预编译带有`@Validate`注解的代码。框架可以验证headers传递是否正确、参数类型是否正确并包含了RAML文件指示的正确内容。
+- `aspectj-maven-plugin` - 在验证层面预编译带有 `@Validate` 注解的代码。框架可以验证headers传递是否正确、参数类型是否正确并包含了RAML文件指示的正确内容。
 
 - `maven-shade-plugin` - 生成可运行的fat-jar。
-很重要一点是运行模块时将运行主类。注意shade插件配置中的`Main-class` 和 `Main-Verticle`。
+很重要一点是运行模块时将运行主类。注意shade插件配置中的 `Main-class` 和 `Main-Verticle` 。
 
-- `maven-resources-plugin` - 复制RAML文件到`/apidocs`路径下以便Runtime框架使用RAML文件显示HTML文档。
+- `maven-resources-plugin` - 复制RAML文件到 `/apidocs` 路径下以便Runtime框架使用RAML文件显示HTML文档。
 
 添加 `ramlfiles_path` 指示RAML目录位置的属性。
 
@@ -413,9 +344,9 @@ EXPLAIN ANALYZE - 仅对PostgresClient.get，PostgresClient.select和PostgresCli
 
 在这个阶段花费一些时间来为项目设计和准备RAML文件是大有裨益的。我们来研究别的FOLIO模块作参考。[mod-notify](https://github.com/folio-org/mod-notify) 是一个示范.
 
-删除步骤1中的临时`/raml`路径，用你自己的代替。
+删除步骤1中的临时 `/raml` 路径，用你自己的代替。
 
-第一个地址段相同的端点(end-points)必须在同一个.raml文件中，因为第一个地址段决定了resource java 接口的名字。比如，`/foo/bar` 和 `/foo/baz`应该在foo.raml中，并且foo.raml会生成`org/folio/rest/jaxrs/resource/Foo.java`。但是，你也可以通过实现GeneratorExtension[否决命名资源接口的约定](https://github.com/mulesoft-labs/raml-for-jax-rs/issues/111)。
+第一个地址段相同的端点(end-points)必须在同一个.raml文件中，因为第一个地址段决定了resource java 接口的名字。比如， `/foo/bar` 和 `/foo/baz` 应该在foo.raml中，并且foo.raml会生成 `org/folio/rest/jaxrs/resource/Foo.java` 。但是，你也可以通过实现GeneratorExtension[否决命名资源接口的约定](https://github.com/mulesoft-labs/raml-for-jax-rs/issues/111)。
 
 将共享的[RAML utility](https://github.com/folio-org/raml) 文件加到"ramls"路径下的"raml-util"路径中。
 
@@ -429,11 +360,11 @@ git submodule add https://github.com/folio-org/raml ramls/raml-util
 
 使用该 `description` 字段和 `type` 字段来解释内容和用法并添加文档。
 
-使用`"javaType": "org.folio.rest.jaxrs.model.MyEntity"` 更改生成的Java类的名称。
+使用 `"javaType": "org.folio.rest.jaxrs.model.MyEntity"` 更改生成的Java类的名称。
 
 参见 [jsonschema2pojo Reference](https://github.com/joelittlejohn/jsonschema2pojo/wiki/Reference)来了解JSON schema 的详细信息。
 
-GenerateRunner会自动取消引用schema文件并将其放入 `target/classes/ramls/` 目录中。它会扫描 `${basedir}/ramls/` 包含子目录的目录，如果找不到）就扫描 `${basedir}/../ramls/` 使通用ramls目录支持maven子模块。
+GenerateRunner会自动取消引用schema文件并将其放入 `target/classes/ramls/` 目录中。它会扫描 `{basedir}/ramls/` 包含子目录的目录，如果找不到）就扫描 `{basedir}/../ramls/` 使通用ramls目录支持maven子模块。
 
 HTTP响应代码的文档位于[HttpStatus.java](https://github.com/folio-org/raml-module-builder/blob/master/util/src/main/java/org/folio/HttpStatus.java)中。
 
@@ -451,7 +382,7 @@ RMB会在编译时对RAML文件进行一些验证。有一些有用的工具可�
 
 ## 添加一个init() 实现
 
-通过实现 `InitAPIs` ，可以添加在部署应用程序之前将运行一次的自定义代码（例如，初始化数据库，创建缓存，创建静态变量等）。您必须实现`init(Vertx vertx, Context context, Handler<AsyncResult<Boolean>> resultHandler)`。每个模块仅支持一种实现。当前，实施应放在实施项目的 `org.folio.rest.impl` 包中。该实现将在Verticle部署期间运行。在init（）完成之前，该Verticle版本不会完成部署。init（）函数基本上可以执行任何操作，但是它必须回调Handler。例如：
+通过实现 `InitAPIs` ，可以添加在部署应用程序之前将运行一次的自定义代码（例如，初始化数据库，创建缓存，创建静态变量等）。您必须实现 `init(Vertx vertx, Context context, Handler<AsyncResult<Boolean>> resultHandler)` 。每个模块仅支持一种实现。当前，实施应放在实施项目的 `org.folio.rest.impl` 包中。该实现将在Verticle部署期间运行。在init（）完成之前，该Verticle版本不会完成部署。init（）函数基本上可以执行任何操作，但是它必须回调Handler。例如：
 
 ```java
 public class InitAPIs implements InitAPI {
@@ -660,11 +591,11 @@ RMB允许将内容流式传输到特定的已实现接口。例如，上传大�
 - 用 `org.folio.rest.annotations.Stream` 注解 `@Stream` 标记要处理的函数。
 - 声明RAML为接收方 `application/octet-stream`（请参见上面的选项一）
 
-每当收到大量数据时，RMB就会调用该函数。这意味着对于每个数据块，RMB都会实例化一个新对象，并使用对象中包含的部分数据在一个`java.io.InputStream`对象中调用该对象的函数。
+每当收到大量数据时，RMB就会调用该函数。这意味着对于每个数据块，RMB都会实例化一个新对象，并使用对象中包含的部分数据在一个 `java.io.InputStream` 对象中调用该对象的函数。
 
-对于每次调用，RMB添加的header `streamed_id` 在当前流中将是唯一的。对于最后一次调用，`complete`提供了标头以指示“流结束”。
+对于每次调用，RMB添加的header `streamed_id` 在当前流中将是唯一的。对于最后一次调用， `complete` 提供了标头以指示“流结束”。
 
-从RMB 23.12.0起，如果HTTP客户端在完成之前过早关闭上传，则将使用调用`streamed_abort` handler。
+从RMB 23.12.0起，如果HTTP客户端在完成之前过早关闭上传，则将使用调用 `streamed_abort` handler。
 
 ## 实现分块批量下载
 
@@ -682,13 +613,13 @@ RMB支持使用按主键ID排序的CQL批量下载块（自版本25开始）。
 PostgreSQL连接参数位置会按以下顺序搜索：
 
 - [DB_* 环境变量](#环境变量)
-- 配置文件，默认为`resources/postgres-conf.json`但可以通过[命令行选项](#命令行选项)设置
+- 配置文件，默认为 `resources/postgres-conf.json` 但可以通过[命令行选项](#命令行选项)设置
 - 嵌入式PostgreSQL 使用[默认凭据](#凭据)
 
 默认情况下，嵌入式PostgreSQL包含在运行时中，但仅当DB_ *环境变量和postgres配置文件均不存在时才运行。要使用环境变量或配置文件中的连接参数启动嵌入式PostgreSQL，请添加 `embed_postgres=true` 到命令行(`java -jar mod-notify-fat.jar embed_postgres=true`)。使用PostgresClient.setEmbeddedPort（int）来覆写端口。
 
 运行时框架公开了PostgreSQL异步客户端，该客户端以ORM类型的方式提供CRUD操作。
-https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/persist/PostgresClient.java
+<https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/persist/PostgresClient.java>
 
 **重要说明：** 当前实现的PostgreSQL客户端假定PostgreSQL中使用JSONB表。这不是强制性的，开发人员可以使用常规PostgreSQL表，但需要实现自己的数据访问层。
 
@@ -696,7 +627,7 @@ https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runti
 
 **I重要说明：** 嵌入式Postgres不能以root用户身份运行。
 
-**重要说明：** 嵌入式Postgres依赖`en_US.UTF-8` (*nix) / `american_usa` (win)语言环境。如果未安装此语言环境，Postgres将无法正常启动。
+**重要说明：** 嵌入式Postgres依赖 `en_US.UTF-8` (*nix) / `american_usa` (win)语言环境。如果未安装此语言环境，Postgres将无法正常启动。
 
 **重要说明：** 当前，我们仅支持Postgres版本10。由于减少了对postgresql嵌入式平台的支持（[postgresql嵌入式支持的版本](https://github.com/yandex-qatools/postgresql-embedded/commit/15685611972bacd8ba61dd7f11d4dbdcb3ba8dc1)，[PostgreSQL数据库下载](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)），因此无法使用版本11 。
 
@@ -725,7 +656,7 @@ client.upsert(TABLE_NAME, id, jsonArray, false, replyHandler -> {
 
 ### 凭据
 
-在嵌入式模式下运行时，将从`resources/postgres-conf.json`中读取凭据。如果找不到文件，则默认情况下将使用以下配置：
+在嵌入式模式下运行时，将从 `resources/postgres-conf.json` 中读取凭据。如果找不到文件，则默认情况下将使用以下配置：
 
 ```text
 port: 6000
@@ -737,15 +668,15 @@ database: postgres
 
 ### 保护数据库配置文件
 
-如前所述，RMB提供的Postgres Client查找名为`postgres-conf.json`的文件。但是，在服务器上以纯文本形式将包含DB密码的文件留给超级用户不是一个好主意。可以加密文件中的密码。加密应该是AES加密（对称块密码）。这种加密是通过密钥完成的。
+如前所述，RMB提供的Postgres Client查找名为 `postgres-conf.json` 的文件。但是，在服务器上以纯文本形式将包含DB密码的文件留给超级用户不是一个好主意。可以加密文件中的密码。加密应该是AES加密（对称块密码）。这种加密是通过密钥完成的。
 
 含义：纯文本密码+密钥=加密密码
 
-RMB带有一个AES类，该类支持生成秘密密钥，对其进行加密和解密, https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/security/AES.java
+RMB带有一个AES类，该类支持生成秘密密钥，对其进行加密和解密, <https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/security/AES.java>
 
 注意，是否使用该类是可选的。
 
-为了使用加密密码，RMB公开了可用于设置密钥（仅存储在内存中）的API。创建数据库连接时，RMB将检查是否已设置密钥。如果设置了密钥，则RMB将使用密钥对密码进行解密，然后使用解密后的密码连接到数据库。否则，它将采用未加密的密码，并按原样使用该密码进行连接。模块也可以通过静态方法`AES.setSecretKey(mykey)`设置密钥AES。
+为了使用加密密码，RMB公开了可用于设置密钥（仅存储在内存中）的API。创建数据库连接时，RMB将检查是否已设置密钥。如果设置了密钥，则RMB将使用密钥对密码进行解密，然后使用解密后的密码连接到数据库。否则，它将采用未加密的密码，并按原样使用该密码进行连接。模块也可以通过静态方法 `AES.setSecretKey(mykey)` 设置密钥AES。
 
 所需步骤为：
 
@@ -784,7 +715,7 @@ public class InitConfigService implements PostDeployVerticle {
 
 需要此附加列，因为PostgreSQL不直接支持JSONB内部字段的外键约束（参照完整性）。
 
-例如，类似于`foreignKeys`条目产生的SQL：
+例如，类似于 `foreignKeys` 条目产生的SQL：
 
 ```sql
 CREATE TABLE item (
@@ -811,7 +742,7 @@ CREATE INDEX IF NOT EXISTS ON item (temporaryLoanTypeId);
 每当使用外键时，CQL2PgJSON都会自动使用此提取的列及其索引。
 
 此触发器和外键约束的开销使此表上每秒的UPDATE事务数减少约10％（在针对外部独立Postgres数据库进行测试时）。有关性能测试，请参阅
-https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/test/java/org/folio/rest/persist/ForeignKeyPerformanceIT.java
+<https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/test/java/org/folio/rest/persist/ForeignKeyPerformanceIT.java>
 通过发送其他SELECT查询手动进行外键检查所花费的时间要比10％多得多。
 
 另外请参见[CQL外键支持](#cql2pgjson-外键交叉表索引查询).
@@ -846,10 +777,10 @@ CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data");
 String cql = "name=Miller";
 SqlSelect sqlSelect = cql2pgJson.toSql(cql);
 String sql = "select * from users where " + sqlSelect.getWhere()
-+ " order by " + sqlSelect.getOrderBy(); 
++ " order by " + sqlSelect.getOrderBy();
 ```
 
-可以设置服务器选择索引，下一个例子展示了搜索`name=Miller or email=Miller`:
+可以设置服务器选择索引，下一个例子展示了搜索 `name=Miller or email=Miller` :
 
 ```java
 CQL2PgJSON cql2pgJson = new CQL2PgJSON("users.user_data", Arrays.asList("name", "email"));
@@ -881,375 +812,364 @@ where = cql2pgJson.cql2pgJson( "name=Miller" ); // implies users.user_data
         `==/number` 匹配任何格式的数字: 3.4 = 3.400 = 0.34e1)
 - `all` (查询字符串的每个单词都存在于某个位置, `title all "Potter Harry"` 匹配 "Harry X. Potter")
 - `any` (查询字符串的任何单词存在于某个位置， `title any "Potter Foo"` 匹配 "Harry Potter")
-- `adj` (substring phrase match: all words of the query string exist consecutively in that order, there may be any
-          whitespace and punctuation in between, `title adj "Harry Potter"` matches "The Harry - . - Potter Story")
-- `>` `>=` `<` `<=` `<>` (comparison for both strings and numbers)
+- `adj` (子字符串词组匹配：查询字符串中的所有单词都以此顺序连续存在，中间可能有空格和标点， `title adj "Harry Potter"` 匹配 "The Harry - . - Potter Story")
+- `>` `>=` `<` `<=` `<>` (比较字符串和数字)
 
-Note to mask the CQL special characters by prepending a backslash: * ? ^ " \
+注意，CQL的特殊字符 `* ? ^ " \` 在使用时需要用 `\` 转义。
 
-Use quotes if the search string contains a space, for example `title = "Harry Potter"`.
+如果搜索字符串包含空格，请使用引号，例如：`title = "Harry Potter"`.
 
 ### CQL: 修饰符
 
-Matching modifiers: Only `masked` is implemented, not `unmasked`, `regexp`,
-`honorWhitespace`, `substring`.
+匹配修饰符: 只有 `masked` 生效，`unmasked`, `regexp`,
+`honorWhitespace`, `substring` 都不生效。
 
-Word begin and word end in JSON is only detected at whitespace and punctuation characters
-from the ASCII charset, not from other Unicode charsets.
+JSON中的单词开头和单词结尾只通过空格和ASCII字符集中的标点来检测，其他Unicode字符不适用。
 
 ### CQL: 匹配、比较和排序数字
 
-Add the /number modifier to enable number matching, comparing and sorting, for example `age ==/number 18`,
-`age >=/number 21` and `sortBy age/number`.
+添加 /number 修饰符来启用数字匹配、比较和排序，例如 `age ==/number 18`,
+`age >=/number 21` 和 `sortBy age/number`。
 
-3.4, 3.400, and 0.34e1 match each other when using `==/number`, and 2 is smaller than 19
-(in contrast to string comparison where "2" > "19").
+使用 `==/number` 时，3.4、3.400和0.34e1相互匹配，并且2小于19（与字符串比较时“ 2”>“ 19”相反）。
 
-This requires that the value has been stored as a JSONB number (`{"age": 19}`)
-and not as a JSONB string (`{"age": "19"}`).
+这要求该值已存储为JSONB数字 ( `{"age": 19}` ) 而不是 ( `{"age": "19"}` )。
 
 ### CQL: 匹配ID和外键字段
 
-The id field and any foreign key field is a UUID field and is not searched in the JSONB but in an
-extracted proper database table field. An index is automatically created for such a field,
-do not add an index entry in schema.json.
+id字段和任何外键字段都是UUID字段，不会在JSONB中搜索，而是在提取的适当数据库表字段中搜索。此类字段得索引将自动创建，请勿在schema.json中手动添加索引条目。
 
-`=`, `==`, `<>`, `>`, `>=`, `<`, and `<=` relations are supported for comparison with a valid UUID.
+有效的UUID支持 `=`, `==`, `<>`, `>`, `>=`, `<`,  `<=` 比较。
 
-`=`, `==`, and `<>` relations allow `*` for right truncation.
+`=`, `==`, 和 `<>` 关系支持用 `*` 作万能匹配。
 
-Modifiers are forbidden.
+禁止使用修饰符。
 
 ### CQL: 匹配全文
 
-See [PostgreSQL's tsvector full text parser documentation](https://www.postgresql.org/docs/current/textsearch-parsers.html)
-how word splitting works when using a full text index. Some notable consequences:
+请查阅 [PostgreSQL's tsvector full text parser documentation](https://www.postgresql.org/docs/current/textsearch-parsers.html)
+了解使用全文索引时分词的工作方式。以下是一些值得注意的情形：
 
-CQL `field adj "bar"` matches `bar`, `bar-baz`, `foo-bar-baz`.
+CQL `field adj "bar"` 匹配 `bar`、`bar-baz`、`foo-bar-baz`。
 
-CQL `field adj "bar baz"` matches `bar baz`, `bar-baz`, `foo-bar-baz`, `foo-bar baz`, `bar-baz-foo`.
+CQL `field adj "bar baz"` 匹配 `bar baz`、`bar-baz`、`foo-bar-baz`、`foo-bar baz`、`bar-baz-foo`。
 
-CQL `field adj "bar-baz"` matches `bar-baz`, but neither `bar baz` nor `foo-bar-baz` nor `foo-bar baz` nor `bar-baz-foo`.
+CQL `field adj "bar-baz"` 匹配 `bar-baz`，但不匹配 `bar baz` 、 `foo-bar-baz` 、 `foo-bar baz` 和 `bar-baz-foo`。
 
-CQL `field adj "123 456"` matches `123 456`, but not `123-456`.
+CQL `field adj "123 456"` 匹配 `123 456`，但不匹配 `123-456`。
 
-CQL `field adj "123-456"` matches `123-456`, but not `123 456`.
+CQL `field adj "123-456"` 匹配 `123-456`，但不匹配 `123 456` 。
 
-`foo/bar/baz` is a single word, while `foo//bar//baz`, `foo///bar///baz`, `foo////bar////baz`, etc.
-are split into the three words `foo`, `/bar`, and `/baz` (always reduced to a single slash).
+`foo/bar/baz` 是一个单词，而 `foo//bar//baz` 、 `foo///bar///baz` 、 `foo////bar////baz` 等被分为了三个单词 `foo`, `/bar`, `/baz` (总是缩减到一个单一的"/")。
 
 ### CQL: 匹配所有记录
 
-A search matching all records in the target index can be executed with a
-`cql.allRecords=1` query. `cql.allRecords=1` can be used alone or as part of
-a more complex query, for example
-`cql.allRecords=1 NOT name=Smith sortBy name/sort.ascending`
+可以通过 `cql.allRecords=1` 查询执行匹配目标索引中所有记录的搜索。 `cql.allRecords=1` 可以单独使用，也可以作为更复杂查询的一部分使用，例如
+`cql.allRecords=1 NOT name=Smith sortBy name/sort.ascending` 。
 
-* `cql.allRecords=1 NOT name=Smith` matches all records where name does not contain Smith
-   as a word or where name is not defined.
-* `name="" NOT name=Smith` matches all records where name is defined but does not contain
-   Smith as a word.
-* For performance reasons, searching for `*` in any fulltext field will match all records as well.
+- `cql.allRecords=1 NOT name=Smith` 匹配名称不包含Smith或名称未定义的所有记录。
+- `name="" NOT name=Smith` 与定义了名称但不包含Smith的所有记录匹配。
+- 出于性能原因， `*` 在任何全文字段中搜索也将匹配所有记录。
 
 ### CQL: 匹配未定义或空值
 
-A relation does not match if the value on the left-hand side is undefined. (but see the fulltext
-`*` case above).
-A negation (using NOT) of a relation matches if the value on the left-hand side is
-not defined or if it is defined but doesn't match.
+如果左侧的值未定义，则关系不匹配。（但请参见 `*` 上面的全文匹配情形）。如果未定义左侧的值或已定义但不匹配，则使用关系的否定（NOT）匹配。
 
-* `name=""` matches all records where name is defined.
-* `cql.allRecords=1 NOT name=""` matches all records where name is not defined.
-* `name==""` matches all records where name is defined and empty.
-* `cql.allRecords=1 NOT name==""` matches all records where name is defined and not empty or
-   where name is not defined.
-* `name="" NOT name==""` matches all records where name is defined and not empty.
+- `name=""` 匹配定义了名称的所有记录。
+- `cql.allRecords=1 NOT name=""` 匹配未定义名称的所有记录。
+- `name==""` 匹配名称已定义且为空的所有记录。
+- `cql.allRecords=1 NOT name==""` 匹配名称已定义但不为空或名称未定义的所有记录。
+- `name="" NOT name==""` 匹配名称已定义且不为空的所有记录。
 
 ### CQL: 匹配数组元素
 
-For matching the elements of an array use these queries (assuming that lang is either an array or not defined, and assuming
-an array element value does not contain double quotes):
-* `lang ==/respectAccents []` for matching records where lang is defined and an empty array
-* `cql.allRecords=1 NOT lang <>/respectAccents []` for matching records where lang is not defined or an empty array
-* `lang =/respectCase/respectAccents \"en\"` for matching records where lang is defined and contains the value en
-* `cql.allRecords=1 NOT lang =/respectCase/respectAccents \"en\"` for matching records where lang does not
-  contain the value en (including records where lang is not defined)
-* `lang = "" NOT lang =/respectCase/respectAccents \"en\"` for matching records where lang is defined and
-  and does not contain the value en
-* `lang = ""` for matching records where lang is defined
-* `cql.allRecords=1 NOT lang = ""` for matching records where lang is not defined
-* `identifiers == "*\"value\": \"6316800312\", \"identifierTypeId\": \"8261054f-be78-422d-bd51-4ed9f33c3422\"*"`
-  (note to use `==` and not `=`) for matching the ISBN 6316800312 using ISBN's identifierTypeId where each element of
-  the identifiers array is a JSON object with the two keys value and identifierTypeId, for example
+为了匹配数组的元素，请使用以下查询（假设lang是数组或未定义，并假定数组元素值不包含双引号）：
 
-      "identifiers": [ {
-        "value": "(OCoLC)968777846", "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
-      }, {
-        "value": "6316800312", "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
-      } ]
+- `lang ==/respectAccents []` 用于匹配定义了lang和空数组的记录
+- `cql.allRecords=1 NOT lang <>/respectAccents []` 用于匹配未定义lang或空数组的记录
+- `lang =/respectCase/respectAccents \"en\"` 用于匹配记录，其中lang被定义并包含值en
+- `cql.allRecords=1 NOT lang =/respectCase/respectAccents \"en\"` 用于lang不包含值en的匹配记录（包括未定义lang的记录）
+- `lang = "" NOT lang =/respectCase/respectAccents \"en\"` 用于定义lang且不包含值en的匹配记录
+- `lang = ""` 用于定义lang的匹配记录
+- `cql.allRecords=1 NOT lang = ""` 用于未定义lang的匹配记录
+- `identifiers == "*\"value\": \"6316800312\", \"identifierTypeId\": \"8261054f-be78-422d-bd51-4ed9f33c3422\"*"`
+（请注意使用了 `==` 而不是 `=` ）使用ISBN的identifierTypeId来匹配ISBN 6316800312，其中，标识符数组的每个元素都是一个具有两个键值和identifierTypeId的JSON对象，例如：
 
-To avoid the complicated syntax all ISBN values or all values can be extracted and used to create a view or an index:
+  ```json
+  "identifiers": [ {
+    "value": "(OCoLC)968777846", "identifierTypeId": "7e591197-f335-4afb-bc6d-a6d76ca3bace"
+  }, {
+    "value": "6316800312", "identifierTypeId": "8261054f-be78-422d-bd51-4ed9f33c3422"
+  } ]
+  ```
 
-    SELECT COALESCE(jsonb_agg(value), '[]')
-       FROM jsonb_to_recordset(jsonb->'identifiers')
-         AS y(key text, value text)
-       WHERE key='8261054f-be78-422d-bd51-4ed9f33c3422'
+为了避免复杂的语法，可以提取所有ISBN值或所有值，并将其用于创建视图或索引：
 
-    SELECT COALESCE(jsonb_agg(value), '[]')
-      FROM jsonb_to_recordset(jsonb->'identifiers')
-        AS x(key text, value text)
-      WHERE value IS NOT NULL
+```sql
+SELECT COALESCE(jsonb_agg(value), '[]')
+    FROM jsonb_to_recordset(jsonb->'identifiers')
+      AS y(key text, value text)
+    WHERE key='8261054f-be78-422d-bd51-4ed9f33c3422'
+
+SELECT COALESCE(jsonb_agg(value), '[]')
+  FROM jsonb_to_recordset(jsonb->'identifiers')
+    AS x(key text, value text)
+  WHERE value IS NOT NULL
+```
 
 ### CQL: 用于数组搜索的@-relation 修饰符
 
-RMB 26 or later supports array searches with relation modifiers, that
-are particular suited for structures like:
+RMB 26或更高版本支持带有关系修饰符的数组搜索，这些修饰符特别适用于以下结构：
 
-    "property" : [
-      {
-        "type1" : "value1",
-        "type2" : "value2",
-        "subfield": "value"
-      },
-      ...
-    ]
+```json
+"property" : [
+  {
+    "type1" : "value1",
+    "type2" : "value2",
+    "subfield": "value"
+  },
+  ...
+]
+```
 
-An example of this kind of structure is `contributors ` (property) from
-mod-inventory-storage . `contributorTypeId` is the type of contributor
-(type1).
+这种结构的一个例子是mod-inventory-storage中的 `contributors` (property)。 `contributorTypeId` 是contributor(type1)的类型.
 
 With CQL you can limit searches to `property1` with regular match in
 `subfield`, with type1=value2 with
 
-    property =/@type1=value1 value
+```text
+property =/@type1=value1 value
+```
 
-Observe that the relation modifier is preceeded with the @-character to
-avoid clash with other CQL relation modifiers.
+请注意，关系修饰符前面带有@-字符，以避免与其他CQL关系修饰符发生冲突。
 
-The type1, type2 and subfield must all be defined in schema.json, because
-the JSON schema is not known. And also because relation modifiers are
-unfortunately lower-cased by cqljava. To match value1 against the
-property contents of type1, full-text match is used.
+type1，type2和子字段都必须在schema.json中定义，因为JSON模式是未知的。而且还因为关系修饰符不幸地被cqljava小写。请使用全文匹配来匹配value1与type1的属性内容。
 
-Multiple relation modifiers with value are ANDed together. So
+具有值的多个关系修饰符将AND在一起。所以
 
+```text
     property =/@type1=value1/@type2=value2 value
+```
 
-will only give a hit if both type1 has value1 AND type2 has value2.
+仅当两个type1都具有value1并且type2都具有value2时才会匹配。
 
-It is also possible to specify relation modifiers without value. This
-essentially is a way to override what subfield to search. In this case
-the right hand side term is matched. Multiple relation modifiers
-are OR'ed together. For example:
+也可以指定没有值的关系修饰符。这本质上是一种覆盖要搜索的子字段的方法。在这种情况下，右侧项是匹配的。多个关系修饰符一起进行“或”运算。例如：
 
+```text
     property =/@type1 value
+```
 
-And to match any of the sub properties type1, type2, you could use:
+为了匹配任何子属性type1，type2，可以使用：
 
+```text
     property =/@type1/@type2 value
-
-In schema.json two new properties, `arraySubfield` and `arrayModifiers`,
-specifies the subfield and the list of modifiers respectively.
-This can be applied to `ginIndex` and `fullTextIndex`.
-schema.json example:
-
-    {
-      "fieldName": "property",
-      "tOps": "ADD",
-      "caseSensitive": false,
-      "removeAccents": true,
-      "arraySubfield": "subfield",
-      "arrayModifiers": ["type1", "type2"]
-    }
-
-For the identifiers example we could define things in schema.json with:
-
-    {
-      "fieldName": "identifiers",
-      "tOps": "ADD",
-      "arraySubfield": "value",
-      "arrayModifiers": ["identifierTypeId"]
-    }
-
-This will allow you to perform searches, such as:
-
-    identifiers = /@identifierTypeId=7e591197-f335-4afb-bc6d-a6d76ca3bace 6316800312
-	
-### CQL2PgJSON: 多字段索引
-
-CQL2PGjson allows generating and querying indexes that contain multiple columns. The index json object now has support for the following properties:
-
-* sqlExpression
-  Allows the user to explicitly define the expression they wish to use in the index
-
-  ```json
-        "fieldName": "address",
-        "sqlExpression": "concat_space_sql(jsonb->>'city', jsonb->>'state')",	
-  ```
-
-* multiFieldNames
-  This is a comma separated list of json fields that are to be concatenated together via concat_ws with a space character.
-  example:
-
-  ```json
-    "fieldName": "address",
-    "multiFieldNames": "city,state",
-  ```
-
-these 2 examples are equivalent and would be queried by using the fieldName such as:
-
-```
-address = Boston MA
 ```
 
-These fields are optional but mutually exclusive, you only need one of them.
-
-
-### CQL2PgJSON: 外键交叉表索引查询
-
-CQL2PgJSON supports cross table joins via subquery based on foreign keys.
-This allows arbitrary depth relationships in both child-to-parent and parent-to-child direction.
-
-Example relationship: item → holdings_record → instance
-
-Join conditions of this example:
-* item.holdingsRecordId = holdings_record.id
-* holdings_record.instanceId = instance.id
-
-The field in the child table points to the primary key `id` field of the parent table; the parent table is also called the target table.
-
-* Precede the index you want to search with the table name in camelCase, e.g. `instance.title = "bee"`.
-* There is no change with child table fields, use them in the regular way without table name prefix.
-* The `foreignKey` entry in schema.json automatically creates an index on the foreign key field.
-* For fast queries declare an index on any other searched field like `title` in the schema.json file.
-* For a multi-table join use `targetPath` instead of `fieldName` and put the list of field names into the `targetPath` array.
-* Use `= *` to check whether a join record exists. This runs a cross index join with no further restriction, e.g. `instance.id = *`.
-* The schema for the above example:
+在schema.json中，有两个新属性 `arraySubfield` 和 `arrayModifiers` ，分别指定了子字段和修饰符列表。这可以应用于 `ginIndex` 和 `fullTextIndex` 。schema.json示例：
 
 ```json
 {
-  "tables": [
+  "fieldName": "property",
+  "tOps": "ADD",
+  "caseSensitive": false,
+  "removeAccents": true,
+  "arraySubfield": "subfield",
+  "arrayModifiers": ["type1", "type2"]
+}
+```
+
+对于标识符示例，我们可以使用以下命令在schema.json中定义内容：
+
+```json
+{
+  "fieldName": "identifiers",
+  "tOps": "ADD",
+  "arraySubfield": "value",
+  "arrayModifiers": ["identifierTypeId"]
+}
+```
+
+这将允许您执行搜索，例如：
+
+```text
+identifiers = /@identifierTypeId=7e591197-f335-4afb-bc6d-a6d76ca3bace 6316800312
+```
+
+### CQL2PgJSON: 多字段索引
+
+CQL2PGjson允许生成和查询包含多列的索引。现在，索引json对象支持以下属性：
+
+- sqlExpression
+  允许用户显式定义他们希望在索引中使用的表达式
+
+  ```json
+  "fieldName": "address",
+  "sqlExpression": "concat_space_sq(jsonb->>'city', jsonb->>'state')",
+  ```
+
+- multiFieldNames
+  这是逗号分隔的json字段列表，这些字段将通过concat_ws与空格字符连接在一起。例如：
+
+  ```json
+  "fieldName": "address",
+  "multiFieldNames": "city,state",
+  ```
+
+这两个示例是等效的，可以通过使用fieldName来查询，例如：
+
+```text
+address = Boston MA
+```
+
+这些字段是可选但互斥的，您只需要其中一个。
+
+### CQL2PgJSON: 外键交叉表索引查询
+
+CQL2PgJSON支持通过基于外键的子查询进行跨表联接。这允许在子对父和父子对两个方向上的任意深度关系。
+
+关系示例： item → holdings_record → instance
+
+该示例的join情况:
+
+- item.holdingsRecordId = holdings_record.id
+- holdings_record.instanceId = instance.id
+
+子表中的字段指向父表的主键字段 `id` ；父表也称为目标表。
+
+- 在camelCase中将要搜索的索引与表名放在前面，例如： `instance.title = "bee"`。
+-子表字段没有变化，请按常规方式使用它们，无需使用表名前缀。
+- schema.json中的 `foreignKey` 条目会自动在外键字段上创建索引。
+- 为了快速查询，可以在其他需要搜索的字段（例如schema.json文件中的 `title` 字段）中声明一个索引。
+- 对于多表连接，请使用 `targetPath` 代替 `fieldName` 并将字段名称列表放入 `targetPath` 数组中。
+- 使用 `= *` 以检查join记录是否已经存在。这将运行交叉索引联接而没有其他限制，例如 `instance.id = *`。
+- Use `= *` to check whether a join record exists. This runs a cross index join with no further restriction, e.g. `instance.id = *`.
+- 上面例子的架构如下:
+
+  ```json
+  {
+    "tables": [
+      {
+        "tableName": "instance",
+        "index": [
+          {
+            "fieldName": "title",
+            "tOps": "ADD",
+            "caseSensitive": false,
+            "removeAccents": true
+          }
+        ]
+      },
+      {
+        "tableName": "holdings_record",
+        "foreignKeys": [
+          {
+            "fieldName": "instanceId",
+            "targetTable":      "instance",
+            "targetTableAlias": "instance",
+            "tableAlias": "holdingsRecord",
+            "tOps": "ADD"
+          }
+        ]
+      },
+      {
+        "tableName": "item",
+        "foreignKeys": [
+          {
+            "fieldName": "holdingsRecordId",
+            "targetTable":      "holdings_record",
+            "targetTableAlias": "holdingsRecord",
+            "tableAlias": "item",
+            "tOps": "ADD"
+          },
+          {
+            "targetPath": ["holdingsRecordId", "instanceId"],
+            "targetTable":      "instance",
+            "targetTableAlias": "instance",
+            "tableAlias": "item"
+          }
+        ]
+      }
+    ]
+  }
+  ```
+
+### CQL2PgJSON: 外键tableAlias和targetTableAlias
+
+`targetTableAlias` 属性在当前子表的CQL查询中启用该父表名称。
+The property `targetTableAlias` enables that parent table name in CQL queries against the current child table.
+
+`tableAlias` 属性在目标/父表的CQL查询中启用该子表名称。
+The property `tableAlias` enables that child table name in CQL queries against the target/parent table.
+
+如果缺少这两个属性中的任何一个，则将禁用相应的外键联接语法。
+
+该名称可能与表名称（`tableName`, `targetTable`）不同。一种用例是更改为camelCase，例如 `"targetTable": "holdings_record"` 和 `"targetTableAlias": "holdingsRecord"`。另一个用例是当两个外键指向同一目标表时解决歧义，例如：
+
+```json
+{
+  "tableName": "item",
+  "foreignKeys": [
     {
-      "tableName": "instance",
-      "index": [
-        {
-          "fieldName": "title",
-          "tOps": "ADD",
-          "caseSensitive": false,
-          "removeAccents": true
-        }
-      ]
+      "fieldName": "permanentLoanTypeId",
+      "tableAlias""itemWithPermanentLoanType",
+      "targetTable": "loan_type",
+      "targetTableAlias": "loanType",
+      "tOps": "ADD"
     },
     {
-      "tableName": "holdings_record",
-      "foreignKeys": [
-        {
-          "fieldName": "instanceId",
-          "targetTable":      "instance",
-          "targetTableAlias": "instance",
-          "tableAlias": "holdingsRecord",
-          "tOps": "ADD"
-        }
-      ]
-    },
-    {
-      "tableName": "item",
-      "foreignKeys": [
-        {
-          "fieldName": "holdingsRecordId",
-          "targetTable":      "holdings_record",
-          "targetTableAlias": "holdingsRecord",
-          "tableAlias": "item",
-          "tOps": "ADD"
-        },
-        {
-          "targetPath": ["holdingsRecordId", "instanceId"],
-          "targetTable":      "instance",
-          "targetTableAlias": "instance",
-          "tableAlias": "item"
-        }
-      ]
+      "fieldName": "temporaryLoanTypeId",
+      "tableAlias""itemWithTemporaryLoanType",
+      "targetTable": "loan_type",
+      "targetTableAlias""temporaryLoanType",
+      "tOps": "ADD"
     }
   ]
 }
 ```
 
-### CQL2PgJSON: 外键tableAlias和targetTableAlias
+在 item 端点运行 CQL `loanType.name == "Can circulate"` 会返回所有 permanentLoanTypeId 指向名字等于 "Can circulate" 的 loan_type 的items。
 
-The property `targetTableAlias` enables that parent table name in CQL queries against the current child table.
+在 item 端点运行 CQL `temporaryLoanType.name == "Can circulate"` 会返回所有 temporaryLoanTypeId 指向名字等于 "Can circulate" 的 loan_type 的items。
 
-The property `tableAlias` enables that child table name in CQL queries against the target/parent table.
+在 loan_type 端点运行 CQL `itemWithPermanentLoanType.status == "In transit"` 会返回所有存在有状态为 "In transit" 的item将其作为permanentLoanType的loan_type。
 
-If any of these two properties is missing, then that respective foreign key join syntax is disabled.
-
-The name may be different from the table name (`tableName`, `targetTable`). One use case is to change to camelCase, e.g.
-`"targetTable": "holdings_record"` and `"targetTableAlias": "holdingsRecord"`. Another use case is
-to resolve ambiguity when two foreign keys point to the same target table, example:
-```
-    {
-      "tableName": "item",
-      "foreignKeys": [
-        {
-          "fieldName": "permanentLoanTypeId",
-          "tableAlias": "itemWithPermanentLoanType",
-          "targetTable": "loan_type",
-          "targetTableAlias": "loanType",
-          "tOps": "ADD"
-        },
-        {
-          "fieldName": "temporaryLoanTypeId",
-          "tableAlias": "itemWithTemporaryLoanType",
-          "targetTable": "loan_type",
-          "targetTableAlias": "temporaryLoanType",
-          "tOps": "ADD"
-        }
-      ]
-    }
-```
-Running CQL `loanType.name == "Can circulate"` against the item endpoint returns all items where the item's permanentLoanTypeId points to a loan_type where the loan_type's name equals "Can circulate".
-
-Running CQL `temporaryLoanType.name == "Can circulate"` against the item endpoint returns all items where the item's temporaryLoanTypeId points to a loan_type where the loan_type's name equals "Can circulate".
-
-Running CQL `itemWithPermanentLoanType.status == "In transit"` against the loan_type endpoint returns all loan_types where there exists an item that has this loan_type as a permanentLoanType and where the item's status equals "In transit".
-
-Running CQL `itemWithTemporaryLoanType.status == "In transit"` against the loan_type endpoint returns all loan_types where there exists an item that has this loan_type as a temporaryLoanType and where the item's status equals "In transit".
+在 loan_type 端点运行 CQL `itemWithTemporaryLoanType.status == "In transit"` 会返回所有存在有状态为 "In transit" 的item将其作为temporarytLoanType的loan_type。
 
 ### CQL2PgJSON: 异常
 
-All locally produced Exceptions are derived from a single parent so they can be caught collectively
-or individually. Methods that load a JSON data object model pass in the identity of the model as a
-resource file name, and may also throw a native `java.io.IOException`.
+所有本地产生的异常均来自单一父来源，因此它们可以被整体或单独地捕获。加载JSON数据对象模型的方法将模型的身份作为资源文件名传递，并且也可能抛出原生的 `java.io.IOException`。
 
-    CQL2PgJSONException
-      ├── FieldException
-      ├── SchemaException
-      ├── ServerChoiceIndexesException
-      ├── CQLFeatureUnsupportedException
-      └── QueryValidationException
-            └── QueryAmbiguousException
+```text
+CQL2PgJSONException
+  ├── FieldException
+  ├── SchemaException
+  ├── ServerChoiceIndexesException
+  ├── CQLFeatureUnsupportedException
+  └── QueryValidationException
+        └── QueryAmbiguousException
+```
 
 ### CQL2PgJSON: 单元测试
 
-To run the unit tests in your IDE, the Unicode input files must have been produced by running maven.
-In Eclipse you may use "Run as ... Maven Build" for doing so.
+为了在您的IDE中运行单元测试，必须先通过运行maven提供Unicode 输入文件。
+在 Eclipse 中你可以使用 "Run as ... Maven Build" 来运行。
 
 ## 租户 API
 
-The Postgres Client support in the RMB is schema specific, meaning that it expects every tenant to be represented by its own schema. The RMB exposes three APIs to facilitate the creation of schemas per tenant (a type of provisioning for the tenant). Post, Delete, and 'check existence' of a tenant schema. Note that the use of this API is optional.
+RMB中的Postgres Client 支持是基于特定schema的，这意味着它希望每个租户都由自己的schema表示。RMB暴露了三个接口以方便每个租户创建schema（租户的一种配置）。Post, Delete, 和 'check existence' 租户schema。注意，此API并非强制要求使用。
 
-The RAML defining the API:
+这些API的RAML定义:
 
-   https://github.com/folio-org/raml/blob/raml1.0/ramls/tenant.raml
+   <https://github.com/folio-org/raml/blob/raml1.0/ramls/tenant.raml>
 
-By default RMB includes an implementation of the Tenant API which assumes Postgres being present. Implementation in
- [TenantAPI.java](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/impl/TenantAPI.java) file. You might want to extend/override this because:
+默认情况下，RMB包含Tenant API的实现，该实现假定存在Postgres。在[TenantAPI.java](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/java/org/folio/rest/impl/TenantAPI.java)文件中实现 。您可能会想要扩展/覆写它，因为：
 
-1. You want to not call it at all (your module is not using Postgres).
-2. You want to provide further Tenant control, such as loading reference and/or sample data.
+1. 您完全不想调用它（您的模块未使用Postgres）。
+2. 您想提供进一步的租户控制，例如加载参考和/或样本数据。
 
-#### Extending the Tenant Init
+#### 拓展租户初始化
 
-In order to implement your tenant API, extend `TenantAPI` class:
+为了实现您的租户API，请继承 `TenantAPI` 类：
 
 ```java
 package org.folio.rest.impl;
@@ -1272,7 +1192,8 @@ public class MyTenantAPI extends TenantAPI {
 
 ```
 
-If you wish to call the Post Tenant API (with Postgres) then just call the corresponding super-class, e.g.:
+如果要调用Post Tenant API（使用Postgres），则只需调用相应的超类，例如：
+
 ```java
 @Override
 public void postTenant(TenantAttributes ta, Map<String, String> headers,
@@ -1280,11 +1201,12 @@ public void postTenant(TenantAttributes ta, Map<String, String> headers,
   super.postTenant(ta, headers, hndlr, cntxt);
 }
 ```
-(not much point in that though - it would be the same as not defining it at all).
 
-If you wish to load data for your module, that should be done after the DB has been successfully initialized,
-e.g. do something like:
-```
+（不过，这没有多大意义-和完全不定义它没有区别）。
+
+如果希望为模块加载数据，则应在成功初始化数据库之后执行此操作，例如，执行以下操作：
+
+```java
 public void postTenant(TenantAttributes ta, Map<String, String> headers,
   super.postTenant(ta, headers, res -> {
     if (res.failed()) {
@@ -1298,9 +1220,7 @@ public void postTenant(TenantAttributes ta, Map<String, String> headers,
 }
 ```
 
-There is no right way to load data, but consider that data load will be both happening for first time tenant
-usage of the module and during an upgrade process. Your data loading should be idempotent. If files are stored
-as resources and as JSON files, you can use the TenantLoading utility.
+没有正确的方式加载数据，但是请考虑在模块的首次租户使用和升级过程中都会发生数据加载。您的数据加载应该是幂等的。如果文件存储为资源和JSON文件，则可以使用TenantLoading utility。
 
 ```java
 import org.folio.rest.tools.utils.TenantLoading;
@@ -1332,9 +1252,7 @@ public void postTenant(TenantAttributes ta, Map<String, String> headers,
 }
 ```
 
-If data is already in resources, then fine. If not, for example, if in root of
-project in project, then copy it with maven-resource-plugin. For example, to
-copy `reference-data` to `ref-data` in resources:
+如果数据已在资源中，则没有问题。例如，如果不在项目的根目录中，则使用maven-resource-plugin复制它。例如，要复制 `reference-data` 到 `ref-data` 资源中：
 
 ```xml
 <execution>
@@ -1355,193 +1273,188 @@ copy `reference-data` to `ref-data` in resources:
 </execution>
 ```
 
+#### 发布租户 API
 
-#### The Post Tenant API
+基于Postgres的Tenant API实现将在 `/resources/templates/db_scripts/` 名为**schema.json**的文件中查找。
 
-The Postgres based Tenant API implementation will look for a file at `/resources/templates/db_scripts/`
-called **schema.json**
+该文件包含要在注册时为租户创建的表和视图的数组（tenant api post）
 
-The file contains an array of tables and views to create for a tenant on registration (tenant api post)
+一个示例:
 
-An example can be found here:
+- <https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/resources/templates/db_scripts/examples/schema.json.example.json>
 
- - https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/resources/templates/db_scripts/examples/schema.json.example.json
+schema.json顶层特性（其中一些是可选的）是 `scripts` ,  `tables` ,  `views` 和 `exactCount` 。
 
-The top level properties in schema.json (some of which are optional) are `scripts`, `tables`, `views` and `exactCount`.
+json文件中要注意的条目：
 
-Entries in the json file to be aware of:
+每张**表**中的 `tables` 属性：
 
-For each **table** in `tables` property:
+1. `tableName` - 要生成的表的名称-这是应从代码中引用的表
+2. `generateId` - 不再受支持了。该功能在 Pgpool-II 中不稳定，详见 <https://www.pgpool.net/docs/latest/en/html/restrictions.html>。  解决方案是使用与 <https://github.com/folio-org/raml-module-builder/blob/v23.11.0/domain-models-runtime/src/main/java/org/folio/rest/persist/PgUtil.java#L358> 相同的解决方案来在java中生成UUID。
+3. `fromModuleVersion` - 此字段指示在其中创建/更新表的版本。当有租户更新请求时-只有早于指定版本的版本才会生成声明的表。这样可以确保在模块从较旧的版本升级时可以为其生成所需的表。但是，从等于或晚于该表指定的版本的版本进行的后续升级将不会重新生成该表。
+    - 注意，这是对所有表，视图，索引，FK，触发器等强制执行的（通过 `IF NOT EXISTS` Postgres SQL 语句）。
+4. `mode` - 只应在表示 `delete` 时使用。
+5. `withMetadata` - 将在更新/插入时生成所需的触发器以填充json中的metadata部分。
+6. `likeIndex` - 指示哪些字段会被用 `LIKE` 查询。会被切割成多个部分的字段需要这个。
+    - `fieldName` 为其创建索引的json中的字段名称。
+    - `tOps` 表示表操作-ADD表示创建这个索引，DELETE表示该索引应被删除。
+    - `caseSensitive` 在您有一个拥有不同大小写格式的字符串字段并希望该值无论大小写都唯一时，允许创建大小写不敏感的索引 (boolean true / false)，默认为false。
+    - `removeAccents` - 规范化重音符号或保留重音字符。默认为true。
+    - `whereClause` 允许创建部分索引，例如：  "whereClause": "WHERE (jsonb->>'enabled')::boolean = true"。
+    - `stringType` - 默认为true - 如果将其设置为false，则该字段不是文本类型，因此忽略removeAccents和caseSensitive参数。
+    - `arrayModifiers` - 指定某些索引支持的数组关系修饰符。修饰符必须与数组中JSON对象中的属性名称完全匹配。
+    - `arraySubfield` - 是使用数组关系修饰符时用于主要术语的对象的键。通常在定义 `arrayModifiers` 时同时进行定义。
+    - `multiFieldNames` - 详见之前的 [CQL2PgJSON: 多字段索引](#cql2pgjson-多字段索引)。
+    - `sqlExpression` - 详见之前的 [CQL2PgJSON: 多字段索引](#cql2pgjson-多字段索引)。
+    - 不要手动为 `id` 字段或外键字段添加索引，它们会自动建立索引。
+7. `ginIndex` - 使用 `gin_trgm_ops` 扩展在JSON上生成反向索引。允许左右截断 LIKE 查询和正则表达式查询来以最佳方式运行（类似与简单的搜索引擎）。注意，生成的索引很大且不支持全文匹配（不带通配符的SQL `=` 运算符和CQL `==` 运算符）。参考 `likeIndex` 来获得可用选项。
+8. `uniqueIndex` - 在JSON中的字段上创建唯一索引
+    - `tOps` 表示表操作-ADD表示创建这个索引，DELETE表示该索引应被删除。
+    - `whereClause` 允许创建部分索引，例如：  "whereClause": "WHERE (jsonb->>'enabled')::boolean = true"。
+    - 如果b树索引超过了2712 byte 限制，增加一条记录会失败。请考虑为字段增加长度限制，比如在RAML声明的时候增加一个600字符限制（multi-byte characters）。
+    - 在上方的likeIndex部分中查看其他额外选项
+9. `index` - 在JSON中的字段上创建b树索引
+    - `tOps` 表示表操作-ADD表示创建这个索引，DELETE表示该索引应被删除。
+    - `whereClause` 允许创建部分索引，例如：  "whereClause": "WHERE (jsonb->>'enabled')::boolean = true"。
+    - 在上方的likeIndex部分中查看其他额外选项
+    - 表达式被包装到左边(..., 600)来防止超过b树的2712 byte 限制。特殊情况： sqlExpression不会被包装。
+10. `fullTextIndex` - 使用postgres的tsvector功能创建全文索引。
+    - `removeAccents` 可以使用, 但默认选项 `caseSensitive: false` 不能更改，因为tsvector 始终会转换成小写字母。
+    - 参阅 [CQL: 匹配全文](#cql-匹配全文) 来了解分词的工作原理。
+    - `tOps` 是可选的 (例如所有索引)，并且默认为添加索引。
+    - `whereClause` 和 `stringType` 和上面的 `likeIndex` 一样工作。
+11. `withAuditing` - 创建审计表和触发器，每当发生插入、更新或删除操作时，触发器就会使用表记录的历史记录填充审计表。`"withAuditing": true` 为启用, `false` 或未定义为禁用。
+    - `auditingTableName` 审计表的名称
+    - `auditingFieldName` 在审计记录中包含原始记录副本的字段（JSON属性）。
+    - `"withAuditing": true` 自动创建审计表。 在schema.json的“表”中，审核表条目是可选的，比如用于创建索引。
+    - `auditingSnippet` 部分允许在声明部分和正文中使用自定义SQL对审核功能进行一些自定义（用于插入/更新/删除）。
+    - 审计表的jsonb列有三个字段： `$auditingFieldName` 为原始记录（原始表的jsonb），`id` 为一个新的唯一ID，`operation` 包括 `I`, `U`, `D` 分别代表插入(Insert)、更新(Update)、删除(Delete)， `createdDate` 为创建审计记录的时间。
+12. `foreignKeys` - 添加/删除外键（触发器根据JSON中的字段填充列中的数据并创建FK约束。
+13. `customSnippetPath` - 存放本表中自定义的一些SQL命令的文件的相对路径。
+14. `deleteFields` / `addFields` - 为所有JSON条目删除（或使用默认值添加）指定路径处的一个字段
+15. `populateJsonWithId` - 不再支持此schema.json条目和disable选项。在每次插入和更新时主键始终会被复制到 `jsonb->'id'` 。
+16. `pkColumnName` - 不再受支持。主键列的名称始终为 `id` 不变，在每次插入和更新时主键始终会被复制到 `jsonb->'id'` 。 `PostgresClient.setIdField(String)` 方法不再存在了。
 
-1. `tableName` - name of the table that will be generated - this is the table that should be referenced from the code
-2. `generateId` - No longer supported.  This functionality is not stable in Pgpool-II see https://www.pgpool.net/docs/latest/en/html/restrictions.html.  The solution is to generate a UUID in java in the same manner as https://github.com/folio-org/raml-module-builder/blob/v23.11.0/domain-models-runtime/src/main/java/org/folio/rest/persist/PgUtil.java#L358
-3. `fromModuleVersion` - this field indicates the version in which the table was created / updated in. When a tenant update is requested - only versions older than the indicated version will generate the declared table. This ensures that if a module upgrades from an older version, the needed tables will be generated for it, however, subsequent upgrades from versions equal or later than the version indicated for the table will not re-generate the table.
-    * Note that this is enforced for all tables, views, indexes, FK, triggers, etc. (via the `IF NOT EXISTS` sql Postgres statement)
-4. `mode` - should be used only to indicate `delete`
-5. `withMetadata` - will generate the needed triggers to populate the metadata section in the json on update / insert
-6. `likeIndex` - indicate which fields in the json will be queried using the `LIKE`. Needed for fields that will be faceted on.
-    * `fieldName` the field name in the json for which to create the index
-    * the `tOps` indicates the table operation - ADD means to create this index, DELETE indicates this index should be removed
-    * the `caseSensitive` allows you to create case insensitive indexes (boolean true / false), if you have a string field that may have different casings and you want the value to be unique no matter the case. Defaults to false.
-    *  `removeAccents` - normalize accents or leave accented chars as is. Defaults to true.
-    * the `whereClause` allows you to create partial indexes, for example:  "whereClause": "WHERE (jsonb->>'enabled')::boolean = true"
-    * `stringType` - defaults to true - if this is set to false than the assumption is that the field is not of type text therefore ignoring the removeAccents and caseSensitive parameters.
-    * `arrayModifiers` - specifies array relation modifiers supported for some index. The modifiers must exactly match the name of the property in the JSON object within the array.
-    * `arraySubfield` - is the key of the object that is used for the primary term when array relation modifiers are in use. This is typically also defined when `arrayModifiers` are also defined.
-    * `multiFieldNames` - see [CQL2PgJSON: Multi Field Index](#cql2pgjson-multi-field-index) above
-    * `sqlExpression` - see [CQL2PgJSON: Multi Field Index](#cql2pgjson-multi-field-index) above
-    * Do not manually add an index for an `id` field or a foreign key field, they get indexed automatically.
-7. `ginIndex` - generate an inverted index on the JSON using the `gin_trgm_ops` extension. Allows for left and right truncation LIKE queries and regex queries to run in an optimal manner (similar to a simple search engine). Note that the generated index is large and does not support the full field match (SQL `=` operator and CQL `==` operator without wildcards). See the `likeIndex` for available options.
-8. `uniqueIndex` - create a unique index on a field in the JSON
-    * the `tOps` indicates the table operation - ADD means to create this index, DELETE indicates this index should be removed
-    * the `whereClause` allows you to create partial indexes, for example:  "whereClause": "WHERE (jsonb->>'enabled')::boolean = true"
-    * Adding a record will fail if the b-tree index byte size limit of 2712 is exceeded. Consider enforcing a length limit on the field, for example by adding a 600 character limit (multi-byte characters) to the RAML specification.
-    * See additional options in the likeIndex section above
-9. `index` - create a btree index on a field in the JSON
-    * the `tOps` indicates the table operation - ADD means to create this index, DELETE indicates this index should be removed
-    * the `whereClause` allows you to create partial indexes, for example:  "whereClause": "WHERE (jsonb->>'enabled')::boolean = true"
-    * See additional options in the likeIndex section above
-    * The expression is wrapped into left(..., 600) to prevent exceeding the b-tree byte size limit of 2712. Special case: sqlExpression is not wrapped.
-10. `fullTextIndex` - create a full text index using the tsvector features of postgres.
-    * `removeAccents` can be used, the default `caseSensitive: false` cannot be changed because tsvector always converts to lower case.
-    * See [CQL: Matching full text](#cql-matching-full-text) to learn how word splitting works.
-    * The `tOps` is optional (like for all indexes), and defaults to ADDing the index.
-    * `whereClause` and `stringType` work as for `likeIndex` above.
-11. `withAuditing` - Creates an auditing table and a trigger that populates the audit table with the history of the table record whenever an insert, update, or delete occurs. `"withAuditing": true` for enabled, `false` or undefined for disabled.
-    * `auditingTableName` The name of the audit table.
-    * `auditingFieldName` The field (JSON property) in the audit record that contains the copy of the original record.
-    * `"withAuditing": true` automatically creates the auditing table; an entry of the audit table in the "tables" section of schema.json is optional, for example to create indexes.
-    * The `auditingSnippet` section allows some customizations to the auditing function with custom SQL in the declare section and the body (for either insert / update / delete).
-    * The audit table jsonb column has three fields: `$auditingFieldName` contains the original record (jsonb from the original table), `id` contains a new unique id, `operation` contains `I`, `U`, `D` for insert, update, delete, and `createdDate` contains the time when the audit record was created.
-12. `foreignKeys` - adds / removes foreign keys (trigger populating data in a column based on a field in the JSON and creating a FK constraint)
-13. `customSnippetPath` - a relative path to a file with custom SQL commands for this specific table
-14. `deleteFields` / `addFields` - delete (or add with a default value), a field at the specified path for all JSON entries in the table
-15. `populateJsonWithId` - This schema.json entry and the disable option is no longer supported. The primary key is always copied into `jsonb->'id'` on each insert and update.
-16. `pkColumnName` - No longer supported. The name of the primary key column is always `id` and is copied into `jsonb->'id'` in each insert and update. The method PostgresClient.setIdField(String) no longer exists.
+**视图**部分需要多一点解释。它表示和两个表（和每表中的列）join的viewName。除此之外，您还可以指示两个表之间的join类型。例如：
 
-The **views** section is a bit more self explanatory, as it indicates a viewName and the two tables (and a column per table) to join by. In addition to that, you can indicate the join type between the two tables. For example:
-```
-  "views": [
-    {
-      "viewName": "items_mt_view",
-      "join": [
-        {
-          "table": {
-            "tableName": "item",
-            "joinOnField": "materialTypeId"
-          },
-          "joinTable": {
-            "tableName": "material_type",
-            "joinOnField": "id",
-            "jsonFieldAlias": "mt_jsonb"
-          }
+```json
+"views": [
+  {
+    "viewName": "items_mt_view",
+    "join": [
+      {
+        "table": {
+          "tableName": "item",
+          "joinOnField": "materialTypeId"
+        },
+        "joinTable": {
+          "tableName": "material_type",
+          "joinOnField": "id",
+          "jsonFieldAlias": "mt_jsonb"
         }
-      ]
+      }
+    ]
+  }
+]
+```
+
+在幕后，作为schema生成的过程以下的语句会被执行：
+
+```sql
+CREATE OR REPLACE VIEW ${tenantid}_${module_name}.items_mt_view AS
+  SELECT u.id, u.jsonb as jsonb, g.jsonb as mt_jsonb
+  FROM ${tenantid}_${module_name}.item u
+  JOIN ${tenantid}_${module_name}.material_type g
+    ON lower(f_unaccent(g.jsonb->>'id')) = lower(f_unaccent(u.jsonb->>'materialTypeId'))
+```
+
+注意这些 `lower(f_unaccent()` 函数，当前默认情况下，所有字符串字段都将包装在这些函数中（将来会更改）。
+
+三表连接看起来像这样：
+
+```json
+{
+  "viewName": "instance_holding_item_view",
+  "join": [
+    {
+      "table": {
+        "tableName": "instance",
+        "joinOnField": "id"
+      },
+      "joinTable": {
+        "tableName": "holdings_record",
+        "joinOnField": "instanceId",
+        "jsonFieldAlias": "ho_jsonb"
+      }
+    },
+    {
+      "table": {
+        "tableName": "holdings_record",
+        "joinOnField": "id",
+        "jsonFieldAlias": "ho2_jsonb"
+      },
+      "joinTable": {
+        "tableName": "item",
+        "joinOnField": "holdingsRecordId",
+        "jsonFieldAlias": "it_jsonb"
+      }
     }
   ]
-```
-Behind the scenes this will produce the following statement which will be run as part of the schema creation:
-
-    CREATE OR REPLACE VIEW ${tenantid}_${module_name}.items_mt_view AS
-      SELECT u.id, u.jsonb as jsonb, g.jsonb as mt_jsonb
-      FROM ${tenantid}_${module_name}.item u
-      JOIN ${tenantid}_${module_name}.material_type g
-        ON lower(f_unaccent(g.jsonb->>'id')) = lower(f_unaccent(u.jsonb->>'materialTypeId'))
-
-Notice the `lower(f_unaccent(` functions, currently, by default, all string fields will be wrapped in these functions (will change in the future).
-
-A three table join would look something like this:
-
-```
-    {
-      "viewName": "instance_holding_item_view",
-      "join": [
-        {
-          "table": {
-            "tableName": "instance",
-            "joinOnField": "id"
-          },
-          "joinTable": {
-            "tableName": "holdings_record",
-            "joinOnField": "instanceId",
-            "jsonFieldAlias": "ho_jsonb"
-          }
-        },
-        {
-          "table": {
-            "tableName": "holdings_record",
-            "joinOnField": "id",
-            "jsonFieldAlias": "ho2_jsonb"
-          },
-          "joinTable": {
-            "tableName": "item",
-            "joinOnField": "holdingsRecordId",
-            "jsonFieldAlias": "it_jsonb"
-          }
-        }
-      ]
-    }
+}
 ```
 
-The **script** section allows a module to run custom SQLs before table / view creation/updates and after all tables/views have been created/updated.
+该**脚本**部分允许一个模块在表或视图创建/更新的之前或之后运行自定义SQL。
 
-The fields in the **script** section include:
+**脚本**部分中的字段包括：
 
-1. `run` - either `before` or `after` the tables / views are generated
-2. `snippet` - the SQL to run
-3. `snippetPath` - relative path to a file with SQL script to run. If `snippetPath` is set then `snippet` field will be ignored.
-4. `fromModuleVersion` - same as `fromModuleVersion` for table
+1. `run` - 在表或视图创建/更新之前或之后
+2. `snippet` - 需要运行的SQL
+3. `snippetPath` - 需要运行的SQL脚本的相对路径。如果设置了 `snippetPath` ，那么 `snippet` 中的内容会被忽略。
+4. `fromModuleVersion` - 和表中的 `fromModuleVersion` 一致。
 
-The **exactCount** section is optonal and the value of the property is
-a simple integer with a default value of 1000. Hit counts returned by
-get-familify of methods will use an exact hit count up to that value; beyond
-that, en estimated hit count is returned. However, for cases when query
-parameter is omitted (filter is null), an exact count is still returned.
+**exactCount**部分是可选的，该属性的值是一个简单的整数，默认值为1000。get-familify方法返回的hit counts 会基于默认值使用实际的hit count；除此之外还会返回一个估计的hit count。但是，对于省略查询参数（过滤器为null）的情况，仍然返回精确计数。
 
+表或视图会在名为 tenantid_modulename 的schema中生成。
 
-The tables / views will be generated in the schema named tenantid_modulename
+调用API传入的x-okapi-tenant header 将用于获取租户ID。模块名称使用的值是在pom.xml中找到的artifactId（如果找到了父artifactId，则使用其父id）。
 
-The x-okapi-tenant header passed in to the API call will be used to get the tenant id.
-The value used for the module name is the artifactId found in the pom.xml (the parent artifactId is used if one is found).
+#### 重要信息
 
-#### Important information
-Right now all indexes on string fields in the jsonb should be declared as case in-sensitive and lower cased. This is how the [CQL to Postgres converter](#cql-contextual-query-language) generates SQL queries, so in order for the indexes generated to be used during query time, the indexes must be declared in a similar manner
-```
-  {
-    "fieldName": "title",
-    "tOps": "ADD",
-    "caseSensitive": false,
-    "removeAccents": true
-  }
+现在，应将jsonb中字符串字段上的所有索引声明均为小写并且大小写不敏感。这就是[CQL 到 Postgres 转换器](#cql-上下文查询语言)如何生成SQL查询的方法。因此，为了在查询期间使用生成的索引，必须以类似的方式声明索引。
+
+```json
+{
+  "fieldName": "title",
+  "tOps": "ADD",
+  "caseSensitive": false,
+  "removeAccents": true
+}
 ```
 
-Behind the scenes, the CQL to Postgres query converter will generate regex queries for `=` queries.
-For example: `?query=fieldA=ABC` will generate an SQL regex query, which will require a gin index to perform on large tables.
+在后台，CQL到Postgres的转换器将为 `=` 查询生成正则表达式查询。例如： `?query=fieldA=ABC` 将生成一个SQL正则表达式查询，这将需要gin索引才能在大型表上执行。
 
-The converter will generate LIKE queries for `==` queries. For example `?query=fieldA==ABC` will generate an SQL LIKE query that will use a btree index (if it exists). For queries that only look up specific ids, etc... the preferred approach would be to query with two equals `==` and hence, declare a regular btree (index).
+转换器将为 `==` 查询生成LIKE查询。例如， `?query=fieldA==ABC` 将生成一个使用btree索引（如果存在）的SQL LIKE查询。对于仅查找特定id的查询等等，首选方法是使用 `==` 查询，因此，需要声明一个常规btree（索引）。
 
+##### Post 信息
 
-##### Posting information
+Post新的租户必须有一个body。body应包含符合[moduleInfoSchema](https://github.com/folio-org/raml/blob/master/schemas/moduleInfo.schema)的JSON 。 `module_to` 条目是必填项，指示此租户的版本模块。 `module_from` 条目是可选的，表示租户升级到新的模块版本的升级。
 
-Posting a new tenant must include a body. The body should contain a JSON conforming to the [moduleInfoSchema](https://github.com/folio-org/raml/blob/master/schemas/moduleInfo.schema) schema. The `module_to` entry is mandatory, indicating the version module for this tenant. The `module_from` entry is optional and indicates an upgrade for the tenant to a new module version.
+body还可以拥有一个 `parameters` 属性，以指定在创建/更新租户期间要执行的每个租户操作/信息。
 
-The body may also hold a `parameters` property to specify per-tenant
-actions/info to be done during tenant creation/update.
+##### 加密租户密码
 
-##### Encrypting Tenant passwords
+到目前为止（将来可能会发生变化）可以通过以下方式实现通过加密密码保护租户与数据库的连接：
 
-As of now (this may change in the future), securing a tenant's connection to the database via an encrypted password can be accomplished in the following way:
+- 设置密钥（如[保护数据库配置文件](#保护数据库配置文件)部分所述）
 
- - Set the secret key (as described in the Securing DB Configuration file section)
-
-  The PASSWORD will be replaced with the following:
+  密码将被以下替换：
   encrypt(tenant id with secret key) = **new tenant's password**
+  **new tenant's password**（新的租户密码）会替换默认的密码（默认密码为 tenantid_modulename）
   The **new tenant's password** will replace the default PASSWORD value (which is the tenantid_modulename)
-  The RMB Postgres client will use the secret key and the passed in tenant id to calculate the tenant's password when DB connections are needed for that tenant. Note that if you use the tenant API and set the secret key - the decrypting of the password will be done by the Postgres Client for each tenant connection.
+  RMB Postgres 客户端在租户需要DB连接的时候会使用密钥和传入的tenant id 来计算租户的密码。注意如果您使用了租户API并设置了密钥，Postgres 客户端会在每个租户连接的时候完成密码解密。
 
-
-The RMB comes with a TenantClient to facilitate calling the API via URL.
-To post a tenant via the client:
+RMB附带一个 TenantClient 来方便通过URL调用API。
+通过clinet发布租户：
 
 ```java
 TenantClient tClient = null;
@@ -1554,17 +1467,15 @@ tClient.post( response -> {
 });
 ```
 
-#### The Delete Tenant API
+#### 删除租户 API
 
-When this API is called RMB will basically drop the schema for the tenant (CASCADE) as well as drop the user
+调用此API时，RMB会直接删除租户的schema（CASCADE）并删除用户。
 
+##### 一些 Postgres Client 示例
 
-**Some Postgres Client examples**
+示例:
 
-
-Examples:
-
-Saving a POJO within a transaction:
+在事务中保存POJOs
 
 ```java
 PoLine poline = new PoLine();
@@ -1573,9 +1484,10 @@ PoLine poline = new PoLine();
 
 postgresClient.save(beginTx, TABLE_NAME_POLINE, poline , reply -> {...
 ```
-Remember to call beginTx and endTx
 
-Querying for similar POJOs in the DB (with or without additional criteria):
+记得调用 beginTx 和 endTx
+
+在数据库中查询类似的POJO（有或者没有其他条件）：
 
 ```java
 Criterion c = new Criterion(new Criteria().addField("id").setJSONB(false).setOperation("=").setValue("'"+entryId+"'"));
@@ -1584,7 +1496,7 @@ postgresClient.get(TABLE_NAME_POLINE, PoLine.class, c,
               reply -> {...
 ```
 
-The `Criteria` object which generates `where` clauses can also receive a JSON Schema so that it can cast values to the correct type within the `where` clause.
+生成 `where` 语句的 `Criteria` 对象也可以接收 JSON Schema，以便将值转换为 `where` 子句中的正确类型。
 
 ```java
 Criteria idCrit = new Criteria("ramls/schemas/userdata.json");
@@ -1592,7 +1504,7 @@ Criteria idCrit = new Criteria("ramls/schemas/userdata.json");
 
 ## RAMLs API
 
-The RAMLs API is a multiple interface which affords RMB modules to expose their RAML files in a machine readable way. To enable the interface the module must add the following to the provides array of its module descriptor:
+RAMLs API是一个多重接口，可让RMB模块以机器可读的方式暴露其RAML文件。要启用该接口，模块必须将以下内容添加到其module descriptor 的providers数组中：
 
 ```JSON
 {
@@ -1608,17 +1520,17 @@ The RAMLs API is a multiple interface which affords RMB modules to expose their 
 }
 ```
 
-The interface has a single GET endpoint with an optional query parameter path. Without the path query parameter the response will be an application/json array of the available RAMLs. This will be the immediate RAMLs the module provides. If the query parameter path is provided it will return the RAML at the path if exists. The RAML will have HTTP resolvable references. These references are either to JSON Schemas or RAMLs the module provides or shared JSON Schemas and RAMLs. The shared JSON Schemas and RAMLs are included in each module via a git submodule under the path `raml_util`. These paths are resolvable using the path query parameter.
+该接口具有单个GET端点，该端点具有可选的查询参数路径。如果没有路径查询参数，则响应将是可用RAML的 application/json 数组。这是模块可以立即提供的RAML。如果提供了查询参数路径，它将在该路径（如果存在）上返回RAML。RAML将具有HTTP可解析的引用。这些引用是模块提供的JSON Schemas 和RAMLs 或是共享的JSON Schemas 和RAMLs。共享的JSON Schemas 和RAMLs 通过 `raml_util` 路径下的git子模块包含在每个模块中。使用path查询参数可以解析这些路径。
 
-The RAML defining the API:
+定义API的RAML：
 
-https://github.com/folio-org/raml/blob/eda76de6db681076212e20c7f988c3913764b9b0/ramls/ramls.raml
+<https://github.com/folio-org/raml/blob/eda76de6db681076212e20c7f988c3913764b9b0/ramls/ramls.raml>
 
 ## JSON Schemas API
 
-The JSON Schemas API is a multiple interface which affords RMB modules to expose their JSON Schema files in a machine readable way. To enable the interface the module must add the following to the provides array of its module descriptor:
+JSON Schemas API是一个多重接口，可为RMB模块提供以机器可读的方式公开其JSON Schema 文件的功能。要启用该接口，模块必须将以下内容添加到其module descriptor 的providers数组中：
 
-```JSON
+```json
 {
   "id": "_jsonSchemas",
   "version": "1.0",
@@ -1632,31 +1544,27 @@ The JSON Schemas API is a multiple interface which affords RMB modules to expose
 }
 ```
 
-The interface has a single GET endpoint with an optional query parameter path.
-Without the path query parameter the response will be an "application/json" array of the available JSON Schemas. By default this will be JSON Schemas that are stored in the root of ramls directory of the module. Returned list of schemas can be customized in modules pom.xml file.
-Add schema_paths system property to "exec-maven-plugin" in pom.xml running the
-`<mainClass>org.folio.rest.tools.GenerateRunner</mainClass>`
-specify comma-separated list of directories that should be searched for schema files. To search directory recursively specify
-directory in the form of glob expression (e.g. "raml-util/**")
- For example:
-```
+该接口具有单个GET端点，该端点具有可选的查询参数路径。如果没有路径查询参数，则响应将是可用JSON Schema 的 application/json 数组。默认情况下，这将是存储在模块ramls目录中的JSON Schema 中。可以在模块pom.xml文件中自定义返回的模Schemas列表。添加schema_paths系统属性来在pom.xml中使用“ exec-maven-plugin”运行 `<mainClass>org.folio.rest.tools.GenerateRunner</mainClass>` 指定的逗号分隔目录列表，应在目录中搜索schema文件。要以递归方式搜索目录，请以glob表达式的形式指定目录（例如 "raml-util/**"）。
+例如：
+
+```xml
 <systemProperty>
   <key>schema_paths</key>
   <value>schemas/**,raml-util/**</value>
 </systemProperty>
 ```
-If the query parameter path is provided it will return the JSON Schema at the path if exists. The JSON Schema will have HTTP resolvable references. These references are either to JSON Schemas or RAMLs the module provides or shared JSON Schemas and RAMLs. The shared JSON Schemas and RAMLs are included in each module via a git submodule under the path `raml_util`. These paths are resolvable using the path query parameter.
 
-The RAML defining the API:
+如果提供了查询参数路径，它将在该路径（如果存在）上返回JSON Schema。JSON Schema将具有HTTP可解析的引用。这些引用是模块提供的JSON Schema或RAML或共享的JSON Schema和RAML。共享的JSON Schemas 和RAMLs 通过 `raml_util` 路径下的git子模块包含在每个模块中。使用path查询参数可以解析这些路径。
 
-https://github.com/folio-org/raml/blob/eda76de6db681076212e20c7f988c3913764b9b0/ramls/jsonSchemas.raml
+定义API的RAML：
+
+<https://github.com/folio-org/raml/blob/eda76de6db681076212e20c7f988c3913764b9b0/ramls/jsonSchemas.raml>
 
 ## 查询语法
 
-The RMB can receive parameters of different types. Modules can declare a query parameter and receive it as a string parameter in the generated API functions.
+RMB可以接收不同类型的参数。模块可以声明查询参数，并在生成的API函数中将其作为字符串参数接收。
 
-The RMB exposes an easy way to query, using [CQL (Contextual Query Language)](#cql-contextual-query-language).
-This enables a seamless integration from the query parameters to a prepared "where" clause to query with.
+RMB提供了使用[CQL (上下文查询语言)](#cql-上下文查询语言)进行查询的简便方法。这使得从查询参数到准备查询的 "where"子句无缝集成。
 
 ```java
 //create object on table.field
@@ -1668,13 +1576,13 @@ PostgresClient.getInstance(context.owner(), tenantId).get(CONFIG_COLLECTION, Con
           cql, true,
 ```
 
-The CQLWrapper can also get an offset and limit:
+CQLWrapper也可以使用offset 和 limit：
 
 ```java
 new CQLWrapper(cql2pgJson, query).setLimit(new Limit(limit)).setOffset(new Offset(offset));
 ```
 
-A CQL querying example:
+一个CQL查询示例：
 
 ```sh
 http://localhost:<port>/configurations/entries?query=scope.institution_id=aaa%20sortBy%20enabled
@@ -1682,128 +1590,128 @@ http://localhost:<port>/configurations/entries?query=scope.institution_id=aaa%20
 
 ## Metadata
 
-RMB is aware of the [metadata.schema](https://github.com/folio-org/raml/blob/raml1.0/schemas/metadata.schema). When a request (POST / PUT) comes into an RMB module, RMB will check if the passed-in JSON's schema declares a reference to the metadata schema. If so, RMB will populate the JSON with a metadata section with the current user and the current time. RMB will set both update and create values to the same date/time and to the same user, as accepting this information from the request may be unreliable. The module should persist the creation date and the created by values after the initial POST. For an example of this using SQL triggers see [metadata.ftl](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/resources/templates/db_scripts/metadata.ftl). Add [withMetadata to the schema.json](https://github.com/folio-org/raml-module-builder#the-post-tenant-api) to create that trigger.
+RMB关注[metadata.schema](https://github.com/folio-org/raml/blob/raml1.0/schemas/metadata.schema)。
+当请求（POST / PUT）进入RMB模块时，RMB将检查传入的JSON Schema 是否声明了对metadata schema 的引用。如果是这样，RMB将使用当前用户和当前时间用metadata部分填充JSON。RMB会将更新和创建值设置为相同的日期/时间和相同的用户，因为从请求中接受此信息可能不可靠。模块应在初始POST之后保持creation date 和create by 的值不变。有关使用SQL触发器的示例，请参见[metadata.ftl](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/main/resources/templates/db_scripts/metadata.ftl)。[将withMeatadata添加到schema.json](https://github.com/folio-org/raml-module-builder#the-post-tenant-api)来创建该触发器。
 
 ## Facet 支持
 
-RMB also allows easy faceting of result sets. The grouping / faceting is done in the database.
-To add faceting to your API.
-1. Add the [faceting RAML trait](https://github.com/folio-org/raml/blob/master/traits/facets.raml) to your RAML and reference it from the endpoint (using the is:[])
-    - facet query parameter format: `facets=a.b.c` or `facets=a.b.c:10` (they are repeating). For example `?facets=active&facets=personal.lastName`
-2. Add the [resultInfo.schema](https://github.com/folio-org/raml/blob/master/schemas/resultInfo.schema) to your RAML and reference it within your collection schemas.
-For example:
-```
- "type": "object",
-  "properties": {
-    "items": {
-      "id": "items",
-      "type": "array",
+RMB还可以轻松划分返回结果的集合。分组/切片在数据库中完成。
+为您的API添加切片需要以下步骤：
+
+1. 将[faceting RAML trait](https://github.com/folio-org/raml/blob/master/traits/facets.raml) 添加到您的RAML并从端点引用它 (使用 is:[])
+    - facet query 参数格式: `facets=a.b.c` or `facets=a.b.c:10` (they are repeating)。例如 `?facets=active&facets=personal.lastName`
+2. 将[resultInfo.schema](https://github.com/folio-org/raml/blob/master/schemas/resultInfo.schema)添加到您的RAML并从您的collection schemas 引用它。
+例如：
+
+    ```json
+    "type": "object",
+    "properties": {
       "items": {
+        "id": "items",
+        "type": "array",
+        "items": {
+          "type": "object",
+          "$ref" : "item.json"
+        }
+      },
+      "resultInfo": {
         "type": "object",
-        "$ref" : "item.json"
+        "$ref": "raml-util/schemas/resultInfo.schema"
       }
-    },
-    "resultInfo": {
-      "type": "object",
-      "$ref": "raml-util/schemas/resultInfo.schema"
     }
-```
-3. When building your module, an additional parameter will be added to the generated interfaces of the faceted endpoints. `List<String> facets`. You can simply convert this list into a List of Facet objects using the RMB tool as follows: `List<FacetField> facetList = FacetManager.convertFacetStrings2FacetFields(facets, "jsonb");` and pass the `facetList` returned to the `postgresClient`'s `get()` methods.
+    ```
 
-You can set the amount of results to facet on by calling (defaults to 10,000) `FacetManager.setCalculateOnFirst(20000);`
-Note that higher numbers will potentially affect performance.
+3. 构建模块时，会将附加参数添加到切片端点生成的接口中。`List<String> facets`。您可以使用RMB工具简单地将此列表转换为Facet对象列表，`List<FacetField> facetList = FacetManager.convertFacetStrings2FacetFields(facets, "jsonb");`，并将返回的facetList传递给 `postgresClient` 的 `get()` 方法。您可以调用 `FacetManager.setCalculateOnFirst(20000);` 来自定义切片大小（默认为10000）。注意更大的数字可能会影响性能。
 
-4. Faceting on array fields can be done in the following manner:
+4. 可以通过以下方式对数组字段进行切片：
 `personal.secondaryAddress[].postalCode`
 `personal.secondaryAddress[].address[].postalCode`
 
-NOTE: Creating an index on potential facet fields may be required so that performance is not greatly hindered
+注意：可能需要在潜在的切片字段上创建索引来避免严重的性能问题。
 
 ## JSON Schema 字段
 
-It is possible to indicate that a field in the JSON is a readonly field when declaring the schema. `"readonly": true`. From example:
-```
-    "resultInfo": {
-      "$ref": "raml-util/schemas/resultInfo.schema",
-      "readonly" : true
-    }
-```
-A `readonly` field is not allowed to be passed in as part of the request. A request that contains data for a field that was declared as `readonly` will have its read-only fields removed from the passed in data by RMB (the data will be passed into the implementing functions without the read-only fields)
+可以通过在schema中声明 `"readonly": true` 来指定JSON中的一个字段为只读字段。例如：
 
-This is part of a framework exposed by RMB which allows creating a field and associating a validation constraint on that field.
-
-To add a custom field, add a system property (in the configuration) to the plugin definition (in the pom.xml) running the `<mainClass>org.folio.rest.tools.GenerateRunner</mainClass>`
-
-for example:
+```json
+"resultInfo": {
+  "$ref": "raml-util/schemas/resultInfo.schema",
+  "readonly" : true
+}
 ```
+
+一个 `readonly` 字段中不允许作为请求的一部分被传递。包含有声明为 `readonly` 的字段数据的请求在传入RMB的时候RMB会删除其只读字段（该数据将被传递到不具有只读字段的实现函数中）。
+
+这是RMB暴露的一个框架的一部分，该框架允许创建一个字段并对该字段关联验证约束。
+
+如果需要添加一个自定义字段，请在插件定义处(pom.xml中)增加一个系统属性(在配置中) `<mainClass>org.folio.rest.tools.GenerateRunner</mainClass>`。
+
+例如：
+
+```xml
 <systemProperty>
-    <key>jsonschema.customfield</key>
-    <value>{"fieldname" : "readonly" , "fieldvalue": true , "annotation" : "javax.validation.constraints.Null"}</value>
+  <key>jsonschema.customfield</key>
+  <value>{"fieldname" : "readonly" , "fieldvalue": true , "annotation" : "javax.validation.constraints.Null"}</value>
 </systemProperty>
 ```
 
-the `jsonschema.customfield` key can contain multiple JSON values (delimited by a `;`). Each JSON indicates a field name + a field value to match against - and a validation annotation to apply. So, getting back to the readonly field, the example above indicates that a field in the JSON schema that has been tagged with the `readonly` field can not contain data when passed in as part of the request.
-A list of available annotations:
-https://docs.oracle.com/javaee/7/api/javax/validation/constraints/package-summary.html
+`jsonschema.customfield` 键可以包含多个JSON值(由 `;` 分开)。每个JSON表示一个字段名称+一个要匹配的字段值-以及要应用的验证注解。因此，回到只读字段，上面的示例表明，在JSON模式中已被该readonly字段标记的字段在作为请求的一部分传入时不能包含数据。可用的注解列表：
+<https://docs.oracle.com/javaee/7/api/javax/validation/constraints/package-summary.html>
 
-To customize generation of java classes, add a system property to plugin definition running `<mainClass>org.folio.rest.tools.GenerateRunner</mainClass>`.
-Properties that start with `jsonschema2pojo.config` will be passed to underlying library that generates java classes.
-Incomplete list of available properties:
+要自定义Java类的生成，请在插件定义中添加主入口的系统属性 `<mainClass>org.folio.rest.tools.GenerateRunner</mainClass>`。以 `jsonschema2pojo.config` 开头的属性将传递给生成Java类的基础库。不完整的可用属性列表：
+
 - jsonschema2pojo.config.includeHashcodeAndEquals - adds hashCode and equals methods
 - jsonschema2pojo.config.includeToString - adds toString method
 - jsonschema2pojo.config.serializable - makes classes serializable
 
-For more available properties see:
- https://joelittlejohn.github.io/jsonschema2pojo/site/1.0.0/generate-mojo.html
- https://github.com/mulesoft-labs/raml-for-jax-rs/blob/master/raml-to-jaxrs/jaxrs-code-generator/src/main/java/org/raml/jaxrs/generator/RamlToJaxRSGenerationConfig.java
+有关更多的可用属性，详见：
+ <https://joelittlejohn.github.io/jsonschema2pojo/site/1.0.0/generate-mojo.html>
+ <https://github.com/mulesoft-labs/raml-for-jax-rs/blob/master/raml-to-jaxrs/jaxrs-code-generator/src/main/java/org/raml/jaxrs/generator/RamlToJaxRSGenerationConfig.java>
 
-## 覆盖 RAML (traits) / 查询参数
+## 覆盖 RAML (特征) / 查询参数
 
-A module may require slight changes to existing RAML traits.
-For example, a `limit` trait may be defined in the following manner:
- ```
-        limit:
-          description: Limit the number of elements returned in the response
-          type: integer
-          required: false
-          example: 10
-          default: 10
-          minimum: 1
-          maximum: 2147483647
+模块可能需要对现有的RAML特性进行些微调。
+例如： `limit` 特征可以用下面的方式定义：
+
+ ``` raml
+    limit:
+      description: Limit the number of elements returned in the response
+      type: integer
+      required: false
+      example: 10
+      default: 10
+      minimum: 1
+      maximum: 2147483647
 ```
-However, a module may not want to allow such a high maximum as this may cause a crash.
-A module can create a `raml_overrides.json` file and place it in the `/resources/overrides/` directory.
 
-The file is defined in the schema:
+但是，模块可能不希望允许这么高的最大值，因为这可能会导致崩溃。模块可以创建 `raml_overrides.json` 文件并将其放置在 `/resources/overrides/` 目录中。
+
+该文件在schema中定义：
 `domain-models-interface-extensions/src/main/resources/overrides/raml_overrides.schema`
 
-Note that `DEFAULTVALUE` only allows string values. `SIZE` requires a range ex. `"15, 20"`. `REQUIRED` does not accept a `"value"`, meaning an optional parameter can become required but not vice versa.
+请注意，`DEFAULTVALUE` 仅允许使用字符串值。`SIZE` 需要范围，例如 `"15, 20"` 。 `REQUIRED` 不接受 `"value"` ，表示是否必需。
 
-example:
+示例：
 `domain-models-interface-extensions/src/main/resources/overrides/raml_overrides.json`
 
 ## Drools 集成
 
-The RMB framework automatically scans the `/resources/rules` path in an implemented project for
-`*.drl` files. A directory can also be passed via the command line `drools_dir`. The rule files are loaded and are applied automatically to all objects passed in the body (post,
-put) by the runtime framework. This works in the following manner:
- - A POST / PUT request comes in with a body
- - The body for the request is mapped to a generated POJO
- - The POJO is inserted into the RMB's Drools session
- - All rules are run against the POJO
+RMB框架自动扫描 `/resources/rules` 已实现项目中的 `/resources/rules` 路径来查找 `*.drl` 文件。也可以通过命令行命令 `drools_dir` 手动传递路径。Runtime 框架会自动加载应用这些规则文件到所有的对象(post, put)。它以以下方式工作：
 
-This allows for more complex validation of objects.
+- Body中带有 POST / PUT 请求
+- 请求的body映射到生成的POJO
+- POJO插入RMB的Drools会话中
+- 所有规则都针对POJO运行
 
-- For example, two specific fields can logically be null, but not at the
-  same time. That can easily be implemented with a Drool, as those types of
-  validations are harder to create in a RAML file.
+这允许对对象进行更复杂的验证。
 
-- The `rules` project also exposes the drools session and allows validation
-  within the implemented APIs. See the `tests` in the `rules` project.
+- 例如，两个特定字段在逻辑上可以为null，但不能同时为null。使用Drool可以轻松实现这一点，但很难在RAML文件中创建这些类型的验证。
 
-For example: (Sample.drl)
+-该 `rules` 项目还公开了Drools会话，并允许在已实现的API中进行验证。详见 `rules` 项目的 `tests` 。
 
-```
+例如： (Sample.drl)
+
+```drools
 package com.sample
 
 import org.folio.rest.jaxrs.model.Patron;
@@ -1819,8 +1727,7 @@ rule "Patron needs one ID at the least"
 end
 ```
 
-It is also possible to create a Drools session in your code, and load rules into the session in a more dynamic way.
-For example:
+也可以在代码中创建Drools会话，并以更动态的方式将规则加载到该会话中。例如：
 
 ```java
 import org.folio.rulez.Rules;
@@ -1835,7 +1742,7 @@ ksession.fireAllRules();
 Assert.assertEquals("THIS IS A TEST", message.getMessage());
 ```
 
-An additional option to use the Drools framework in the RMB is to load rules dynamically. For example, a module may decide to store Drool `.drl` files in a database. This enables a module to allow admin users to update rules in the database and then load them into the RMB validation mechanism for use at runtime.
+在RMB中使用Drools框架的另一个选择是动态加载规则。例如，模块可以决定将Drool `.drl` 文件存储在数据库中。这使模块可以允许管理员用户更新数据库中的规则，然后将其加载到RMB验证机制中以在运行时使用。
 
 ```java
       Rules rules = new Rules(List<String> rulesLoaded);
@@ -1843,19 +1750,17 @@ An additional option to use the Drools framework in the RMB is to load rules dyn
       RestVerticle.updateDroolsSession(ksession);
 ```
 
-## Messages
+## 消息
 
-The runtime framework comes with a set of messages it prints out to the logs /
-sends back as error responses to incorrect API calls. These messages are
-language-specific. In order to add your own message files, place the files in
-your project under the `/resources/messages` directory.
+Runtime框架附带了一组消息，这些消息会打印到日志中/作为对错误API调用的错误响应发送回。这些消息是特定于语言的。为了添加您自己的消息文件，请将文件放在项目中的 `/resources/messages` 目录下。
 
-Note that the format of the file names should be either:
-- `[name]_[lang_2_letters].properties` (e.g.: `APIMessages_de.properties`)
-- `[lang_2_letters]_messages.prop` (e.g.: `en_messages.prop`)
+请注意，文件名的格式应为以下两种之一：
 
-For example:
-In the circulation project, the messages file can be found at `/circulation/src/main/resources/en_messages.prop` with the following content:
+- `[name]_[lang_2_letters].properties` (例如: `APIMessages_de.properties`)
+- `[lang_2_letters]_messages.prop` (例如: `en_messages.prop`)
+
+示例：
+在流通模块中，可以在 `/circulation/src/main/resources/en_messages.prop` 位置下找到消息文件：
 
 ```sh
 20002=Operation can not be calculated on a Null Amount
@@ -1864,7 +1769,7 @@ In the circulation project, the messages file can be found at `/circulation/src/
 20005=Loan period must be greater than 1, period entered: {0}
 ```
 
-The circulation project exposes these messages as enums for easier usage in the code:
+流通模块将这些消息暴露为枚举，以便在代码中更轻松地使用：
 
 ```java
 package org.folio.utils;
@@ -1888,67 +1793,61 @@ public enum CircMessageConsts implements MessageEnum {
 }
 ```
 
-Usage:
+用法:
 
 `private final Messages messages = Messages.getInstance();`
 
 `messages.getMessage(lang, CircMessageConsts.OperationOnNullAmount);`
 
-Note: parameters can also be passed when relevant. The raml-module-builder runtime also exposes generic error message enums which can be found at `/domain-models-runtime/src/main/java/org/folio/rest/tools/messages/MessageConsts.java`
+注意：相关参数也可以传递。raml-module-builder运行时还公开了通用错误消息枚举，可以在 `/domain-models-runtime/src/main/java/org/folio/rest/tools/messages/MessageConsts.java` 找到。
 
 ## API 文档
 
-The runtime framework includes a web application which exposes RAMLs in a
-view-friendly HTML format.
-This uses [api-console](https://github.com/mulesoft/api-console)
-(Powered by [MuleSoft](http://www.MuleSoft.org) for RAML
+Runtime框架包括一个Web应用程序，该Web应用程序以易于查看的HTML格式公开RAML。这使用[api-console](https://github.com/mulesoft/api-console) (Powered by [MuleSoft](http://www.MuleSoft.org) for RAML
 Copyright (c) 2013 MuleSoft, Inc.)
 
-The `maven-resources-plugin` plugin described earlier
-copies the RAML files into the correct directory in your project, so that the
-runtime framework can access it and show local API documentation.
+前面描述的 `maven-resources-plugin` 插件将RAML文件复制到项目中的正确目录中，以便Runtime框架可以访问它并显示本地API文档。
 
-So for example, when running the [sample working module](#get-started-with-a-sample-working-module)
-then its API documentation is at:
+举个例子，当运行 [sample working module](#开始使用示例工作模块)时，其API文档位于：
 
-```
+```url
 http://localhost:8081/apidocs/index.html?raml=raml/configuration/config.raml
 ```
 
-If instead your [new module](#creating-a-new-module) is running on the default port,
-then its API documentation is at:
+相反，如果您的 [新模块](#创建一个新模块) 在默认端口上运行，则其API文档位于：
 
-```
+```url
 http://localhost:8081/apidocs/index.html?raml=raml/my-project.raml
 ```
-and remember to specify the "X-Okapi-Tenant: diku" header.
 
-The RMB also automatically provides other documentation, such as the "Admin API":
+并记住声明 "X-Okapi-Tenant：diku" header。
 
-```
+RMB还自动提供其他文档，例如 "Admin API":
+
+```url
 http://localhost:8081/apidocs/index.html?raml=raml/admin.raml
 ```
 
-All current API documentation is also available at [dev.folio.org/doc/api](https://dev.folio.org/reference/api/)
+所有当前的API文档也可在[dev.folio.org/doc/api](https://dev.folio.org/reference/api/)找到。
 
 ## 日志
 
-RMB uses the Log4J logging library. Logs that are generated by RMB will print all log entries in the following format:
-`%d{dd MMM yyyy HH:mm:ss:SSS} %-5p %C{1} %X{reqId} %m%n`
+RMB使用Log4J日志记录库。RMB生成的日志将以以下格式打印所有日志条目：
+ `%d{dd MMM yyyy HH:mm:ss:SSS} %-5p %C{1} %X{reqId} %m%n`
 
-A module that wants to generate log4J logs in a different format can create a log4j.properties file in the /resources directory.
+想要以不同格式生成log4J日志的模块可以在 `/resources` 目录中创建 `log4j.properties` 文件。
 
-The log levels can also be changed via the `/admin` API provided by the framework. For example:
+日志级别也可以通过框架提供的 `/admin` API进行更改。例如：
 
-Get log level of all classes:
+- 获取所有类的日志级别：
 
-(GET) `http://localhost:8081/admin/loglevel`
+  (GET) `http://localhost:8081/admin/loglevel`
 
-Change log level of all classes to FINE:
+- 将所有类的日志级别更改为FINE：
 
-(PUT) `http://localhost:8081/admin/loglevel?level=FINE`
+  (PUT) `http://localhost:8081/admin/loglevel?level=FINE`
 
-A `java_package` parameter can also be passed to change the log level of a specific package. For example:
+`java_package`参数也可以通过更改特定包的日志级别。例如：
 
  `http://localhost:8081/admin/loglevel?level=INFO&java_package=org.folio.rest.persist.PostgresClient`
 
@@ -1956,29 +1855,29 @@ A `java_package` parameter can also be passed to change the log level of a speci
 
 ## 监控
 
-The runtime framework via the `/admin` API exposes (as previously mentioned) some APIs to help monitor the service (setting log levels, DB information).
-Some are listed below (and see the [full set](#documentation-of-the-apis)):
+Runtime框架通过 `/admin` API（如之前所述）暴露了一些APIs来帮助监控服务（设置日志级别，数据库信息）。下面列出了一些（查看[完整的API文档](#api-文档)）
 
- - `/admin/jstack` -- Stack traces of all threads in the JVM to help find slower and bottleneck methods.
- - `/admin/memory` -- A jstat type of reply indicating memory usage within the JVM on a per pool basis (survivor, old gen, new gen, metadata, etc.) with usage percentages.
- - `/admin/slow_queries` -- Queries taking longer than X seconds.
- - `/admin/cache_hit_rates` -- Cache hit rates in Postgres.
- - `/admin/table_index_usage` -- Index usage per table.
- - `/admin/postgres_table_size` -- Disk space used per table.
- - `/admin/postgres_table_access_stats` -- Information about how tables are being accessed.
- - `/admin/postgres_load` -- Load information in Postgres.
- - `/admin/postgres_active_sessions` -- Active sessions in Postgres.
- - `/admin/health` -- Returns status code 200 as long as service is up.
- - `/admin/module_stats` -- Summary statistics (count, sum, min, max, average) of all select / update / delete / insert DB queries in the last 2 minutes.
+- `/admin/jstack` -- 栈JVM中所有线程的跟踪信息，以帮助找到较慢和遇到瓶颈的方法。
+- `/admin/memory` -- 一种jstat回复类型，指示每个池中JVM内的内存使用情况（幸存者，旧版本，新版本，元数据等）以及使用百分比。
+- `/admin/slow_queries` -- 查询时间超过X秒。
+- `/admin/cache_hit_rates` -- Postgres中的缓存命中率。
+- `/admin/table_index_usage` -- 每个表的索引使用情况。
+- `/admin/postgres_table_size` -- 每个表使用的磁盘空间。
+- `/admin/postgres_table_access_stats` -- 有关如何访问表的信息。
+- `/admin/postgres_load` -- 在Postgres中加载信息。
+- `/admin/postgres_active_sessions` -- Postgres中的活动会话。
+- `/admin/health` -- 只要服务启动，就会返回状态码200。
+- `/admin/module_stats` -- 最近2分钟内所有select/update/delete/insert数据库查询的摘要统计信息（count, sum, min, max, average）。
 
 ## 覆写开箱即用的RMB API
-It is possible to over ride APIs that the RMB provides with custom implementations.
-For example:
-To override the `/health` API to return a relevant business logic health check for a specific module do the following:
 
-1. `extend` the AdminAPI class that comes with the RMB framework - `public class CustomHealthCheck extends AdminAPI` and over ride the `getAdminHealth` function. The RMB will route the URL endpoint associated with the function to the custom module's implementation.
+可以用自定义实现覆写RMB提供的API。
+例如：
+要覆盖 `/health` API以返回特定模块的相关业务逻辑运行状况检查，请执行以下操作：
 
-Example:
+1. `extend` RMB框架的AdminAPI类 - `public class CustomHealthCheck extends AdminAPI` 然后覆写 `getAdminHealth` 方法。RMB会将相关的URL端点路由到模块的自定义实现。
+
+例如：
 
 ```java
 public class CustomHealthCheck extends AdminAPI {
@@ -2011,46 +1910,46 @@ public class CustomHealthCheck extends AdminAPI {
 
 ## 客户端生成器
 
-The framework can generate a Client class for every RAML file with a function for every API endpoint in the RAML.
+该框架可以为每个RAML文件生成一个Client类，并为RAML中的每个API端点提供一个函数。
 
-To generate a client API from your RAML add the following plugin to your pom.xml
+要从您的RAML生成客户端API，请将以下插件添加到pom.xml中。
 
 ```xml
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.5.0</version>
-        <executions>
-          <execution>
-            <id>generate_client</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>java</goal>
-            </goals>
-            <configuration>
-              <mainClass>org.folio.rest.tools.ClientGenerator</mainClass>
-              <cleanupDaemonThreads>false</cleanupDaemonThreads>
-              <systemProperties>
-                <systemProperty>
-                  <key>client.generate</key>
-                  <value>true</value>
-                </systemProperty>
-                <systemProperty>
-                  <key>project.basedir</key>
-                  <value>${basedir}</value>
-                </systemProperty>
-                <systemProperty>
-                  <key>json.type</key>
-                  <value>postgres</value>
-                </systemProperty>
-              </systemProperties>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>exec-maven-plugin</artifactId>
+  <version>1.5.0</version>
+  <executions>
+    <execution>
+      <id>generate_client</id>
+      <phase>process-classes</phase>
+      <goals>
+        <goal>java</goal>
+      </goals>
+      <configuration>
+        <mainClass>org.folio.rest.tools.ClientGenerator</mainClass>
+        <cleanupDaemonThreads>false</cleanupDaemonThreads>
+        <systemProperties>
+          <systemProperty>
+            <key>client.generate</key>
+            <value>true</value>
+          </systemProperty>
+          <systemProperty>
+            <key>project.basedir</key>
+            <value>${basedir}</value>
+          </systemProperty>
+          <systemProperty>
+            <key>json.type</key>
+            <value>postgres</value>
+          </systemProperty>
+        </systemProperties>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
 ```
 
-For the monitoring APIs exposed by the runtime framework, changing the log level via the client would look like this:
+对于Runtime框架公开的监视API，通过客户端更改日志级别，如下所示：
 
 ```java
     AdminClient aClient = new AdminClient("http://localhost:" + 8083, "myuniversityId", "sometoken");
@@ -2059,7 +1958,7 @@ For the monitoring APIs exposed by the runtime framework, changing the log level
     });
 ```
 
-Requesting a stack trace would look like this:
+请求堆栈跟踪如下所示：
 
 ```java
     AdminClient aClient = new AdminClient("http://localhost:" + 8083, "myuniversityId", "sometoken");
@@ -2072,75 +1971,71 @@ Requesting a stack trace would look like this:
 
 ## 通过HTTP查询多个模块
 
-The RMB has some tools available to help:
- - Make HTTP requests to other modules
- - Parse JSON responses received (as well as any JSON for that matter)
- - Merge together / Join JSON responses from multiple modules
- - Build simple CQL query strings based on values in a JSON
+RMB有一些工具可以帮助您：
 
-#### HTTP Requests
+- 向其他模块发出HTTP请求
+- 解析收到的JSON响应（以及与此相关的任何JSON）
+- 合并/加入来自多个模块的JSON响应
+- 根据JSON中的值构建简单的CQL查询字符串
 
-The `HttpModuleClient2` class exposes a basic HTTP Client.
-The full constructor takes the following parameters
- - host
- - port
- - tenantId
- - keepAlive - of connections (default: true)
- - connTO - connection timeout (default: 2 seconds)
- - idleTO - idle timeout (default: 5 seconds)
- - autoCloseConnections - close connection when request completes (default: true)
- - cacheTO - cache of endpoint results timeout (in minutes, default: 30)
+#### HTTP 请求
 
+`HttpModuleClient2` 类暴露了一个基本的HTTP客户端。完整的构造函数采用以下参数：
+
+- host
+- port
+- tenantId
+- keepAlive - 连接数（默认值：true）
+- connTO - 连接超时（默认值：2秒）
+- idleTO - 空闲超时（默认值：5秒）
+- autoCloseConnections - 请求完成时关闭连接（默认值：true）
+- cacheTO - 端点结果超时缓存（以分钟为单位，默认值：30）
+
+```java
+HttpModuleClient hc = new HttpModuleClient("localhost", 8083, "myuniversity_new2", false);
+Response response = hc.request("/groups");
 ```
-    HttpModuleClient hc = new HttpModuleClient("localhost", 8083, "myuniversity_new2", false);
-    Response response = hc.request("/groups");
-```
 
-It is recommended to use the `HttpClientFactory` to get an instance of the `HttpModuleClient2`.
-The factory will then return either the actual `HttpModuleClient2` class or an instance of the `HttpClientMock2`. To return an instance of the mock client, set the mock mode flag in the vertx config. One way to do this:
-`new DeploymentOptions().setConfig(new JsonObject().put(HttpClientMock2.MOCK_MODE, "true"));`
-See [mock_content.json](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/test/resources/mock_content.json) for an example of how to associate a url with mocked data and headers
+建议使用 `HttpClientFactory` 来获取 `HttpModuleClient2` 的实例。然后，工厂将返回的实际 `HttpModuleClient2` 类或 `HttpClientMock2` 实例。要返回模拟客户端的实例，请在vertx配置中设置模拟模式标志。一种执行此方法的方法： `new DeploymentOptions().setConfig(new JsonObject().put(HttpClientMock2.MOCK_MODE, "true"));` 有关如何将url与模拟的数据和标头关联的示例，请参见[mock_content.json](https://github.com/folio-org/raml-module-builder/blob/master/domain-models-runtime/src/test/resources/mock_content.json)
 
-The client returns a `Response` object. The `Response` class has the following members:
-  - endpoint - url the response came from
-  - code - http returned status code for request
-  - (JsonObject) body - the response data
-  - (JsonObject) error -  in case of an error - The `error` member will be populated. The
-  error object will contain the `endpoint`, the `statusCode`, and the `errorMessage`
-  - (Throwable) exception - if an exception was thrown during the API call
+客户端返回一个 `Response` 对象。 `Response` 类具有以下成员：
 
+- endpoint - 响应来自的url
+- code - HTTP请求返回的状态码
+- (JsonObject) body - 响应数据
+- (JsonObject) error - 错误 - 如果发生错误- `error` 将填充该成员。Error对象将包含 `endpoint` 、 `statusCode` 和 `errorMessage` 。
+- (Throwable) exception - 如果在API调用期间抛出了异常
 
-The `HttpModuleClient2 request` function can receive the following parameters:
- - `HttpMethod` - (default: GET)
- - `endpoint` - API endpoint
- - `headers` - Default headers are passed in if this is not populated: Content-type=application/json, Accept: plain/test
- - `RollBackURL` - NOT SUPPORTED - URL to call if the request is unsuccessful [a non 2xx code is returned]. Note that if the Rollback URL call is unsuccessful, the response error object will contain the following three entries with more info about the error (`rbEndpoint`, `rbStatusCode`, `rbErrorMessage`)
- - `cachable` - Whether to cache the response
- - `BuildCQL` object - This allows you to build a simple CQL query string from content within a JSON object. For example:
-`
-Response userResponse =
-hc.request("/users", new BuildCQL(groupsResponse, "usergroups[*].id", "patron_group"));
-`
-This will create a query string with all values from the JSON found in the path `usergroups[*].id` and will generate a CQL query string which will look something like this:
-`?query=patron_group==12345+or+patron+group==54321+or+patron_group==09876...`
-See `BuildCQL` for configuration options.
+`HttpModuleClient2 request` 函数可以接收以下参数：
 
-The `Response` class also exposes a joinOn function that allow you to join / merge the received JSON objects from multiple requests.
+- `HttpMethod` - (默认: GET)
+- `endpoint` - API 端点
+- `headers` - 如果未填充默认header，则将其传入：Content-type = application/json，接受：plain/text
+- `RollBackURL` - 不支持 - 请求失败（返回非2xx代码）时要调用的URL。请注意，如果回滚URL调用不成功，响应错误的对象将包含更多的错误信息( `rbEndpoint` , `rbStatusCode` ,  `rbErrorMessage` )。
+- `cachable` - 是否缓存响应
+- `BuildCQL` 对象 - 这使您可以根据JSON对象中的内容构建简单的CQL查询字符串。例如：
 
-`public Response joinOn(String withField, Response response, String onField, String insertField,
-      String intoField, boolean allowNulls)`
+  ```java
+  Response userResponse =
+  hc.request("/users", new BuildCQL(groupsResponse, "usergroups[*].id", "patron_group"));
+  ```
 
+  这将创建一个查询字符串，其中包含路径中找到的JSON中的所有值 `usergroups[*].id` ，并将生成一个CQL查询字符串，其外观如下所示： `?query=patron_group==12345+or+patron+group==54321+or+patron_group==09876...` 请参阅 `BuildCQL` 以获取配置选项。
 
-The Join occurs with the response initiating the joinOn call:
+`Response` 类也暴露了一个joinOn功能，使您可以加入/合并接收到的JSON从多个请求的对象。
 
- - `withField` - the field within the response whose value / values will be used to join
- - `response` - the response to join this response with
- - `onField` - the field in the passed in response whose value / values will be used to join
- - `insertField` - the field in the passed in `response` to push into the current response (defaults to the `onField` value if this is not passed in)
- - `intoField` - the field to populate within this response
- - `allowNulls` - whether to populate with `null` if the field requested to push into the current response is `null` - if set to false - then the field will not be populated with a null value.
+`public Response joinOn(String withField, Response response, String onField, String insertField, String intoField, boolean allowNulls)`
 
-Example:
+Join的响应是启动joinOn调用的：
+
+- `withField` - 响应中其值将用于联接的字段
+- `response` - 加入此`response`的`response`
+- `onField` - 传入响应中的字段，其值将用于连接
+- `insertField` - 传入`response`以推送到当前响应的字段（`onField`如果未传入，则默认为该值）
+- `intoField` - 在此响应中填充的字段
+- `allowNulls` - 是否填充`null`。请求推送到当前响应中的字段是否为 `null` - 如果设置为false - 则该字段不会填充为null。
+
+例如：
 
 join:
 
@@ -2156,143 +2051,148 @@ returns:
 with the following call:
 `response1.joinOn("a", response2, "arr2[*].id", "a31", "b", false)`
 
-Explanation:
-Join response1 on field "a" with response2 on field "arr2[*].id" (this means all IDs in the arr2 array. If a match is found take the value found in field "a31" and place it in field "b".
+说明：
+将字段"a"上的response1与字段"arr2[\*].id"上的response2连接起来（这意味着arr2数组中的所有ID。如果找到匹配项，则将在字段"a31"中找到的值放在字段中由于在这种情况下，单个条目（response1）与response2中的多个条目匹配-创建并填充数组。如果这是一对一匹配，则仅单个值（无论是JSON对象还是JSON）数组，任何值）将被插入。
+Join response1 on field "a" with response2 on field "arr2[\*].id" (this means all IDs in the arr2 array. If a match is found take the value found in field "a31" and place it in field "b".
 Since in this case a single entry (response1) matches multiple entries from response2 - an array is created and populated. If this was a one-to-one match, then only the single value (whether a JSON object, JSON array, any value) would have been inserted.
 
-#### Parsing
+#### 解析
 
-The RMB exposes a simple JSON parser for the vert.x JSONObject. The parser allows getting and setting nested JSON values. The parser allows retrieving values / nested values in a simpler manner.
-For example:
+RMB公开了一个用于vert.x JSONObject的简单JSON解析器。解析器允许获取和设置嵌套的JSON值。解析器允许以更简单的方式检索值/嵌套值。例如：
 
-`a.b` -- Get value of field 'b' which is nested within a JSONObject called 'a'
+`a.b` -- 获取嵌套在名为'a'的JSONObject中的字段'b'的值
 
-`a.c[1].d` -- Get 'd' which appears in array 'c[1]'
+`a.c[1].d` -- 获取出现在数组'c [1]'中的'd'
 
-`a.'bb.cc'` -- Get field called 'bb.cc' (use '' when '.' in name)
+`a.'bb.cc'` -- 获取名为'bb.cc'的字段（名称中使用'.'时使用''）
 
-`a.c[*].a2` -- Get all 'a2' values as a List for each entry in the 'c' array
+`a.c[*].a2` -- 获取所有'a2'值作为'c'数组中每个条目的列表
 
-
-See the `JsonPathParser` class for more info.
-
+更多信息请参见 `JsonPathParser` 类。
 
 #### An example HTTP request
 
-    //create a client
-    HttpClientInterface client = HttpClientFactory.getHttpClient(okapiURL, tenant);
-    //make a request
-    CompletableFuture<Response> response1 = client.request(url, okapiHeaders);
-    //chain a request to the previous request, the placeholder {users[0].username}
-    //means that the value appearing in the first user[0]'s username in the json returned
-    //in response1 will be injected here
-    //the handlePreviousResponse() is a function you code and will receive the response
-    //object (containing headers / body / etc,,,) of response1 so that you can decide what to do
-    //before the chainedRequest is issued - see example below
-    //the chained request will not be sent if the previous response (response1) has completed with
-    //an error
-    response1.thenCompose(client.chainedRequest("/authn/credentials/{users[0].username}",
-        okapiHeaders, null, handlePreviousResponse());
+```java
+//create a client
+HttpClientInterface client = HttpClientFactory.getHttpClient(okapiURL, tenant);
+//make a request
+CompletableFuture<Response> response1 = client.request(url, okapiHeaders);
+//chain a request to the previous request, the placeholder {users[0].username}
+//means that the value appearing in the first user[0]'s username in the json returned
+//in response1 will be injected here
+//the handlePreviousResponse() is a function you code and will receive the response
+//object (containing headers / body / etc,,,) of response1 so that you can decide what to do
+//before the chainedRequest is issued - see example below
+//the chained request will not be sent if the previous response (response1) has completed with
+//an error
+response1.thenCompose(client.chainedRequest("/authn/credentials/{users[0].username}",
+    okapiHeaders, null, handlePreviousResponse());
 
-        Consumer<Response> handlePreviousResponse(){
-            return (response) -> {
-                int statusCode = response.getCode();
-                boolean ok = Response.isSuccess(statusCode);
-                //if not ok, return error
-            };
-        }
+    Consumer<Response> handlePreviousResponse(){
+        return (response) -> {
+            int statusCode = response.getCode();
+            boolean ok = Response.isSuccess(statusCode);
+            //if not ok, return error
+        };
+    }
 
-    //if you send multiple chained Requests based on response1 you can use the
-    //CompletableFuture.allOf() to wait till they are all complete
-    //or you can chain one request to another in a pipeline manner as well
+//if you send multiple chained Requests based on response1 you can use the
+//CompletableFuture.allOf() to wait till they are all complete
+//or you can chain one request to another in a pipeline manner as well
 
-    //you can also generate a cql query param as part of the chained request based on the
-    //response of the previous response. the below will create a username=<value> cql clause for
-    //every value appearing in the response1 json's users array -> username
-    response1.thenCompose(client.chainedRequest("/authn/credentials", okapiHeaders, new BuildCQL(null, "users[*].username", "username")),...
+//you can also generate a cql query param as part of the chained request based on the
+//response of the previous response. the below will create a username=<value> cql clause for
+//every value appearing in the response1 json's users array -> username
+response1.thenCompose(client.chainedRequest("/authn/credentials", okapiHeaders, new BuildCQL(null, "users[*].username", "username")),...
 
-    //join the values within 2 responses - injecting the value from a field in one json into the field of another json when a constraint between the two jsons exists (like field a from json 1 equals field c from json 2)
-    //compare all users->patron_groups in response1 to all usergroups->id in groupResponse, when there is a match, push the group field in the specific entry of groupResonse into the patron_group field in the specific entry in the response1 json
-    response1.joinOn("users[*].patron_group", groupResponse, "usergroups[*].id", "group", "patron_group", false);
-    //close the http client
-    hClient.closeClient();
+//join the values within 2 responses - injecting the value from a field in one json into the field of another json when a constraint between the two jsons exists (like field a from json 1 equals field c from json 2)
+//compare all users->patron_groups in response1 to all usergroups->id in groupResponse, when there is a match, push the group field in the specific entry of groupResonse into the patron_group field in the specific entry in the response1 json
+response1.joinOn("users[*].patron_group", groupResponse, "usergroups[*].id", "group", "patron_group", false);
+//close the http client
+hClient.closeClient();
+```
 
 ## 有关校验的一些补充
 
-Query parameters and header validation
-![](images/validation.png)
+查询参数和header验证
+![](https://github.com/folio-org/raml-module-builder/raw/master/images/validation.png)
 
-#### Object validations
+#### 对象校验
 
-![](images/object_validation.png)
+![](https://github.com/folio-org/raml-module-builder/raw/master/images/object_validation.png)
 
-#### function example
+#### 方法示例
+
 ```java
-  @Validate
-  @Override
-  public void getConfigurationsEntries(String query, int offset, int limit,
-      String lang,java.util.Map<String, String>okapiHeaders,
-      Handler<AsyncResult<Response>> asyncResultHandler, Context context) throws Exception {
+@Validate
+@Override
+public void getConfigurationsEntries(String query, int offset, int limit,
+    String lang,java.util.Map<String, String>okapiHeaders,
+    Handler<AsyncResult<Response>> asyncResultHandler, Context context) throws Exception {
 
-    CQLWrapper cql = getCQL(query,limit, offset);
-    /**
-    * http://host:port/configurations/entries
-    */
-    context.runOnContext(v -> {
-      try {
-        System.out.println("sending... getConfigurationsTables");
-        String tenantId = TenantTool.calculateTenantId( okapiHeaders.get(RestVerticle.OKAPI_HEADER_TENANT) );
+  CQLWrapper cql = getCQL(query,limit, offset);
+  /**
+  * http://host:port/configurations/entries
+  */
+  context.runOnContext(v -> {
+    try {
+      System.out.println("sending... getConfigurationsTables");
+      String tenantId = TenantTool.calculateTenantId( okapiHeaders.get(RestVerticle.OKAPI_HEADER_TENANT) );
 
-        PostgresClient.getInstance(context.owner(), tenantId).get(CONFIG_TABLE, Config.class,
-          new String[]{"*"}, cql, true,
-            reply -> {
-              try {
-                if(reply.succeeded()){
-                  Configs configs = new Configs();
-                  List<Config> config = (List<Config>) reply.result()[0];
-                  configs.setConfigs(config);
-                  configs.setTotalRecords((Integer)reply.result()[1]);
-                  asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse.withJsonOK(
-                    configs)));
-                }
-                else{
-                  log.error(reply.cause().getMessage(), reply.cause());
-                  asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse
-                    .withPlainBadRequest(reply.cause().getMessage())));
-                }
-              } catch (Exception e) {
-                log.error(e.getMessage(), e);
-                asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse
-                  .withPlainInternalServerError(messages.getMessage(
-                    lang, MessageConsts.InternalServerError))));
+      PostgresClient.getInstance(context.owner(), tenantId).get(CONFIG_TABLE, Config.class,
+        new String[]{"*"}, cql, true,
+          reply -> {
+            try {
+              if(reply.succeeded()){
+                Configs configs = new Configs();
+                List<Config> config = (List<Config>) reply.result()[0];
+                configs.setConfigs(config);
+                configs.setTotalRecords((Integer)reply.result()[1]);
+                asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse.withJsonOK(
+                  configs)));
               }
-            });
-      } catch (Exception e) {
-        log.error(e.getMessage(), e);
-        String message = messages.getMessage(lang, MessageConsts.InternalServerError);
-        if(e.getCause() != null && e.getCause().getClass().getSimpleName().endsWith("CQLParseException")){
-          message = " CQL parse error " + e.getLocalizedMessage();
-        }
-        asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse
-          .withPlainInternalServerError(message)));
+              else{
+                log.error(reply.cause().getMessage(), reply.cause());
+                asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse
+                  .withPlainBadRequest(reply.cause().getMessage())));
+              }
+            } catch (Exception e) {
+              log.error(e.getMessage(), e);
+              asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse
+                .withPlainInternalServerError(messages.getMessage(
+                  lang, MessageConsts.InternalServerError))));
+            }
+          });
+    } catch (Exception e) {
+      log.error(e.getMessage(), e);
+      String message = messages.getMessage(lang, MessageConsts.InternalServerError);
+      if(e.getCause() != null && e.getCause().getClass().getSimpleName().endsWith("CQLParseException")){
+        message = " CQL parse error " + e.getLocalizedMessage();
       }
-    });
-  }
+      asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetConfigurationsEntriesResponse
+        .withPlainInternalServerError(message)));
+    }
+  });
+}
 ```
 
 ## 高级功能
-1. RMB handles all routing, so this is abstracted from the developer. However, there are cases where third party functionality may need access to routing information. Once again, this is not to be used for routing, but in order to pass in routing information to a third party (one such example is the pac4j vertx saml client). RMB allows a developer to receive the Vertx RoutingContext object as a parameter to a generated function by indicating the endpoint represented by the function in the pom.xml (uses a comma delimiter for multiple paths).
-```java
-  <properties>
-    <generate_routing_context>/rmbtests/test</generate_routing_context>
-  </properties>
+
+1. RMB处理所有路由，因此这是从开发人员那里抽象出来的。但是，在某些情况下，第三方功能可能需要访问路由信息。并且，这不是直接使用路由，而是为了将路由信息传递给第三方（一个这样的示例是pac4j vertx saml client）。RMB通过在pom.xml中指示该函数表示的端点（使用逗号分隔符用于多个路径），使开发人员可以将Vertx RoutingContext对象作为生成函数的参数来接收。
+
+```xml
+<properties>
+  <generate_routing_context>/rmbtests/test</generate_routing_context>
+</properties>
 ```
 
 ## 其他工具
 
-#### De-Serializers
-At runtime RMB will serialize/deserialize the received JSON in the request body of PUT and POST requests into a POJO and pass this on to an implementing function, as well as the POJO returned by the implementing function into JSON. A module can implement its own version of this. For example, the below will register a de-serializer that will tell RMB to set a User to not active if the expiration date has passed. This will be run when a User JSON is passed in as part of a request
-```
+#### 反序列化
+
+在运行时，RMB将在PUT和POST请求的body中接收到的JSON序列化/反序列化为POJO，并将其传递给实现函数，并将实现函数返回的POJO传递给JSON。一个模块可以实现它自己的版本。例如，下面将注册一个反序列化器，该序列化器将告诉RMB如果到期日期已过，则将User设置为非活动状态。当用户JSON作为请求的一部分传入时，它将运行。
+
+```java
 ObjectMapperTool.registerDeserializer(User.class, new UserDeserializer());
 
 public class UserDeserializer extends JsonDeserializer<User> {
@@ -2314,13 +2214,14 @@ public class UserDeserializer extends JsonDeserializer<User> {
   }
 }
 ```
-#### Error handling tool
 
-Making async calls to the PostgresClient requires handling failures of different kinds. RMB exposes a tool that can handle the basic error cases, and return them as a 422 validation error status falling back to a 500 error status when the error is not one of the standard DB errors.
+#### 错误处理工具
 
-Usage:
+对PostgresClient进行异步调用需要处理不同的失败状况。RMB公开了一种可以处理基本错误情况的工具，并将他们作为422错误返回。当错误不是标准DB错误之一时，会将它们作为500错误状态返回。
 
-```
+用法:
+
+```java
 if(reply.succeeded()){
   ..........
 }
@@ -2328,29 +2229,28 @@ else{
    ValidationHelper.handleError(reply.cause(), asyncResultHandler);
 }
 ```
-RMB will return a response to the client as follows:
 
-- invalid UUID - 422 status
-- duplicate key violation - 422 status
-- Foreign key violation - 422 status
-- tenant does not exist / auth error to db - 401 status
-- Various CQL errors - 422 status
-- Anything else will fall back to a 500 status error
+RMB 会向客户端返回的如下：
 
-RMB will not cross check the raml to see that these statuses have been defined for the endpoint. This is the developer's responsibility.
+- 无效的UUID - 422 状态
+- 重复密钥冲突 - 422状态
+- 违反外键 - 422状态
+- 租户不存在/对数据库的身份验证错误 - 401状态
+- 各种CQL错误 - 422状态
+- 其他不包含在以上的任何情况都会退回到500状态
 
-
+RMB不会交叉检查raml以查看是否已为端点定义了这些错误状态。这是开发人员的责任。
 
 ## 一些REST示例
 
-Have these in the headers - currently not validated hence not mandatory:
+将这些放在headers中 - 当前尚未验证，因此不是必需的：
 
 - Accept: application/json,text/plain
 - Content-Type: application/json;
 
-#### Example 1: Add a fine to a patron (post)
+#### 示例1: 为读者添加罚款 (post)
 
-```
+```text
 http://localhost:8080/patrons/56dbe25ea12958478cec42ba/fines
 {
   "fine_amount": 10,
@@ -2368,33 +2268,33 @@ http://localhost:8080/patrons/56dbe25ea12958478cec42ba/fines
 }
 ```
 
-#### Example 2: Get fines for patron with id
+#### 示例2: 通过读者id获取读者的罚款
 
-```
+```text
 http://localhost:8080/patrons/56dbe25ea12958478cec42ba/fines
 ```
 
-#### Example 3: Get a specific patron
+#### 示例3: 获取指定的读者
 
-```
+```text
 http://localhost:8080/patrons/56dbe25ea12958478cec42ba
 ```
 
-#### Example 4: Get all patrons
+#### 示例4: 获取所有读者
 
-```
+```text
 http://localhost:8080/patrons
 ```
 
-#### Example 5: Delete a patron (delete)
+#### 示例5: 删除一个读者 (delete)
 
-```
+```text
 http://localhost:8080/patrons/56dbe791a129584a506fb41a
 ```
 
-#### Example 6: Add a patron (post)
+#### 示例6: 添加一个读者 (post)
 
-```
+```text
 http://localhost:8080/patrons
 {
  "status": "ACTIVE",
@@ -2448,14 +2348,12 @@ http://localhost:8080/patrons
 
 ## 附加信息
 
-Other [RMB documentation](doc/) (e.g. DB schema migration, Upgrading notes).
+其他 [RMB 文档](https://github.com/folio-org/raml-module-builder/blob/master/doc/) (例如：数据库schema迁移, 升级说明).
 
-Other [modules](https://dev.folio.org/source-code/#server-side).
+其他[模块](https://dev.folio.org/source-code/#server-side).
 
-Dedicated [FOLIO Slack](https://wiki.folio.org/display/COMMUNITY/FOLIO+Communication+Spaces#FOLIOCommunicationSpaces-slackSlack)
-channel [#raml-module-builder](https://folio-project.slack.com/archives/CC0PHKEMT).
+专用的 [FOLIO Slack](https://wiki.folio.org/display/COMMUNITY/FOLIO+Communication+Spaces#FOLIOCommunicationSpaces-slackSlack) 频道 [#raml-module-builder](https://folio-project.slack.com/archives/CC0PHKEMT)
 
-See project [RMB](https://issues.folio.org/browse/RMB)
-at the [FOLIO issue tracker](https://dev.folio.org/guidelines/issue-tracker/).
+在 [FOLIO issue tracker](https://dev.folio.org/guidelines/issue-tracker/) 中查看 [RMB](https://issues.folio.org/browse/RMB) 项目
 
-Other FOLIO Developer documentation is at [dev.folio.org](https://dev.folio.org/)
+其他 FOLIO Developer 文档在 [dev.folio.org](https://dev.folio.org/)
