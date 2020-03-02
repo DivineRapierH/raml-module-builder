@@ -62,7 +62,7 @@ See the file ["LICENSE"](https://github.com/folio-org/raml-module-builder/raw/ma
   - [Metadata](#metadata)
   - [Facet 支持](#facet-支持)
   - [JSON Schema 字段](#json-schema-字段)
-  - [覆盖 RAML (特征) / 查询参数](#覆盖-raml-特征-查询参数)
+  - [覆盖 RAML (特征) / 查询参数](#覆盖-raml-特征--查询参数)
   - [Drools 集成](#drools-集成)
   - [Messages](#messages)
   - [API 文档](#api-文档)
